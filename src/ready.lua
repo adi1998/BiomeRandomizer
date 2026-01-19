@@ -85,7 +85,7 @@ end)
 bountyAPI.RegisterBounty({
     Id = _PLUGIN.guid .. "RandomBiomeRun",
     Title = "Random Biome Run",
-    Description = "",
+    Description = "Each biome will selected at random based on the number of bosses defeated.",
     Difficulty = 3,
     IsStandardBounty = false,
     BiomeChar = "F",
