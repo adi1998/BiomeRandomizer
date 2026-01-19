@@ -91,7 +91,7 @@ bountyAPI.RegisterBounty({
     BiomeChar = "F",
     BaseData = {
 		BiomeIcon = "GUI\\Screens\\BountyBoard\\Biome_Underworld",
-		BiomeText = "Both Routes",
+		BiomeText = "Random Start",
         UnlockGameStateRequirements = {
             {
                 PathTrue = { "GameState", "ReachedTrueEnding" },
@@ -100,4 +100,14 @@ bountyAPI.RegisterBounty({
     },
 })
 
-game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = game.GetRandomValue(mod.RandomStartingBiomeSet)
+modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
+    game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
+    return base(...)
+end)
+
+modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
+    game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
+    return base(...)
+end)
