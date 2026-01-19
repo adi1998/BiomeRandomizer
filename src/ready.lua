@@ -45,7 +45,13 @@ local zagIntro = {
     "D_Intro"
 }
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"]._PLUGIN.version > "0.3.0" then
+local encounterMap = {
+    ["I_Intro"] = game.BountyData.ChronosEncounters.Encounters,
+    ["Q_Intro"] = game.BountyData.TyphonEncounters.Encounters,
+    ["D_Intro"] = { "BossHades" },
+}
+
+if rom.mods["NikkelM-Zagreus_Journey"] then
     table.insert(mod.RandomStartingBiomeSet, "Tartarus")
     for i = 1, 3 do
         table.insert(mod.RandomPostBossSets[i], zagPostBoss[i])
@@ -67,15 +73,19 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
+        print("Post boss room:", currentRoom.Name)
+        print("Next intro room:", nextRandomBiomeIntro)
         if nextRandomBiomeIntro then
-            print("Post boss room:", currentRoom.Name)
-            print("Next intro room:", nextRandomBiomeIntro)
-            args.ForceNextRoom = nextRandomBiomeIntro
-            args.ForceNextRoom = mod.testnextroom or args.ForceNextRoom
+            args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
+
             if game.Contains(zagIntro, nextRandomBiomeIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             else
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
+            end
+
+            if encounterMap[nextRandomBiomeIntro] then
+                game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].Encounters = encounterMap[nextRandomBiomeIntro]
             end
         end
     end
