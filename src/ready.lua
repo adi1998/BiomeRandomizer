@@ -12,6 +12,10 @@ function mod.dump(o, depth)
    end
 end
 
+local function prefix(key)
+    return "Siuhnexus-BountyAPI_" .. key
+end
+
 mod.RandomPostBossSets = {
     {"F_PostBoss01", "N_PostBoss01"},
     {"G_PostBoss01", "O_PostBoss01"},
@@ -22,6 +26,11 @@ mod.RandomIntroSets = {
     {"G_Intro", "O_Intro"},
     {"H_Intro", "P_Intro"},
     {"I_Intro", "Q_Intro"},
+}
+
+mod.RandomStartingBiomeSet = {
+    "F",
+    "N",
 }
 
 local zagPostBoss = {
@@ -37,14 +46,12 @@ local zagIntro = {
 }
 
 if rom.mods["NikkelM-Zagreus_Journey"] then
-    for i = 1 ,3 do
+    table.insert(mod.RandomStartingBiomeSet, "Tartarus")
+    for i = 1, 3 do
         table.insert(mod.RandomPostBossSets[i], zagPostBoss[i])
         table.insert(mod.RandomIntroSets[i], zagIntro[i])
     end
 end
-
-print(mod.dump(mod.RandomPostBossSets))
-print(mod.dump(mod.RandomIntroSets))
 
 function mod.GetNextRandomBiomeIntro(currentRoomName)
     for i = 1, 3 do
@@ -55,17 +62,16 @@ function mod.GetNextRandomBiomeIntro(currentRoomName)
     return nil
 end
 
-modutil.mod.Path.Wrap("ChooseNextRoomData", function (base,currentRun, args, otherDoors)
-    if config.enabled then
+modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
+    if currentRun.ActiveBounty == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
         if nextRandomBiomeIntro then
-            print(mod.dump(currentRoom.Name))
-            print(nextRandomBiomeIntro)
+            print("Post boss room:", currentRoom.Name)
+            print("Next intro room:", nextRandomBiomeIntro)
             args.ForceNextRoom = nextRandomBiomeIntro
             args.ForceNextRoom = mod.testnextroom or args.ForceNextRoom
-            print(mod.dump(currentRoom.NextRoomSet))
             if game.Contains(zagIntro, nextRandomBiomeIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             else
@@ -75,3 +81,23 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base,currentRun, args, oth
     end
     return base(currentRun, args, otherDoors)
 end)
+
+bountyAPI.RegisterBounty({
+    Id = _PLUGIN.guid .. "RandomBiomeRun",
+    Title = "Random Biome Run",
+    Description = "",
+    Difficulty = 3,
+    IsStandardBounty = false,
+    BiomeChar = "F",
+    BaseData = {
+		BiomeIcon = "GUI\\Screens\\BountyBoard\\Biome_Underworld",
+		BiomeText = "Both Routes",
+        UnlockGameStateRequirements = {
+            {
+                PathTrue = { "GameState", "ReachedTrueEnding" },
+            }
+        }
+    },
+})
+
+game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = game.GetRandomValue(mod.RandomStartingBiomeSet)
