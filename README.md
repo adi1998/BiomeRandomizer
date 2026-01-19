@@ -1,8 +1,10 @@
-## More Dash Boons
+## [BETA] Biome Randomizer
 
-Adds new tier 2 dash boons for each god which upgrades the trail that Mel leaves behind after dashing. Includes synergies(duos/legendaries) with existing boons(where applicable).
+Adds a new Chaos Trial which let's you traverse the biomes in a random order. Each biome is selected based on the number of bosses defeated so the biomes appear in their respective order.
 
-Also supports Perfect rarity from the [Perfectoinist](https://thunderstore.io/c/hades-ii/p/Jowday/Perfectoinist/) mod
+Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/). It is recommended to finish the H1 story in that mod before trying out the randomizer.
+
+Note: To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 
 ## Installation
 
@@ -10,35 +12,10 @@ Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2
 
 While the mod has been tested decently well it is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
 
-## Boon List
-
-<div style="display: flex;">
-  <img src="images/list1.png" alt="aphrodite" width="30%">
-  <img src="images/list2.png" alt="aphrodite" width="30%">
-  <img src="images/list3.png" alt="aphrodite" width="30%">
-</div>
-
-<br>
-
-<details>
-
-<summary><strong>Boon preview clips</strong></summary>
-
-<div style="display: flex; justify-content: left;">
-  <img src="images/poseidon.mp4.gif" alt="poseidon" width="45%">
-  <img src="images/ares.mp4.gif" alt="ares" width="45%">
-</div>
-<div style="display: flex; justify-content: left;">
-  <img src="images/zeus.mp4.gif" alt="zeus" width="45%">
-  <img src="images/demeter.mp4.gif" alt="demeter" width="45%">
-</div>
-
-</details>
-
 ## Contributors
-- zanncdwbl [Github](https://github.com/zanncdwbl), created [GodsAPI](https://github.com/excellent-ae/zannc-GodsAPI)
-- @burn, for all boon icons
+- Siuhnexus, [BountyAPI](https://github.com/Siuhnexus/BountyAPI/)
+- NikkelM, [Zagreus Journey](https://github.com/NikkelM/Hades-II-HadesBiomes)
 
 ## Issues and feedback
 
-Report any issues or feedback [here](https://github.com/adi1998/BlinkTrail/issues) or on [Discord](https://discord.gg/bKvJTAJj)
+Report any issues or feedback [here](https://github.com/adi1998/BlinkTrail/issues) or on [Hades Modding Discord](https://discord.gg/bKvJTAJj)
