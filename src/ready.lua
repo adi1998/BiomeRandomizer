@@ -113,3 +113,10 @@ modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
     print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
     return base(...)
 end)
+
+modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
+    if game.CurrentRun.ActiveBounty == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
+        game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] or 0
+    end
+    return base(...)
+end)
