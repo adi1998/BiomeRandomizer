@@ -129,3 +129,17 @@ modutil.mod.Path.Wrap("MouseOverBounty", function (base, button)
     end
     return base(button)
 end)
+
+function mod.UpdateRandomBountyOrder()
+    local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
+    print(mod.dump(bountyOrder))
+    local randomBountyIndex = game.GetIndex(bountyOrder, prefix(_PLUGIN.guid .. "RandomBiomeRun"))
+    if randomBountyIndex ~= 0 then
+        for i = randomBountyIndex, 2, -1 do
+            bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
+        end
+    end
+    print(mod.dump(bountyOrder))
+end
+
+mod.UpdateRandomBountyOrder()

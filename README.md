@@ -10,7 +10,7 @@ Note: To avoid breaking any saves this will only show up if you have already got
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
 
-While the mod has been tested decently well it is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
+While the mod has been tested decently well, there can still be some untested combination which breaks the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
 
 ## Contributors
 - Siuhnexus, [BountyAPI](https://github.com/Siuhnexus/BountyAPI/)
