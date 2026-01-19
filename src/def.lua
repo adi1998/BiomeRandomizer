@@ -1,4 +1,4 @@
----@meta zerp-More_Dash_Boons
+---@meta zerp-BiomeRandomizer
 local public = {}
 
 -- document whatever you made publicly available to other plugins here

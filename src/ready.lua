@@ -45,7 +45,7 @@ local zagIntro = {
     "D_Intro"
 }
 
-if rom.mods["NikkelM-Zagreus_Journey"] then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"]._PLUGIN.version > "0.3.0" then
     table.insert(mod.RandomStartingBiomeSet, "Tartarus")
     for i = 1, 3 do
         table.insert(mod.RandomPostBossSets[i], zagPostBoss[i])
@@ -90,7 +90,7 @@ bountyAPI.RegisterBounty({
     IsStandardBounty = false,
     BiomeChar = "F",
     BaseData = {
-		BiomeIcon = "GUI\\Screens\\BountyBoard\\Biome_Underworld",
+		BiomeIcon = _PLUGIN.guid .. "\\Biome_Both",
 		BiomeText = "Random Start",
         UnlockGameStateRequirements = {
             {
@@ -102,12 +102,14 @@ bountyAPI.RegisterBounty({
 
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
     game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
     return base(...)
 end)
 
 modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
     game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
     return base(...)
 end)

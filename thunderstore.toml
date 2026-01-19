@@ -6,7 +6,7 @@ schemaVersion = "0.0.1"
 namespace = "zerp"
 name = "BiomeRandomizer"
 versionNumber = "0.1.0"
-description = "Adds new tier 2 dash boons for each god which upgrades the trail that Mel leaves behind after dashing. Includes synergies with existing boons(where applicable) and Perfectoinist support."
+description = "Adds a new Chaos Trial which let's you traverse the biomes in a random order."
 websiteUrl = "https://github.com/adi1998/BiomeRandomizer"
 containsNsfwContent = false
 
@@ -37,9 +37,9 @@ source = "./src"
 target = "./plugins"
 
 # Uncomment (remove the #) the three lines below if you have any files to copy to the plugins_data folder (like custom .pkg files)
-# [[build.copy]]
-# source = "./data"
-# target = "./plugins_data"
+[[build.copy]]
+source = "./data"
+target = "./plugins_data"
 
 [publish]
 repository = "https://thunderstore.io"
