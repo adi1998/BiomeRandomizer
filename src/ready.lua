@@ -117,6 +117,15 @@ end)
 modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
     if game.CurrentRun.ActiveBounty == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
         game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] or 0
+        game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] or game.CurrentRun.GameplayTime
     end
     return base(...)
+end)
+
+modutil.mod.Path.Wrap("MouseOverBounty", function (base, button)
+    local bountyName = button.Data.Name
+    if bountyName == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
+        game.GameState.PackagedBountyClearRecordTime[bountyName] = game.GameState.PackagedBountyClearRecordTime[bountyName] or 99999
+    end
+    return base(button)
 end)
