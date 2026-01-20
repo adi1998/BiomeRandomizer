@@ -33,6 +33,13 @@ mod.RandomStartingBiomeSet = {
     "N",
 }
 
+local encounterMap = {
+    ["I_Boss01"] = game.BountyData.ChronosEncounters.Encounters,
+    ["Q_Boss01"] = game.BountyData.TyphonEncounters.Encounters,
+    ["Q_Boss02"] = game.BountyData.TyphonEncounters.Encounters,
+    ["D_Boss01"] = { "BossHades" },
+}
+
 local zagPostBoss = {
     "A_PostBoss01",
     "X_PostBoss01",
@@ -43,12 +50,6 @@ local zagIntro = {
     "X_Intro",
     "Y_Intro",
     "D_Intro"
-}
-
-local encounterMap = {
-    ["I_Intro"] = game.BountyData.ChronosEncounters.Encounters,
-    ["Q_Intro"] = game.BountyData.TyphonEncounters.Encounters,
-    ["D_Intro"] = { "BossHades" },
 }
 
 if rom.mods["NikkelM-Zagreus_Journey"] then
@@ -68,32 +69,11 @@ function mod.GetNextRandomBiomeIntro(currentRoomName)
     return nil
 end
 
-modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
-    if currentRun.ActiveBounty == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
-        args = args or {}
-        local currentRoom = currentRun.CurrentRoom
-        local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
-        print("Post boss room:", currentRoom.Name)
-        print("Next intro room:", nextRandomBiomeIntro)
-        if nextRandomBiomeIntro then
-            args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
-
-            if game.Contains(zagIntro, nextRandomBiomeIntro) then
-                game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
-            else
-                game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
-            end
-
-            if encounterMap[nextRandomBiomeIntro] then
-                game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].Encounters = encounterMap[nextRandomBiomeIntro]
-            end
-        end
-    end
-    return base(currentRun, args, otherDoors)
-end)
+local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
+RandomBountyName = prefix(randomBountyId)
 
 bountyAPI.RegisterBounty({
-    Id = _PLUGIN.guid .. "RandomBiomeRun",
+    Id = randomBountyId,
     Title = "Random Biome Run",
     Description = "Each biome will selected at random based on the number of bosses defeated.",
     Difficulty = 3,
@@ -110,22 +90,42 @@ bountyAPI.RegisterBounty({
     },
 })
 
+modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
+    if currentRun.ActiveBounty == RandomBountyName then
+        args = args or {}
+        local currentRoom = currentRun.CurrentRoom
+        local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
+        print("Post boss room:", currentRoom.Name)
+        print("Next intro room:", nextRandomBiomeIntro)
+        if nextRandomBiomeIntro then
+            args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
+
+            if game.Contains(zagIntro, nextRandomBiomeIntro) then
+                game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+            else
+                game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
+            end
+        end
+    end
+    return base(currentRun, args, otherDoors)
+end)
+
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
-    game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
-    print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
+    print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
     return base(...)
 end)
 
 modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
-    game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
-    print("Random start:", game.BountyData[prefix(_PLUGIN.guid .. "RandomBiomeRun")].StartingBiome)
+    print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
     return base(...)
 end)
 
 modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
-    if game.CurrentRun.ActiveBounty == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
+    if game.CurrentRun.ActiveBounty == RandomBountyName then
         game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] or 0
         game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] or game.CurrentRun.GameplayTime
     end
@@ -134,16 +134,27 @@ end)
 
 modutil.mod.Path.Wrap("MouseOverBounty", function (base, button)
     local bountyName = button.Data.Name
-    if bountyName == prefix(_PLUGIN.guid .. "RandomBiomeRun") then
+    if bountyName == RandomBountyName then
         game.GameState.PackagedBountyClearRecordTime[bountyName] = game.GameState.PackagedBountyClearRecordTime[bountyName] or 99999
     end
     return base(button)
 end)
 
+modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
+    if game.CurrentRun and game.CurrentRun.ActiveBounty == RandomBountyName then
+        local currentRoom = game.CurrentRun.CurrentRoom
+        print("overriding encounters data for boss room", currentRoom.Name)
+        if currentRoom and currentRoom.Name and encounterMap[currentRoom.Name] then
+            game.BountyData[RandomBountyName].Encounters = encounterMap[currentRoom.Name]
+        end
+    end
+    return base()
+end)
+
 function mod.UpdateRandomBountyOrder()
     local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
     print(mod.dump(bountyOrder))
-    local randomBountyIndex = game.GetIndex(bountyOrder, prefix(_PLUGIN.guid .. "RandomBiomeRun"))
+    local randomBountyIndex = game.GetIndex(bountyOrder, RandomBountyName)
     if randomBountyIndex ~= 0 then
         for i = randomBountyIndex, 2, -1 do
             bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
