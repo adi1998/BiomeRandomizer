@@ -81,7 +81,7 @@ RandomBountyName = prefix(randomBountyId)
 bountyAPI.RegisterBounty({
     Id = randomBountyId,
     Title = "Random Biome Run",
-    Description = "Each biome will selected at random based on the number of bosses defeated.",
+    Description = "Each biome will be selected at random based on the number of bosses defeated.",
     Difficulty = 3,
     IsStandardBounty = false,
     BiomeChar = "F",
@@ -92,7 +92,8 @@ bountyAPI.RegisterBounty({
             {
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
-        }
+        },
+        ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
 })
 
@@ -112,6 +113,12 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
             end
         end
+        local nextRoomData = base(currentRun, args, otherDoors)
+        if currentRoom.Name == "F_PostBoss01" and args.ForceNextRoom == "O_Intro" then
+            nextRoomData.EntranceDirection = "LeftRight"
+            nextRoomData.FlipHorizontalChance = 0.0
+        end
+        return nextRoomData
     end
     return base(currentRun, args, otherDoors)
 end)
@@ -159,14 +166,14 @@ end)
 
 function mod.UpdateRandomBountyOrder()
     local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
-    print(mod.dump(bountyOrder))
+    -- print(mod.dump(bountyOrder))
     local randomBountyIndex = game.GetIndex(bountyOrder, RandomBountyName)
     if randomBountyIndex ~= 0 then
         for i = randomBountyIndex, 2, -1 do
             bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
         end
     end
-    print(mod.dump(bountyOrder))
+    -- print(mod.dump(bountyOrder))
 end
 
 mod.UpdateRandomBountyOrder()

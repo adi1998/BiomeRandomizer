@@ -6,6 +6,8 @@ Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/ha
 
 Note: To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 
+![Trial Menu](images/trialmenu.png)
+
 ## Installation
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
