@@ -63,7 +63,13 @@ end
 function mod.GetNextRandomBiomeIntro(currentRoomName)
     for i = 1, 3 do
         if game.Contains(mod.RandomPostBossSets[i], currentRoomName) then
-            return game.GetRandomValue(mod.RandomIntroSets[i])
+            local introSet = mod.RandomIntroSets[i]
+            -- only allow styx after one H1 clear
+            if (not game.GameState.TextLinesRecord["PersephoneFirstMeeting"]) and i == 3 then
+                introSet = {"I_Intro", "Q_Intro"}
+            end
+            print("intro set", mod.dump(introSet))
+            return game.GetRandomValue(introSet)
         end
     end
     return nil
