@@ -33,7 +33,7 @@ mod.RandomStartingBiomeSet = {
     "N",
 }
 
-local encounterMap = {
+mod.EndBossEncounterMap = {
     ["I_Boss01"] = game.BountyData.ChronosEncounters.Encounters,
     ["Q_Boss01"] = game.BountyData.TyphonEncounters.Encounters,
     ["Q_Boss02"] = game.BountyData.TyphonEncounters.Encounters,
@@ -130,6 +130,9 @@ modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
     game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
+    for index = 1, 4 do
+        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+    end
     return base(...)
 end)
 
@@ -137,6 +140,9 @@ modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
     game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
+    for index = 1, 4 do
+        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+    end
     return base(...)
 end)
 
@@ -160,8 +166,8 @@ modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty == RandomBountyName then
         local currentRoom = game.CurrentRun.CurrentRoom
         print("overriding encounters data for boss room", currentRoom.Name)
-        if currentRoom and currentRoom.Name and encounterMap[currentRoom.Name] then
-            game.BountyData[RandomBountyName].Encounters = encounterMap[currentRoom.Name]
+        if currentRoom and currentRoom.Name and mod.EndBossEncounterMap[currentRoom.Name] then
+            game.BountyData[RandomBountyName].Encounters = mod.EndBossEncounterMap[currentRoom.Name]
         end
     end
     return base()
