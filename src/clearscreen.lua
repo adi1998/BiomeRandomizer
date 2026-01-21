@@ -3,10 +3,12 @@ local biomeIconMap = {
     G = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus", Position = 2},
     H = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields", Position = 3},
     I = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Underworld", Position = 4},
+
     N = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra", Position = 1},
     O = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ships", Position = 2},
     P = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus", Position = 3},
     Q = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Surface", Position = 4},
+
     Tartarus = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Tartarus", Position = 1},
     Asphodel = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Asphodel", Position = 2},
     Elysium = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Elysium", Position = 3},
@@ -54,7 +56,7 @@ end
 
 modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
     if game.CurrentRun and game.CurrentRun.ActiveBounty == RandomBountyName and mod.EndBossEncounterMap[currentRoom.Name] ~= nil then
-        game.LoadPackages({Names = {"BiomeHub",}})
+        game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
         local componentData = mod.GetRandomBiomeIconComponents()
         for index, component in ipairs(componentData) do
             game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = component

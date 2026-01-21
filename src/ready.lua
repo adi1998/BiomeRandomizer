@@ -126,7 +126,7 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
     return base(currentRun, args, otherDoors)
 end)
 
-function mod.ResetRandomRunData()
+function mod.ResetClearScreenData()
     game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[RandomBountyName].StartingBiome)

@@ -1,12 +1,12 @@
 mod.testnextroom = nil
 
 -- local function trigger_Gift()
---     game.CurrentRun.BiomesReached = {
---         Tartarus = true,
---         G = true,
---         Elysium = true,
---         Styx = true
---     }
+--     -- game.CurrentRun.BiomesReached = {
+--     --     Tartarus = true,
+--     --     G = true,
+--     --     Elysium = true,
+--     --     Styx = true
+--     -- }
 --     print(mod.dump(game.CurrentRun.BiomesReached))
 --     local componentData = mod.GetRandomBiomeIconComponents()
 --     for index, component in ipairs(componentData) do
@@ -18,8 +18,9 @@ mod.testnextroom = nil
 --         Y = 119
 --     }
 --     table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
---     game.LoadPackages({Name = "NikkelM-HadesBiomesGUIModded"})
--- 	rom.mods["NikkelM-Zagreus_Journey"].ModsNikkelMHadesBiomesOpenRunClearScreen()
+--     -- game.LoadPackages({Name = "NikkelM-HadesBiomesGUIModded"})
+--     game.LoadPackages({Name = _PLUGIN.guid})
+-- 	game.OpenRunClearScreen()
 -- end
 
 -- game.OnControlPressed({'Gift', function()
