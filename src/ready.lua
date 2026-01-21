@@ -80,8 +80,8 @@ RandomBountyName = prefix(randomBountyId)
 
 bountyAPI.RegisterBounty({
     Id = randomBountyId,
-    Title = "Random Biome Run",
-    Description = "Each biome will be selected at random based on the number of bosses defeated.",
+    Title = "Random Biomes Run",
+    Description = "Traverse through {#ShrineHighlightFormat}4 {#Prev}{#TeamFormat}{$Keywords.BiomePlural} {#Prev}chosen at random. Each {#TeamFormat}{$Keywords.Biome} {#Prev}will be selected based on the number of {#TeamFormat}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 3,
     IsStandardBounty = false,
     BiomeChar = "F",
