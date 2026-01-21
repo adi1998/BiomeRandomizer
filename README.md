@@ -6,7 +6,8 @@ Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/ha
 
 Note: To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 
-![Trial Menu](images/trialmenu.png)
+| ![Trial Menu](images/trialmenu.png) | ![Victory](images/victory.png) |
+|-|-|
 
 ## Installation
 

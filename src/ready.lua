@@ -126,23 +126,30 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
     return base(currentRun, args, otherDoors)
 end)
 
-modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
+function mod.ResetRandomRunData()
     game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
     game.LoadPackages({Name = _PLUGIN.guid})
     print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
     for index = 1, 4 do
         game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
     end
+    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
+    game.ScreenData.RunClear.ComponentData.Order = {
+        "BackgroundDim",
+        "VictoryBackground",
+        "ActionBarBackground",
+        "StatsBacking",
+        "BadgeRankIcon",
+    }
+end
+
+modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
+    mod.ResetClearScreenData()
     return base(...)
 end)
 
 modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
-    game.BountyData[RandomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
-    game.LoadPackages({Name = _PLUGIN.guid})
-    print("Random start:", game.BountyData[RandomBountyName].StartingBiome)
-    for index = 1, 4 do
-        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
-    end
+    mod.ResetClearScreenData()
     return base(...)
 end)
 
