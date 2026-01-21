@@ -47,8 +47,10 @@ function mod.GetRandomBiomeIconComponents()
     }
     for biome, value in pairs(game.CurrentRun.BiomesReached) do
         if value then
-            local iconMap = biomeIconMap[biome] or biomeIconMap.F
-            componentData[iconMap.Position].Animation = iconMap.Icon
+            local iconMap = biomeIconMap[biome]
+            if iconMap then
+                componentData[iconMap.Position].Animation = iconMap.Icon
+            end
         end
     end
     return componentData
