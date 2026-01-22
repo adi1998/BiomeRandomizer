@@ -72,7 +72,7 @@ function mod.GetNextRandomBiomeIntro(currentRoomName)
                 introSet = {"I_Intro", "Q_Intro"}
             end
             print("intro set", mod.dump(introSet))
-            return game.GetRandomValue(introSet)
+            return introSet[math.random(#introSet)]
         end
     end
     return nil
