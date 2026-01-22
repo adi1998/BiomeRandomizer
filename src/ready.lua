@@ -194,3 +194,26 @@ function mod.UpdateRandomBountyOrder()
 end
 
 mod.UpdateRandomBountyOrder()
+
+
+-- spawn hermes rewards before chronos fight
+-- styx would require a minimum of two paths anyway
+local preFinalBossSet = {
+    "I_PreBoss02",
+    "I_PreBoss01",
+}
+
+function mod.SpawnShopItemsEarly()
+	for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
+		if trait.OnExpire and trait.OnExpire.SpawnShopItem then
+		    game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
+		end
+	end
+end
+
+for _, value in ipairs(preFinalBossSet) do
+    game.RoomSetData.I[value].StartThreadedEvents = game.RoomSetData.I[value].StartThreadedEvents or {}
+    table.insert( game.RoomSetData.I[value].StartThreadedEvents, {
+        FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
+    })
+end
