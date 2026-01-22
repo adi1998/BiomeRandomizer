@@ -87,7 +87,7 @@ bountyAPI.RegisterBounty({
     Id = randomBountyId,
     Title = "Random Biomes Run",
     Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 1,
+    Difficulty = 2,
     IsStandardBounty = false,
     BiomeChar = "F",
     BaseData = {
@@ -108,7 +108,7 @@ table.insert(mod.RegisteredBounties, RandomBountyName)
 bountyAPI.RegisterBounty({
     Id = randomBountyId .. "Chaos",
     Title = "Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, not including your {#ShrineHighlightFormat}{$GameState.SpentShrinePointsCache}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of currently selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 3,
     IsStandardBounty = false,
     BiomeChar = "F",
@@ -169,12 +169,13 @@ bountyAPI.RegisterBounty({
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
+table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Chaos")
 
 bountyAPI.RegisterBounty({
     Id = randomBountyId .. "GreatChaos",
     Title = "Great Chaos Everywhere",
     Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.PackageBountyRandomUnderworld_Difficulty2.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 5,
+    Difficulty = 4,
     IsStandardBounty = false,
     BiomeChar = "F",
     BaseData = {
@@ -234,7 +235,78 @@ bountyAPI.RegisterBounty({
     },
 })
 
-table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
+table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
+table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreatChaos")
+
+bountyAPI.RegisterBounty({
+    Id = randomBountyId .. "GreaterChaos",
+    Title = "Greater Chaos Everywhere",
+    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.Siuhnexus-BountyAPI_zerp-BiomeRandomizerRandomBiomeRunGreaterChaos.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Difficulty = 5,
+    IsStandardBounty = false,
+    BiomeChar = "F",
+    BaseData = {
+		BiomeIcon = bountyIcon,
+		BiomeText = "Random Start",
+        UnlockGameStateRequirements = {
+            {
+                PathTrue = { "GameState", "ReachedTrueEnding" },
+            }
+        },
+        RunOverrides = "nil",
+        RandomMetaUpgradeCostTotal = 30,
+        RandomShrineUpgradePointTotal = 32,
+        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
+		UseRandomWeaponUpgrade = true,
+		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
+        RandomKeepsakeNames =
+		{
+			"ManaOverTimeRefundKeepsake",
+			"BossPreDamageKeepsake",
+			"ReincarnationKeepsake",
+			"DoorHealReserveKeepsake",
+			"DeathVengeanceKeepsake",
+			"BlockDeathKeepsake",
+			"EscalatingKeepsake",
+			"BonusMoneyKeepsake",
+			"TimedBuffKeepsake",
+			"LowHealthCritKeepsake",
+			"SpellTalentKeepsake",
+			"ForceZeusBoonKeepsake",
+			"ForceHeraBoonKeepsake",
+			"ForcePoseidonBoonKeepsake",
+			"ForceDemeterBoonKeepsake",
+			"ForceApolloBoonKeepsake",
+			"ForceAphroditeBoonKeepsake",
+			"ForceHephaestusBoonKeepsake",
+			"ForceHestiaBoonKeepsake",
+			"ForceAresBoonKeepsake",
+			"AthenaEncounterKeepsake",
+			"SkipEncounterKeepsake",
+			"ArmorGainKeepsake",
+			"FountainRarityKeepsake",
+			"UnpickedBoonKeepsake",
+			"DecayingBoostKeepsake",
+			"DamagedDamageBoostKeepsake",
+			"BossMetaUpgradeKeepsake",
+			"TempHammerKeepsake",
+			"RandomBlessingKeepsake",
+		},
+		RandomFatedKeepsakeNames =
+		{
+			"RarifyKeepsake",
+			"HadesAndPersephoneKeepsake",
+			"GoldifyKeepsake",
+		},
+        ModsNikkelMHadesBiomesForceRunClearScreen = true
+    },
+    SetupFunctions = {function ()
+        
+    end}
+})
+
+table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
+table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
 
 modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
     if currentRun.ActiveBounty and currentRun.ActiveBounty:match(RandomBountyName) then
