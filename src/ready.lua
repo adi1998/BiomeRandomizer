@@ -96,6 +96,7 @@ bountyAPI.RegisterBounty({
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
         },
+        RunOverrides = "nil",
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
 })
