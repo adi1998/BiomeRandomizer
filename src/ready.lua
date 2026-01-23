@@ -309,7 +309,7 @@ table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
 table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
 
 modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
-    if currentRun.ActiveBounty and currentRun.ActiveBounty:match(RandomBountyName) then
+    if currentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, currentRun.ActiveBounty) then
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
@@ -335,21 +335,23 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
 end)
 
 function mod.ResetClearScreenData()
-    for index, randomBountyName in ipairs(mod.RegisteredBounties) do
+    game.LoadPackages({Name = _PLUGIN.guid})
+
+    for index = 1, 4 do
+        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+    end
+    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
+    game.ScreenData.RunClear.ComponentData.Order = {
+        "BackgroundDim",
+        "VictoryBackground",
+        "ActionBarBackground",
+        "StatsBacking",
+        "BadgeRankIcon",
+    }
+
+    for _, randomBountyName in ipairs(mod.RegisteredBounties) do
         game.BountyData[randomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
-        game.LoadPackages({Name = _PLUGIN.guid})
-        print("Random start:", game.BountyData[randomBountyName].StartingBiome)
-        for index = 1, 4 do
-            game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
-        end
-        game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
-        game.ScreenData.RunClear.ComponentData.Order = {
-            "BackgroundDim",
-            "VictoryBackground",
-            "ActionBarBackground",
-            "StatsBacking",
-            "BadgeRankIcon",
-        }
+        print(randomBountyName, "Random start:", game.BountyData[randomBountyName].StartingBiome)
     end
 end
 
@@ -364,7 +366,7 @@ modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
 end)
 
 modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
-    if game.CurrentRun.ActiveBounty and game.CurrentRun.ActiveBounty:match(RandomBountyName) then
+    if game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] or 0
         game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] or game.CurrentRun.GameplayTime
     end
@@ -373,14 +375,14 @@ end)
 
 modutil.mod.Path.Wrap("MouseOverBounty", function (base, button)
     local bountyName = button.Data.Name
-    if bountyName and bountyName:match(RandomBountyName) then
+    if bountyName and game.Contains(mod.RegisteredBounties, bountyName) then
         game.GameState.PackagedBountyClearRecordTime[bountyName] = game.GameState.PackagedBountyClearRecordTime[bountyName] or 99999
     end
     return base(button)
 end)
 
 modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
-    if game.CurrentRun and game.CurrentRun.ActiveBounty and game.CurrentRun.ActiveBounty:match(RandomBountyName) then
+    if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
         print("overriding encounters data for boss room", currentRoom.Name)
         if currentRoom and currentRoom.Name and mod.EndBossEncounterMap[currentRoom.Name] then
