@@ -409,7 +409,7 @@ end
 
 
 -- spawn hermes rewards before chronos fight
--- styx would require a minimum of two paths anyway
+-- no styx as it would require a minimum of two paths anyway
 local preFinalBossSet = {
     "I_PreBoss02",
     "I_PreBoss01",
