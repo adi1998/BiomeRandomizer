@@ -57,7 +57,7 @@ function mod.GetRandomBiomeIconComponents()
 end
 
 modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
-    if game.CurrentRun and game.CurrentRun.ActiveBounty == RandomBountyName and mod.EndBossEncounterMap[currentRoom.Name] ~= nil then
+    if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.EndBossEncounterMap[currentRoom.Name] ~= nil then
         game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
         local componentData = mod.GetRandomBiomeIconComponents()
         for index, component in ipairs(componentData) do
