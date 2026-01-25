@@ -1,6 +1,6 @@
 ## [BETA] Biome Randomizer
 
-Adds 4 new Chaos Trials which let's you traverse the biomes in a random order. Each biome is selected based on the number of bosses defeated so the biomes appear in their respective order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/). It is recommended to finish the H1 story in that mod before trying out the randomizer.
+Adds 4 new Chaos Trials which let's you traverse the biomes in a random order. Each biome is selected based on the number of bosses defeated so the biomes appear in their respective order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
 - Similar to a vanilla run except the biomes will be randomized. Your current equipped loadout will used.
@@ -14,7 +14,9 @@ Adds 4 new Chaos Trials which let's you traverse the biomes in a random order. E
 ### Greater Chaos Everywhere
 - Similar to Great Chaos Everywhere but with 32 Fear of random vows.
 
-Note: To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
+Note:
+- To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
+- Styx will only appear in randomizer runs after atleast one H1 clear.
 
 | ![Trial Menu](images/trialmenu.png) |
 |-|
