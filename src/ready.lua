@@ -313,9 +313,9 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
-        print("Post boss room:", currentRoom.Name)
-        print("Next intro room:", nextRandomBiomeIntro)
         if nextRandomBiomeIntro then
+            print("Post boss room:", currentRoom.Name)
+            print("Next intro room:", nextRandomBiomeIntro)
             args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
 
             if game.Contains(zagIntro, nextRandomBiomeIntro) then
@@ -449,11 +449,11 @@ function mod.UpdateRoomStartMusicEvents()
                 musicEvent.GameStateRequirements[requireIndex] =
                 {
 					Path = { "CurrentRun", "BiomesReached" },
-					HasAny = { "F", "H", "I", },
+					HasAny = { "F", "G", "H", "I", },
 				}
                 table.insert(musicEvent.GameStateRequirements, {
                     Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = {"F", "H", "I", }
+                    IsAny = { "F", "G", "H", "I", },
                 })
             end
             if requirement.PathTrue and mod.CheckPathEquality(requirement.PathTrue, { "CurrentRun", "BiomesReached", "N" }) then
@@ -464,12 +464,12 @@ function mod.UpdateRoomStartMusicEvents()
 				}
                 table.insert(musicEvent.GameStateRequirements, {
                     Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = {"N", "O", "P", "Q", "N_SubRooms", }
+                    IsAny = { "N", "O", "P", "Q", "N_SubRooms", },
                 })
             end
         end
     end
-    print(mod.dump(game.RoomStartMusicEvents))
+    -- print(mod.dump(game.RoomStartMusicEvents))
 end
 
 mod.UpdateRoomStartMusicEvents()
