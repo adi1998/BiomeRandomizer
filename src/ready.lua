@@ -120,6 +120,20 @@ bountyAPI.RegisterBounty({
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
         },
+        LootOptions =
+		{
+			{
+				Name = "WeaponPointsRareDrop",
+				Overrides =
+				{
+					CanDuplicate = false,
+					AddResources =
+					{
+						WeaponPointsRare = 1,
+					},
+				}
+			},
+		},
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
         RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
@@ -186,6 +200,20 @@ bountyAPI.RegisterBounty({
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
         },
+        LootOptions =
+		{
+			{
+				Name = "WeaponPointsRareDrop",
+				Overrides =
+				{
+					CanDuplicate = false,
+					AddResources =
+					{
+						WeaponPointsRare = 2,
+					},
+				}
+			},
+		},
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
         RandomShrineUpgradePointTotal = 20,
@@ -253,6 +281,20 @@ bountyAPI.RegisterBounty({
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
         },
+        LootOptions =
+		{
+			{
+				Name = "WeaponPointsRareDrop",
+				Overrides =
+				{
+					CanDuplicate = false,
+					AddResources =
+					{
+						WeaponPointsRare = 3,
+					},
+				}
+			},
+		},
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
         RandomShrineUpgradePointTotal = 32,
