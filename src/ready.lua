@@ -362,22 +362,6 @@ modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
     return base(...)
 end)
 
-modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
-    if game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
-        game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClears[game.CurrentRun.ActiveBounty] or 0
-        game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] = game.GameState.PackagedBountyClearRecordTime[game.CurrentRun.ActiveBounty] or game.CurrentRun.GameplayTime
-    end
-    return base(...)
-end)
-
-modutil.mod.Path.Wrap("MouseOverBounty", function (base, button)
-    local bountyName = button.Data.Name
-    if bountyName and game.Contains(mod.RegisteredBounties, bountyName) then
-        game.GameState.PackagedBountyClearRecordTime[bountyName] = game.GameState.PackagedBountyClearRecordTime[bountyName] or 99999
-    end
-    return base(button)
-end)
-
 modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
