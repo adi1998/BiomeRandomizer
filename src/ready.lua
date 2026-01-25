@@ -300,9 +300,6 @@ bountyAPI.RegisterBounty({
 		},
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
-    SetupFunctions = {function ()
-        
-    end}
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
