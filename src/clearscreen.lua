@@ -1,20 +1,3 @@
-local biomeIconMap = {
-    F = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Erebus", Position = 1},
-    G = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus", Position = 2},
-    H = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields", Position = 3},
-    I = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Underworld", Position = 4},
-
-    N = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra", Position = 1},
-    O = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ships", Position = 2},
-    P = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus", Position = 3},
-    Q = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Surface", Position = 4},
-
-    Tartarus = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Tartarus", Position = 1},
-    Asphodel = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Asphodel", Position = 2},
-    Elysium = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Elysium", Position = 3},
-    Styx = {Icon =  "GUIModded\\Screens\\BountyBoard\\Biome_Styx", Position = 4},
-}
-
 function mod.GetRandomBiomeIconComponents()
     local locationY = 60
     local offsetX = 70
@@ -47,7 +30,7 @@ function mod.GetRandomBiomeIconComponents()
     }
     for biome, value in pairs(game.CurrentRun.BiomesReached) do
         if value then
-            local iconMap = biomeIconMap[biome]
+            local iconMap = mod.BiomeData[biome]
             if iconMap then
                 componentData[iconMap.Position].Animation = iconMap.Icon
             end
