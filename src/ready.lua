@@ -316,6 +316,13 @@ bountyAPI.RegisterBounty({
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
 table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
 
+function mod.ParseIntro(intro)
+    if type(intro) == "table" then
+        return intro[math.random[#intro]]
+    end
+    return intro
+end
+
 modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
     if currentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, currentRun.ActiveBounty) then
         args = args or {}
@@ -323,10 +330,10 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
         print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
-        if route and route[game.CurrentRun.ClearedBiomes] and mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss == currentRoom.Name then
+        if route and route[game.CurrentRun.ClearedBiomes] and mod.ParseIntro(mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss) == currentRoom.Name then
             local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
             local nextBiomeData = mod.BiomeData[nextBiome]
-            local nextRoomIntro = nextBiomeData.Intro
+            local nextRoomIntro = mod.ParseIntro(nextBiomeData.Intro)
             args.ForceNextRoom = nextRoomIntro
             if game.Contains(mod.ZagIntro, nextRoomIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
