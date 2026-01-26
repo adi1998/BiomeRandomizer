@@ -22,28 +22,11 @@ mod.RandomPostBossSets = {
     {"H_PostBoss01", "P_PostBoss01"}
 }
 
-mod.RandomIntroSets = {
-    {"G_Intro", "O_Intro"},
-    {"H_Intro", "P_Intro"},
-    {"I_Intro", "Q_Intro"},
-}
-
-mod.RandomStartingBiomeSet = {
-    "F",
-    "N",
-}
-
 mod.EndBossEncounterMap = {
     ["I_Boss01"] = game.BountyData.ChronosEncounters.Encounters,
     ["Q_Boss01"] = game.BountyData.TyphonEncounters.Encounters,
     ["Q_Boss02"] = game.BountyData.TyphonEncounters.Encounters,
     ["D_Boss01"] = { "BossHades" },
-}
-
-local zagPostBoss = {
-    "A_PostBoss01",
-    "X_PostBoss01",
-    "Y_PostBoss01",
 }
 
 local zagIntro = {
@@ -56,26 +39,6 @@ local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
 
 if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled == true then
     bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
-    table.insert(mod.RandomStartingBiomeSet, "Tartarus")
-    for i = 1, 3 do
-        table.insert(mod.RandomPostBossSets[i], zagPostBoss[i])
-        table.insert(mod.RandomIntroSets[i], zagIntro[i])
-    end
-end
-
-function mod.GetNextRandomBiomeIntro(currentRoomName)
-    for i = 1, 3 do
-        if game.Contains(mod.RandomPostBossSets[i], currentRoomName) then
-            local introSet = mod.RandomIntroSets[i]
-            -- only allow styx after one H1 clear
-            if (not game.GameState.TextLinesRecord["PersephoneFirstMeeting"]) and i == 3 then
-                introSet = {"I_Intro", "Q_Intro"}
-            end
-            print("intro set", mod.dump(introSet))
-            return introSet[math.random(#introSet)]
-        end
-    end
-    return nil
 end
 
 local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
@@ -351,18 +314,19 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
     if currentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, currentRun.ActiveBounty) then
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
-        local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
-        if nextRandomBiomeIntro then
-            print("Post boss room:", currentRoom.Name)
-            print("Next intro room:", nextRandomBiomeIntro)
-            args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
-
-            if game.Contains(zagIntro, nextRandomBiomeIntro) then
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss == currentRoom.Name then
+            local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
+            local nextBiomeData = mod.BiomeData[nextBiome]
+            local nextRoomIntro = nextBiomeData.Intro
+            args.ForceNextRoom = nextRoomIntro
+            if game.Contains(zagIntro, nextRoomIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             else
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
             end
         end
+
         local nextRoomData = base(currentRun, args, otherDoors)
         if currentRoom.Name == "F_PostBoss01" and args.ForceNextRoom == "O_Intro" then
             nextRoomData.EntranceDirection = "LeftRight"
@@ -388,10 +352,10 @@ function mod.ResetClearScreenData()
         "BadgeRankIcon",
     }
 
-    for _, randomBountyName in ipairs(mod.RegisteredBounties) do
-        game.BountyData[randomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
-        print(randomBountyName, "Random start:", game.BountyData[randomBountyName].StartingBiome)
-    end
+    -- for _, randomBountyName in ipairs(mod.RegisteredBounties) do
+    --     game.BountyData[randomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
+    --     print(randomBountyName, "Random start:", game.BountyData[randomBountyName].StartingBiome)
+    -- end
 end
 
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
@@ -408,8 +372,9 @@ modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
         print("overriding encounters data for boss room", currentRoom.Name)
-        if currentRoom and currentRoom.Name and mod.EndBossEncounterMap[currentRoom.Name] then
-            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.EndBossEncounterMap[currentRoom.Name]
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if route and game.CurrentRun.ClearedBiomes == #route then
+            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.BiomeData[route[#route]].Encounters
         end
     end
     return base()
@@ -496,3 +461,18 @@ function mod.UpdateRoomStartMusicEvents()
 end
 
 mod.UpdateRoomStartMusicEvents()
+
+modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
+    args = args or {}
+    if game.Contains(mod.RegisteredBounties, args.ActiveBounty) then
+        game.CurrentRun = {}
+        local route = mod.GenerateRoute()
+        if route and #route > 0 then
+            args.StartingBiome = route[1]
+            local currentRun = base(prevRun, args)
+            currentRun[_PLUGIN.guid .. "GeneratedRoute"] = route
+            return currentRun
+        end
+    end
+    return base(prevRun,args)
+end)
