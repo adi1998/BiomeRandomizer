@@ -52,6 +52,7 @@ local function on_ready()
     import 'biomes.lua'
     import 'ready.lua'
     import 'clearscreen.lua'
+    import 'imgui.lua'
 end
 
 local function on_reload()

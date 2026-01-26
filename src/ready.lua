@@ -29,7 +29,7 @@ mod.EndBossEncounterMap = {
     ["D_Boss01"] = { "BossHades" },
 }
 
-local zagIntro = {
+mod.ZagIntro = {
     "X_Intro",
     "Y_Intro",
     "D_Intro"
@@ -64,6 +64,12 @@ bountyAPI.RegisterBounty({
         RunOverrides = "nil",
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
+    RoomTransition = function (BountyRunData, RoomName)
+        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
+    end,
+    CanEnd = function (BountyRunData, RoomName)
+        return mod.CanEndRandom()
+    end,
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName)
@@ -315,18 +321,23 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-        if route and mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss == currentRoom.Name then
+        print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
+        print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
+        if route and route[game.CurrentRun.ClearedBiomes] and mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss == currentRoom.Name then
             local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
             local nextBiomeData = mod.BiomeData[nextBiome]
             local nextRoomIntro = nextBiomeData.Intro
             args.ForceNextRoom = nextRoomIntro
-            if game.Contains(zagIntro, nextRoomIntro) then
+            if game.Contains(mod.ZagIntro, nextRoomIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             else
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
             end
         end
-
+        if currentRoom.ExitFunctionName == "EndEarlyAccessPresentation" then
+            currentRoom.ExitFunctionName = "nil"
+            currentRoom.SkipLoadNextMap = false
+        end
         local nextRoomData = base(currentRun, args, otherDoors)
         if currentRoom.Name == "F_PostBoss01" and args.ForceNextRoom == "O_Intro" then
             nextRoomData.EntranceDirection = "LeftRight"
@@ -375,6 +386,8 @@ modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
         if route and game.CurrentRun.ClearedBiomes == #route then
             print("overriding encounters data for boss room", currentRoom.Name)
             game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.BiomeData[route[#route]].Encounters
+        else
+            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = {}
         end
     end
     return base()
@@ -475,4 +488,21 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
         end
     end
     return base(prevRun,args)
+end)
+
+modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
+    local basedepth = base(currentRun)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local depth = 1
+
+        for roomIndex = #currentRun.RoomHistory, 1, -1 do
+            local room = currentRun.RoomHistory[roomIndex]
+            if mod.EndBossEncounterMap[room.Name] ~= nil then
+                break
+            end
+            depth = depth + 1
+        end
+        return math.min(depth,basedepth)
+    end
+    return basedepth
 end)

@@ -113,15 +113,48 @@ end
 function mod.GenerateRoute()
     local route = {}
     config.run_length = ( (config.run_length <= 4 and config.run_length >= 1) and config.run_length ) or 4
-    for position = 1, config.run_length do
-        local biomeList = {}
-        for biome, modBiomeData in pairs(mod.BiomeData) do
-            if modBiomeData.Position == position and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) then
-                table.insert(biomeList, biome)
-            end
+    if config.custom_run then
+        for i = 1, config.run_length do
+            table.insert(route, config.custom_order[tostring(i)])
         end
-        table.insert(route, biomeList[ math.random( #biomeList ) ])
+    end
+    if not config.custom_run then
+        for position = 1, config.run_length do
+            local biomeList = {}
+            for biome, modBiomeData in pairs(mod.BiomeData) do
+                if modBiomeData.Position == position and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) then
+                    table.insert(biomeList, biome)
+                end
+            end
+            table.insert(route, biomeList[ math.random( #biomeList ) ])
+        end
     end
     print("Generated route", mod.dump(route))
     return route
+end
+
+function mod.ConnectEndBossToBiome(BountyRunData, currentRoomName)
+    if mod.EndBossEncounterMap[currentRoomName] == nil then return end
+
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    if route and mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss == currentRoomName then
+        local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
+        local nextBiomeData = mod.BiomeData[nextBiome]
+        local nextRoomIntro = nextBiomeData.Intro
+        if game.Contains(mod.ZagIntro, nextRoomIntro) then
+            game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+        else
+            game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
+        end
+        print("Boss to biome", nextRoomIntro)
+        return nextRoomIntro
+    end
+end
+
+function mod.CanEndRandom(BountyRunData, currentRoomName)
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    if route and game.CurrentRun.ClearedBiomes < #route then
+        return false
+    end
+    return true
 end
