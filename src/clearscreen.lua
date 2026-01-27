@@ -76,7 +76,7 @@ local killPresentaionWrapList = {
 for _, killPresFunc in ipairs(killPresentaionWrapList) do
     modutil.mod.Path.Wrap(killPresFunc, function (base, unit, args)
         base(unit, args)
-        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
             game.OpenRunClearScreen()
         end
     end)
@@ -85,7 +85,7 @@ end
 modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
     base(unit, args)
     print("unit", mod.dump(unit))
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" then
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
         game.wait(0.3)
         game.OpenRunClearScreen()
     end
