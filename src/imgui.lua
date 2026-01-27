@@ -52,6 +52,28 @@ function DrawMenu()
     rom.ImGui.SameLine()
     rom.ImGui.Text("Biome(s)")
 
+    local max_start = 4-config.run_length+1
+
+    if config.starting_biome_position > max_start then
+        config.starting_biome_position = max_start
+    end
+
+    if not config.custom_run then
+        rom.ImGui.Text("Starting Depth")
+        if rom.ImGui.BeginCombo("###start", tostring(config.starting_biome_position)) then
+            for i = 1, max_start do
+                if rom.ImGui.Selectable(tostring(i), (i == config.starting_biome_position)) then
+                    if i ~= previousConfig.starting_biome_position then
+                        previousConfig.starting_biome_position = i
+                        config.starting_biome_position = i
+                    end
+                    rom.ImGui.SetItemDefaultFocus()
+                end
+            end
+            rom.ImGui.EndCombo()
+        end
+    end
+
     local value, checked = rom.ImGui.Checkbox("Custom run", config.custom_run)
     if checked and value ~= previousConfig.custom_run then
         config.custom_run = value
@@ -74,6 +96,9 @@ function DrawMenu()
                 end
                 rom.ImGui.EndCombo()
             end
+        end
+        if not mod.IsCustomRouteValid() then
+            rom.ImGui.Text("Warning!! Duplicate biomes detected.\nRun will use default route.")
         end
     end
 end

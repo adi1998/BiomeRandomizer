@@ -1,3 +1,10 @@
+local defaultRoute = {
+    "F",
+    "G",
+    "H",
+    "I"
+}
+
 mod.BiomeData = {
     -- underworld
     F =
@@ -114,12 +121,18 @@ function mod.GenerateRoute()
     local route = {}
     config.run_length = ( (config.run_length <= 4 and config.run_length >= 1) and config.run_length ) or 4
     if config.custom_run then
-        for i = 1, config.run_length do
-            table.insert(route, config.custom_order[tostring(i)])
+        if mod.IsCustomRouteValid() then
+            for i = 1, config.run_length do
+                table.insert(route, config.custom_order[tostring(i)])
+            end
+        else
+            for i = 1, config.run_length do
+                table.insert(route, defaultRoute[i])
+            end
         end
     end
     if not config.custom_run then
-        for position = 1, config.run_length do
+        for position = config.starting_biome_position, config.run_length do
             local biomeList = {}
             for biome, modBiomeData in pairs(mod.BiomeData) do
                 if modBiomeData.Position == position and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) then
@@ -131,6 +144,17 @@ function mod.GenerateRoute()
     end
     print("Generated route", mod.dump(route))
     return route
+end
+
+function mod.IsCustomRouteValid()
+    local biomeCount = {}
+    for i = 1, config.run_length do
+        if biomeCount[config.custom_order[tostring(i)]] then
+            return false
+        end
+        biomeCount[config.custom_order[tostring(i)]] = 1
+    end
+    return true
 end
 
 function mod.ConnectEndBossToBiome(BountyRunData, currentRoomName)

@@ -33,4 +33,4 @@ While the mod has been tested decently well, there can still be some untested co
 
 ## Issues and feedback
 
-Report any issues or feedback [here](https://github.com/adi1998/BlinkTrail/issues) or on [Hades Modding Discord](https://discord.gg/bKvJTAJj)
+Report any issues or feedback [here](https://github.com/adi1998/BiomeRandomizer/issues) or on [Hades Modding Discord](https://discord.gg/bKvJTAJj)

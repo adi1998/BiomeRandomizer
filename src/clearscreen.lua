@@ -28,12 +28,10 @@ function mod.GetRandomBiomeIconComponents()
 			Scale = 0.35
 		},
     }
-    for biome, value in pairs(game.CurrentRun.BiomesReached) do
-        if value then
-            local iconMap = mod.BiomeData[biome]
-            if iconMap then
-                componentData[iconMap.Position].Animation = iconMap.Icon
-            end
+    for position, biome in ipairs(game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]) do
+        local iconMap = mod.BiomeData[biome]
+        if iconMap then
+            componentData[position].Animation = iconMap.Icon
         end
     end
     return componentData

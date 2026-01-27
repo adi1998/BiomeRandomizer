@@ -9,13 +9,15 @@ local config = {
     ["4"] = "I",
   },
   custom_run = false,
+  starting_biome_position = 1,
 }
 
 local configDesc = {
   -- banned_biomes = "Remove biomes from the pool of available biomes",
   run_length = "Configure the number of biomes for the run (1-4)",
   custom_order = "Set your own biome order instead of random",
-  custom_run = "Use custom order"
+  custom_run = "Use custom order",
+  starting_biome_position = "Starting biome depth when run_length < 4",
 }
 
 return config, configDesc

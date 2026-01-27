@@ -149,6 +149,12 @@ bountyAPI.RegisterBounty({
 		},
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
+    RoomTransition = function (BountyRunData, RoomName)
+        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
+    end,
+    CanEnd = function (BountyRunData, RoomName)
+        return mod.CanEndRandom()
+    end,
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
@@ -230,6 +236,12 @@ bountyAPI.RegisterBounty({
 		},
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
+    RoomTransition = function (BountyRunData, RoomName)
+        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
+    end,
+    CanEnd = function (BountyRunData, RoomName)
+        return mod.CanEndRandom()
+    end,
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
@@ -311,6 +323,12 @@ bountyAPI.RegisterBounty({
 		},
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
+    RoomTransition = function (BountyRunData, RoomName)
+        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
+    end,
+    CanEnd = function (BountyRunData, RoomName)
+        return mod.CanEndRandom()
+    end,
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
@@ -318,7 +336,7 @@ table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Great
 
 function mod.ParseIntro(intro)
     if type(intro) == "table" then
-        return intro[math.random[#intro]]
+        return intro[math.random(#intro)]
     end
     return intro
 end
