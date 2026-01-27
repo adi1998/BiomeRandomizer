@@ -50,6 +50,7 @@ local function on_ready()
     if config.enabled == false then return end
     mod = modutil.mod.Mod.Register(_PLUGIN.guid)
     import 'biomes.lua'
+    import 'bounty.lua'
     import 'ready.lua'
     import 'clearscreen.lua'
     import 'imgui.lua'

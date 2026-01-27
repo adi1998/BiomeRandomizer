@@ -14,10 +14,6 @@ function mod.dump(o, depth)
     end
 end
 
-local function prefix(key)
-    return "Siuhnexus-BountyAPI_" .. key
-end
-
 mod.RandomPostBossSets = {
     {"F_PostBoss01", "N_PostBoss01"},
     {"G_PostBoss01", "O_PostBoss01"},
@@ -36,305 +32,6 @@ mod.ZagIntro = {
     "Y_Intro",
     "D_Intro"
 }
-
-local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
-
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled == true then
-    bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
-end
-
-local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
-RandomBountyName = prefix(randomBountyId)
-
-mod.RegisteredBounties = {}
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId,
-    Title = "Random Biomes Run",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 2,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        RunOverrides = "nil",
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-    RoomTransition = function (BountyRunData, RoomName)
-        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
-    end,
-    CanEnd = function (BountyRunData, RoomName)
-        return mod.CanEndRandom()
-    end,
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName)
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "Chaos",
-    Title = "Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, not including your {#ShrineHighlightFormat}{$GameState.SpentShrinePointsCache}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of currently selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 3,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 1,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-    RoomTransition = function (BountyRunData, RoomName)
-        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
-    end,
-    CanEnd = function (BountyRunData, RoomName)
-        return mod.CanEndRandom()
-    end,
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Chaos")
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "GreatChaos",
-    Title = "Great Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.PackageBountyRandomUnderworld_Difficulty2.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 4,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 2,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomShrineUpgradePointTotal = 20,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-    RoomTransition = function (BountyRunData, RoomName)
-        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
-    end,
-    CanEnd = function (BountyRunData, RoomName)
-        return mod.CanEndRandom()
-    end,
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreatChaos")
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "GreaterChaos",
-    Title = "Greater Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.Siuhnexus-BountyAPI_zerp-BiomeRandomizerRandomBiomeRunGreaterChaos.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 5,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 3,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomShrineUpgradePointTotal = 32,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-    RoomTransition = function (BountyRunData, RoomName)
-        return mod.ConnectEndBossToBiome(BountyRunData, RoomName)
-    end,
-    CanEnd = function (BountyRunData, RoomName)
-        return mod.CanEndRandom()
-    end,
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
 
 function mod.ParseIntro(intro)
     if type(intro) == "table" then
@@ -432,26 +129,54 @@ for index, bountyName in ipairs(mod.RegisteredBounties) do
     mod.UpdateRandomBountyOrder(bountyName)
 end
 
--- spawn hermes rewards before chronos fight
+-- spawn hermes rewards before final boss fight
 -- no styx as it would require a minimum of two paths anyway
 local preFinalBossSet = {
-    "I_PreBoss02",
-    "I_PreBoss01",
+    F = "F_PreBoss01",
+    G = "G_PreBoss01",
+    H = "H_PreBoss01",
+    I =
+    {
+        "I_PreBoss02",
+        "I_PreBoss01",
+    },
+
+    N = "N_PreBoss01",
+    O = "O_PreBoss01",
+    P = "P_PreBoss01",
+
+    Tartarus = "A_PreBoss01",
+    Asphodel = "X_PreBoss01",
+    Elysium = "Y_PreBoss01",
 }
 
 function mod.SpawnShopItemsEarly()
-	for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
-		if trait.OnExpire and trait.OnExpire.SpawnShopItem then
-		    game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
-		end
-	end
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.ClearedBiomes then
+        for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
+            if trait.OnExpire and trait.OnExpire.SpawnShopItem then
+                game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
+            end
+        end
+    end
 end
 
-for _, value in ipairs(preFinalBossSet) do
-    game.RoomSetData.I[value].StartThreadedEvents = game.RoomSetData.I[value].StartThreadedEvents or {}
-    table.insert( game.RoomSetData.I[value].StartThreadedEvents, {
-        FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
-    })
+for biome, preBossRoom  in pairs(preFinalBossSet) do
+    if type(preBossRoom) == "string" then
+        game.RoomSetData[biome][preBossRoom].StartThreadedEvents = game.RoomSetData[biome][preBossRoom].StartThreadedEvents or {}
+        table.insert( game.RoomSetData[biome][preBossRoom].StartThreadedEvents,
+        {
+            FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
+        })
+    else
+        for index, value in ipairs(preBossRoom) do
+            game.RoomSetData[biome][value].StartThreadedEvents = game.RoomSetData[biome][value].StartThreadedEvents or {}
+            table.insert( game.RoomSetData[biome][value].StartThreadedEvents,
+            {
+                FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
+            })
+        end
+    end
 end
 
 function mod.CheckPathEquality(path1, path2)
