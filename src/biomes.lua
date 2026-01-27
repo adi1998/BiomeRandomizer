@@ -105,7 +105,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         Styx =
         {
             Position = 4,
-            PostBoss = nil,
+            PostBoss = "D_Boss01",
             Intro = "D_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Styx",
             GameStateRequirements =

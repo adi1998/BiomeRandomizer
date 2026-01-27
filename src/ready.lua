@@ -1,15 +1,17 @@
 function mod.dump(o, depth)
-   depth = depth or 0
-   if type(o) == 'table' then
-      local s = "\n" .. string.rep("\t", depth) .. '{\n'
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. string.rep("\t",(depth+1)) .. '['..k..'] = ' .. mod.dump(v, depth + 1) .. ',\n'
-      end
-      return s .. string.rep("\t", depth) .. '}'
-   else
-      return tostring(o)
-   end
+    depth = depth or 0
+    if type(o) == 'table' then
+        local s = "\n" .. string.rep("\t", depth) .. '{\n'
+        for k,v in pairs(o) do
+            if type(k) ~= 'number' then k = '"'..k..'"' end
+            s = s .. string.rep("\t",(depth+1)) .. '['..k..'] = ' .. mod.dump(v, depth + 1) .. ',\n'
+        end
+        return s .. string.rep("\t", depth) .. '}'
+    elseif type(o) == "string" then
+        return "\"" .. o .. "\""
+    else
+        return tostring(o)
+    end
 end
 
 local function prefix(key)
@@ -359,7 +361,8 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
             end
         end
-        if currentRoom.ExitFunctionName == "EndEarlyAccessPresentation" then
+        if currentRoom.ExitFunctionName == "EndEarlyAccessPresentation" or
+                currentRoom.ExitFunctionName == "NikkelM-Zagreus_Journey" .. "." .. "CheckRunEndPresentation" then
             currentRoom.ExitFunctionName = "nil"
             currentRoom.SkipLoadNextMap = false
         end
@@ -530,4 +533,9 @@ modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
         return math.min(depth,basedepth)
     end
     return basedepth
+end)
+
+modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
+    print("Attacker", mod.dump(triggerArgs.AttackerTable))
+    return base(victim, triggerArgs)
 end)
