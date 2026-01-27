@@ -390,11 +390,6 @@ function mod.ResetClearScreenData()
         "StatsBacking",
         "BadgeRankIcon",
     }
-
-    -- for _, randomBountyName in ipairs(mod.RegisteredBounties) do
-    --     game.BountyData[randomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
-    --     print(randomBountyName, "Random start:", game.BountyData[randomBountyName].StartingBiome)
-    -- end
 end
 
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)

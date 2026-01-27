@@ -46,7 +46,7 @@ mod.BiomeData = {
         Position = 1,
         PostBoss = "N_PostBoss01",
         Intro = "N_Opening01",
-        Icon = "GUI\\Screens\\BountyBoard\\Biome_Elysium",
+        Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra",
         Encounters = game.BountyData.PolyphemusEncounters.Encounters,
     },
     O =

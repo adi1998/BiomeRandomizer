@@ -28,19 +28,29 @@ function mod.GetRandomBiomeIconComponents()
 			Scale = 0.35
 		},
     }
-    for position, biome in ipairs(game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]) do
-        local iconMap = mod.BiomeData[biome]
-        if iconMap then
-            componentData[position].Animation = iconMap.Icon
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    for position, biome in ipairs(route) do
+        local biomeData = mod.BiomeData[biome]
+        if biomeData then
+            componentData[position+4-#route].Animation = biomeData.Icon
         end
     end
     return componentData
 end
 
+function mod.IsCurrentEncounterLast()
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+	if route and game.CurrentRun.ClearedBiomes == #route and game.Contains( mod.BiomeData[route[#route]].Encounters, game.CurrentRun.CurrentRoom.Encounter.Name ) then
+		return true
+	end
+    return false
+end
+
 modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
-    if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.EndBossEncounterMap[currentRoom.Name] ~= nil then
+    if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
         game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
         local componentData = mod.GetRandomBiomeIconComponents()
+        print("component", mod.dump(componentData))
         for index, component in ipairs(componentData) do
             game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = component
         end
@@ -52,4 +62,31 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
         table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
     end
     base(currentRoom)
+end)
+
+local killPresentaionWrapList = {
+    "HecateKillPresentation",
+    "ScyllaKillPresentation",
+    "InfestedCerberusKillPresentation",
+
+    "ErisKillPresentation",
+    "PrometheusKillPresentation"
+}
+
+for _, killPresFunc in ipairs(killPresentaionWrapList) do
+    modutil.mod.Path.Wrap(killPresFunc, function (base, unit, args)
+        base(unit, args)
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
+            game.OpenRunClearScreen()
+        end
+    end)
+end
+
+modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
+    base(unit, args)
+    print("unit", mod.dump(unit))
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" then
+        game.wait(0.3)
+        game.OpenRunClearScreen()
+    end
 end)
