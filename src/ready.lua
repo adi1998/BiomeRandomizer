@@ -28,6 +28,7 @@ mod.EndBossEncounterMap = {
 }
 
 mod.ZagIntro = {
+    "RoomOpening",
     "X_Intro",
     "Y_Intro",
     "D_Intro"
@@ -40,6 +41,16 @@ function mod.ParseIntro(intro)
     return intro
 end
 
+function mod.CheckPostBoss(postboss, currentRoomName)
+    if type(postboss) == "string" then
+        return postboss == currentRoomName
+    end
+    if type(postboss) == "table" then
+        return game.Contains(postboss, currentRoomName)
+    end
+    return false
+end
+
 modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
     if currentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, currentRun.ActiveBounty) then
         args = args or {}
@@ -47,7 +58,7 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
         print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
-        if route and route[game.CurrentRun.ClearedBiomes] and mod.ParseIntro(mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss) == currentRoom.Name then
+        if route and route[game.CurrentRun.ClearedBiomes] and mod.CheckPostBoss( mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss, currentRoom.Name ) then
             local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
             local nextBiomeData = mod.BiomeData[nextBiome]
             local nextRoomIntro = mod.ParseIntro(nextBiomeData.Intro)
