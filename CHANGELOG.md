@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- configure run length
+- Configure starting depth
+- configure a custom route
+
 ## [0.1.0] - 2026-01-25
 
 - First version of the mod
