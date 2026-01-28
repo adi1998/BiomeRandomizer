@@ -14,12 +14,6 @@ function mod.dump(o, depth)
     end
 end
 
-mod.RandomPostBossSets = {
-    {"F_PostBoss01", "N_PostBoss01"},
-    {"G_PostBoss01", "O_PostBoss01"},
-    {"H_PostBoss01", "P_PostBoss01"}
-}
-
 mod.EndBossEncounterMap = {
     ["I_Boss01"] = game.BountyData.ChronosEncounters.Encounters,
     ["Q_Boss01"] = game.BountyData.TyphonEncounters.Encounters,
