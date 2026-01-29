@@ -16,7 +16,7 @@ mod.RegisteredBounties = {}
 bountyAPI.RegisterBounty({
     Id = randomBountyId,
     Title = "Random Biomes Run",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Description = "Fight your way through upto {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 2,
     IsStandardBounty = false,
     BiomeChar = "F",
@@ -44,7 +44,7 @@ table.insert(mod.RegisteredBounties, RandomBountyName)
 bountyAPI.RegisterBounty({
     Id = randomBountyId .. "Chaos",
     Title = "Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, not including your {#ShrineHighlightFormat}{$GameState.SpentShrinePointsCache}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of currently selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Description = "Fight your way through upto {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, not including your {#ShrineHighlightFormat}{$GameState.SpentShrinePointsCache}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of currently selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 3,
     IsStandardBounty = false,
     BiomeChar = "F",
@@ -91,7 +91,7 @@ table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Chaos
 bountyAPI.RegisterBounty({
     Id = randomBountyId .. "GreatChaos",
     Title = "Great Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.PackageBountyRandomUnderworld_Difficulty2.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Description = "Fight your way through upto {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.PackageBountyRandomUnderworld_Difficulty2.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 4,
     IsStandardBounty = false,
     BiomeChar = "F",
@@ -139,7 +139,7 @@ table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Great
 bountyAPI.RegisterBounty({
     Id = randomBountyId .. "GreaterChaos",
     Title = "Greater Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.Siuhnexus-BountyAPI_zerp-BiomeRandomizerRandomBiomeRunGreaterChaos.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
+    Description = "Fight your way through upto {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.Siuhnexus-BountyAPI_zerp-BiomeRandomizerRandomBiomeRunGreaterChaos.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
     Difficulty = 5,
     IsStandardBounty = false,
     BiomeChar = "F",
