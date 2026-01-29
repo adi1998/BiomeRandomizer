@@ -217,8 +217,13 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
         local route = mod.GenerateRoute()
         if route and #route > 0 then
             args.StartingBiome = route[1]
+            args.RoomName = mod.ParseIntro(mod.BiomeData[args.StartingBiome].Intro)
             local currentRun = base(prevRun, args)
             currentRun[_PLUGIN.guid .. "GeneratedRoute"] = route
+            if args.StartingBiome == "Q" then
+                -- setting depth cache to 1 for starting at Q
+                currentRun.BiomeDepthCache = 1
+            end
             return currentRun
         end
     end

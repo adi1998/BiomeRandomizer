@@ -84,4 +84,11 @@ function DrawMenu()
             rom.ImGui.Text("Warning!! Duplicate biomes detected.\nRun will use default route.")
         end
     end
+
+    local value, checked = rom.ImGui.Checkbox("Enable damage/health scaling\nfor out of order biomes", config.scaling)
+    if checked and value ~= previousConfig.scaling then
+        config.scaling = value
+        previousConfig.scaling = value
+    end
+
 end

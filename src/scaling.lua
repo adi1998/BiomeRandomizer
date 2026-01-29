@@ -114,6 +114,7 @@ mod.ScaledMiniBosses = {
         "TyphonEye",
         "Eyeball",
         "Mudman_Shadow",
+        "MudmanEye_Elite",
 
         "TyphonTail",
         "TyphonTailMine",
@@ -293,11 +294,11 @@ function mod.ScaleDamage(damage, attackerBiome)
 end
 
 modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local attacker = (triggerArgs or {}).AttackerTable or {}
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         local currentBiome = route[game.CurrentRun.ClearedBiomes]
-        if mod.EnemyBiomeMap[attacker.Name or "AAAAAAAAAAAAAAA"] then
+        if mod.EnemyBiomeMap[attacker.Name or "Unknown"] then
             local attackerName = attacker.Name or "Unknown"
             local attackerBiome = mod.EnemyBiomeMap[attackerName]
             print("Attacker name:", attackerName)
@@ -317,7 +318,7 @@ end)
 
 modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
     base(unit, currentRun, args)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         local currentBiome = route[game.CurrentRun.ClearedBiomes]
         if mod.EnemyBiomeMap[unit.Name or "Unknown"] then
@@ -331,16 +332,18 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
                 if unit.HealthBuffer ~= nil and unit.HealthBuffer > 0 then
                     unit.HealthBuffer = mod.ScaleDamage(unit.HealthBuffer, unitBiome)
                 end
-                for _, stage in ipairs(unit.AIStages) do
-                    if stage.NewMaxHealth ~= nil then
-                        stage.NewMaxHealth = mod.ScaleDamage(stage.NewMaxHealth, unitBiome)
+                if unit.AIStages ~= nil and type(unit.AIStages) == "table" then
+                    for _, stage in ipairs(unit.AIStages) do
+                        if stage.NewMaxHealth ~= nil then
+                            stage.NewMaxHealth = mod.ScaleDamage(stage.NewMaxHealth, unitBiome)
+                        end
                     end
                 end
                 if unit.ShrineDataOverwrites ~= nil and unit.ShrineDataOverwrites.MaxHealth ~= nil then
                     unit.ShrineDataOverwrites.MaxHealth = mod.ScaleDamage(unit.ShrineDataOverwrites.MaxHealth, unitBiome)
                 end
             end
-        elseif unit.MaxHealth ~= nil then
+        elseif unit.MaxHealth ~= nil and unit.MaxHealth ~= 0 then
             print("Unable to scale health for:", unit.Name)
         end
     end

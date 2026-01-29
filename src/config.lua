@@ -10,6 +10,7 @@ local config = {
   },
   custom_run = false,
   starting_biome_position = 1,
+  scaling = true,
 }
 
 local configDesc = {
@@ -18,6 +19,7 @@ local configDesc = {
   custom_order = "Set your own biome order instead of random",
   custom_run = "Use custom order",
   starting_biome_position = "Starting biome depth when run_length < 4",
+  scaling = "Enable scaling for out of order biomes",
 }
 
 return config, configDesc

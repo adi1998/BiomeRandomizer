@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 - configure run length
-- Configure starting depth
+- configure starting depth
 - configure a custom route
 - scale enemies for custom route
 
