@@ -50,8 +50,8 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-        print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
-        print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
+        -- print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
+        -- print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
         if route and route[game.CurrentRun.ClearedBiomes] and mod.CheckPostBoss( mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss, currentRoom.Name ) then
             local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
             local nextBiomeData = mod.BiomeData[nextBiome]

@@ -289,7 +289,7 @@ mod.DamageScaling = {
 function mod.ScaleDamage(damage, attackerBiome)
     local currentDepth = game.CurrentRun.ClearedBiomes
     local biomeDepth = (mod.BiomeData[attackerBiome] or {}).Position or currentDepth
-    local newDamage = damage*mod.DamageScaling[currentDepth] / mod.DamageScaling[biomeDepth]
+    local newDamage = damage * (mod.DamageScaling[currentDepth] / mod.DamageScaling[biomeDepth])
     return newDamage
 end
 
@@ -308,7 +308,9 @@ modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
             end
             if attackerBiome and currentBiome and
                     triggerArgs.DamageAmount ~= nil and triggerArgs.DamageAmount > 0 then
+                print("Incoming damage:", triggerArgs.DamageAmount)
                 triggerArgs.DamageAmount =  mod.ScaleDamage(triggerArgs.DamageAmount, attackerBiome)
+                print("Scaled damage:", triggerArgs.DamageAmount)
             end
         else
             print("Attacker name:", attacker.Name)
@@ -331,11 +333,15 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
             end
             if unitBiome and currentBiome then
                 if unit.MaxHealth ~= nil then
+                    print("Scaling health for:", unit.Name, unit.Health)
                     unit.MaxHealth = mod.ScaleDamage(unit.MaxHealth, unitBiome)
                     unit.Health = unit.MaxHealth
+                    print("New health:", unit.Health)
                 end
                 if unit.HealthBuffer ~= nil and unit.HealthBuffer > 0 then
+                    print("Scaling health buffer for:", unit.Name, unit.HealthBuffer)
                     unit.HealthBuffer = mod.ScaleDamage(unit.HealthBuffer, unitBiome)
+                    print("new health buffer", unit.HealthBuffer)
                 end
                 if unit.AIStages ~= nil and type(unit.AIStages) == "table" then
                     for _, stage in ipairs(unit.AIStages) do
