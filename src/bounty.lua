@@ -11,40 +11,6 @@ end
 local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
 RandomBountyName = prefix(randomBountyId)
 
-local keepsakeList =
-{
-    "ManaOverTimeRefundKeepsake",
-    "BossPreDamageKeepsake",
-    "ReincarnationKeepsake",
-    "DoorHealReserveKeepsake",
-    "DeathVengeanceKeepsake",
-    "BlockDeathKeepsake",
-    "EscalatingKeepsake",
-    "BonusMoneyKeepsake",
-    "TimedBuffKeepsake",
-    "LowHealthCritKeepsake",
-    "SpellTalentKeepsake",
-    "ForceZeusBoonKeepsake",
-    "ForceHeraBoonKeepsake",
-    "ForcePoseidonBoonKeepsake",
-    "ForceDemeterBoonKeepsake",
-    "ForceApolloBoonKeepsake",
-    "ForceAphroditeBoonKeepsake",
-    "ForceHephaestusBoonKeepsake",
-    "ForceHestiaBoonKeepsake",
-    "ForceAresBoonKeepsake",
-    "AthenaEncounterKeepsake",
-    "SkipEncounterKeepsake",
-    "ArmorGainKeepsake",
-    "FountainRarityKeepsake",
-    "UnpickedBoonKeepsake",
-    "DecayingBoostKeepsake",
-    "DamagedDamageBoostKeepsake",
-    "BossMetaUpgradeKeepsake",
-    "TempHammerKeepsake",
-    "RandomBlessingKeepsake",
-}
-
 mod.RegisteredBounties = {}
 
 bountyAPI.RegisterBounty({
@@ -106,16 +72,11 @@ bountyAPI.RegisterBounty({
 		},
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
+        RandomWeaponKitNames = game.BountyData.BasePackageBountyRandom.RandomWeaponKitNames,
 		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames = keepsakeList,
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
+		RandomFamiliarNames = game.BountyData.BasePackageBountyRandom.RandomFamiliarNames,
+        RandomKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomKeepsakeNames,
+		RandomFatedKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomFatedKeepsakeNames,
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
     RoomTransition = function (BountyRunData, RoomName)
@@ -161,16 +122,11 @@ bountyAPI.RegisterBounty({
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
         RandomShrineUpgradePointTotal = 20,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
+        RandomWeaponKitNames = game.BountyData.BasePackageBountyRandom.RandomWeaponKitNames,
 		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames = keepsakeList,
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
+		RandomFamiliarNames = game.BountyData.BasePackageBountyRandom.RandomFamiliarNames,
+        RandomKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomKeepsakeNames,
+		RandomFatedKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomFatedKeepsakeNames,
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
     RoomTransition = function (BountyRunData, RoomName)
@@ -216,16 +172,11 @@ bountyAPI.RegisterBounty({
         RunOverrides = "nil",
         RandomMetaUpgradeCostTotal = 30,
         RandomShrineUpgradePointTotal = 32,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
+        RandomWeaponKitNames = game.BountyData.BasePackageBountyRandom.RandomWeaponKitNames,
 		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames = keepsakeList,
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
+		RandomFamiliarNames = game.BountyData.BasePackageBountyRandom.RandomFamiliarNames,
+        RandomKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomKeepsakeNames,
+		RandomFatedKeepsakeNames = game.BountyData.BasePackageBountyRandom.RandomFatedKeepsakeNames,
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
     RoomTransition = function (BountyRunData, RoomName)
