@@ -41,6 +41,12 @@ function DrawMenu()
         config.starting_biome_position = max_start
     end
 
+    local value, checked = rom.ImGui.Checkbox("Custom run", config.custom_run)
+    if checked and value ~= previousConfig.custom_run then
+        config.custom_run = value
+        previousConfig.custom_run = value
+    end
+
     if not config.custom_run then
         rom.ImGui.Text("Starting Depth")
         if rom.ImGui.BeginCombo("###start", tostring(config.starting_biome_position)) then
@@ -57,13 +63,7 @@ function DrawMenu()
         end
     end
 
-    local value, checked = rom.ImGui.Checkbox("Custom run", config.custom_run)
-    if checked and value ~= previousConfig.custom_run then
-        config.custom_run = value
-        previousConfig.custom_run = value
-    end
-
-    if value then
+    if config.custom_run then
         for i = 1, config.run_length do
             rom.ImGui.Text("Biome "..tostring(i)..":")
             rom.ImGui.SameLine()
@@ -91,7 +91,7 @@ function DrawMenu()
         previousConfig.scaling = value
     end
 
-    value, checked = rom.ImGui.Checkbox("Enable true randomization of biomes.\nBiomes will be selected independant of their original depth", config.true_random)
+    value, checked = rom.ImGui.Checkbox("Enable true randomization of biomes.\nBiomes will be selected independent\nof their original depth", config.true_random)
     if checked and value ~= previousConfig.true_random then
         config.true_random = value
         previousConfig.true_random = value
