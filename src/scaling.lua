@@ -30,6 +30,7 @@ mod.ScaledEnemySets = {
     },
     Tartarus = {
         "EnemiesBiome1",
+        "EnemiesBiome1MiniBoss"
     },
     Asphodel = {
         "EnemiesBiome2",
@@ -42,6 +43,8 @@ mod.ScaledEnemySets = {
         "EnemiesBiome4MiniBoss",
         "EnemiesHadesLarge",
         "EnemiesHadesSmall",
+        "EnemiesHadesEMLarge",
+        "EnemiesHadesEMSmall",
     }
 }
 
@@ -122,6 +125,27 @@ mod.ScaledMiniBosses = {
         "EarthElemental",
         "EarthElemental_Shadow",
         "Stalker_Miniboss",
+    },
+    Tartarus = {
+        "WretchAssassin",
+        "HeavyRangedSplitterMiniboss",
+        "HeavyRangedSplitterFragment",
+    },
+    Asphodel = {
+        "ShieldRangedMiniBoss",
+        "SpreadShotUnitMiniboss",
+        "HitAndRunUnit",
+        "CrusherUnitElite"
+    },
+    Elysium = {
+        "FlurrySpawnerElite",
+    },
+    Styx = {
+        "SatyrRangedMiniboss",
+        "RatThugMiniboss",
+        "HeavyRangedForkedMiniboss",
+        "ThiefImpulseMineLayerMiniboss",
+        "HadesCrawlerMiniBoss"
     }
 }
 
@@ -191,6 +215,36 @@ mod.ScaledBosses = {
         "Dragon_SuperElite",
 
         "Chronos_TyphonFight",
+    },
+    Tartarus = {
+        "HarpySupportUnit",
+        "Harpy",
+        "Harpy2",
+        "Harpy3",
+    },
+    Asphodel = {
+        "HydraHeadImmortal",
+        "HydraHeadImmortalLavamaker",
+        "HydraHeadImmortalSummoner",
+        "HydraHeadImmortalSlammer",
+        "HydraHeadImmortalWavemaker",
+        "HydraHeadDartmaker",
+        "HydraHeadLavamaker",
+        "HydraHeadSummoner",
+        "HydraHeadSlammer",
+        "HydraHeadWavemaker",
+        "HydraTooth",
+        "HydraTooth2",
+    },
+    Elysium = {
+        "Theseus",
+        "Theseus2",
+        "Minotaur",
+        "Minotaur2",
+    },
+    Styx = {
+        "Hades",
+        "CerberusAssistUnit",
     }
 }
 

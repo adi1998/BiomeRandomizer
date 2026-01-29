@@ -5,6 +5,7 @@
 - configure run length
 - Configure starting depth
 - configure a custom route
+- scale enemies for custom route
 
 ## [0.1.0] - 2026-01-25
 
