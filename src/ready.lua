@@ -134,27 +134,6 @@ for index, bountyName in ipairs(mod.RegisteredBounties) do
     mod.UpdateRandomBountyOrder(bountyName)
 end
 
--- spawn hermes rewards before final boss fight
--- no styx as it would require a minimum of two paths anyway
-local preFinalBossSet = {
-    F = "F_PreBoss01",
-    G = "G_PreBoss01",
-    H = "H_PreBoss01",
-    I =
-    {
-        "I_PreBoss02",
-        "I_PreBoss01",
-    },
-
-    N = "N_PreBoss01",
-    O = "O_PreBoss01",
-    P = "P_PreBoss01",
-
-    Tartarus = "A_PreBoss01",
-    Asphodel = "X_PreBoss01",
-    Elysium = "Y_PreBoss01",
-}
-
 function mod.SpawnShopItemsEarly()
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.ClearedBiomes then
@@ -166,20 +145,23 @@ function mod.SpawnShopItemsEarly()
     end
 end
 
-for biome, preBossRoom  in pairs(preFinalBossSet) do
-    if type(preBossRoom) == "string" then
-        game.RoomSetData[biome][preBossRoom].StartThreadedEvents = game.RoomSetData[biome][preBossRoom].StartThreadedEvents or {}
-        table.insert( game.RoomSetData[biome][preBossRoom].StartThreadedEvents,
-        {
-            FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
-        })
-    else
-        for index, value in ipairs(preBossRoom) do
-            game.RoomSetData[biome][value].StartThreadedEvents = game.RoomSetData[biome][value].StartThreadedEvents or {}
-            table.insert( game.RoomSetData[biome][value].StartThreadedEvents,
+for biome, biomeData  in pairs(mod.BiomeData) do
+    local preBossRoom = biomeData.PreBoss
+    if preBossRoom then
+        if type(preBossRoom) == "string" then
+            game.RoomSetData[biome][preBossRoom].StartThreadedEvents = game.RoomSetData[biome][preBossRoom].StartThreadedEvents or {}
+            table.insert( game.RoomSetData[biome][preBossRoom].StartThreadedEvents,
             {
                 FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
             })
+        else
+            for index, value in ipairs(preBossRoom) do
+                game.RoomSetData[biome][value].StartThreadedEvents = game.RoomSetData[biome][value].StartThreadedEvents or {}
+                table.insert( game.RoomSetData[biome][value].StartThreadedEvents,
+                {
+                    FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
+                })
+            end
         end
     end
 end

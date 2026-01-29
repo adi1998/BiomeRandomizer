@@ -11,6 +11,7 @@ mod.BiomeData = {
     {
         Position = 1,
         PostBoss = "F_PostBoss01",
+        PreBoss = "F_PreBoss01",
         Intro = {"F_Opening01", "F_Opening02", "F_Opening03"},
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Erebus",
         Encounters = game.BountyData.HecateEncounters.Encounters,
@@ -19,6 +20,7 @@ mod.BiomeData = {
     {
         Position = 2,
         PostBoss = "G_PostBoss01",
+        PreBoss = "G_PreBoss01",
         Intro = "G_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus",
         Encounters = game.BountyData.ScyllaEncounters.Encounters,
@@ -27,6 +29,7 @@ mod.BiomeData = {
     {
         Position = 3,
         PostBoss = "H_PostBoss01",
+        PreBoss = "H_PreBoss01",
         Intro = "H_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields",
         Encounters = game.BountyData.InfestedCerberusEncounters.Encounters,
@@ -35,6 +38,11 @@ mod.BiomeData = {
     {
         Position = 4,
         PostBoss = "I_Boss01",
+        PreBoss =
+        {
+            "I_PreBoss02",
+            "I_PreBoss01",
+        },
         Intro = "I_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Underworld",
         Encounters = game.BountyData.ChronosEncounters.Encounters,
@@ -45,6 +53,7 @@ mod.BiomeData = {
     {
         Position = 1,
         PostBoss = "N_PostBoss01",
+        PreBoss = "N_PreBoss01",
         Intro = "N_Opening01",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra",
         Encounters = game.BountyData.PolyphemusEncounters.Encounters,
@@ -53,6 +62,7 @@ mod.BiomeData = {
     {
         Position = 2,
         PostBoss = "O_PostBoss01",
+        PreBoss = "O_PreBoss01",
         Intro = "O_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Ships",
         Encounters = game.BountyData.ErisEncounters.Encounters,
@@ -61,6 +71,7 @@ mod.BiomeData = {
     {
         Position = 3,
         PostBoss = "P_PostBoss01",
+        PreBoss = "P_PreBoss01",
         Intro = "P_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus",
         Encounters = game.BountyData.PrometheusEncounters.Encounters,
@@ -82,6 +93,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         {
             Position = 1,
             PostBoss = "A_PostBoss01",
+            PreBoss = "A_PreBoss01",
             Intro = "RoomOpening",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Tartarus",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesMegaeraEncounters.Encounters,
@@ -90,6 +102,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         {
             Position = 2,
             PostBoss = "X_PostBoss01",
+            PreBoss = "X_PreBoss01",
             Intro = "X_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Asphodel",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesHydraEncounters.Encounters,
@@ -98,6 +111,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         {
             Position = 3,
             PostBoss = "Y_PostBoss01",
+            PreBoss = "Y_PreBoss01",
             Intro = "Y_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Elysium",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesTheseusAndMinotaurEncounters.Encounters,
