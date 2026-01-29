@@ -2,37 +2,19 @@ function mod.GetRandomBiomeIconComponents()
     local locationY = 60
     local offsetX = 70
     local gap = 100
-    local componentData = {
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - 3*gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - 2*gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX,
-			Y = locationY,
-			Scale = 0.35
-		},
-    }
-    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-    for position, biome in ipairs(route) do
-        local biomeData = mod.BiomeData[biome]
+    local componentData = {}
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
+    for position = #route, 1, -1 do
+        local biomeData = mod.BiomeData[route[position]]
         if biomeData then
-            componentData[position+4-#route].Animation = biomeData.Icon
+            local component =
+            {
+                Animation = biomeData.Icon,
+                X = game.ScreenWidth - offsetX - gap*( #route - position ),
+                Y = locationY,
+                Scale = 0.35
+            }
+            table.insert(componentData, component)
         end
     end
     return componentData
