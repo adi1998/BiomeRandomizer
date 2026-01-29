@@ -52,9 +52,7 @@ bountyAPI.RegisterBounty({
 		BiomeIcon = bountyIcon,
 		BiomeText = "Random Start",
         UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
+            NamedRequirements = { "PackageBountyRandom" },
         },
         LootOptions =
 		{
@@ -101,9 +99,7 @@ bountyAPI.RegisterBounty({
 		BiomeIcon = bountyIcon,
 		BiomeText = "Random Start",
         UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
+            NamedRequirements = { "PackageBountyRandom" },
         },
         LootOptions =
 		{
@@ -151,9 +147,7 @@ bountyAPI.RegisterBounty({
 		BiomeIcon = bountyIcon,
 		BiomeText = "Random Start",
         UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
+            NamedRequirements = { "PackageBountyRandom" },
         },
         LootOptions =
 		{
