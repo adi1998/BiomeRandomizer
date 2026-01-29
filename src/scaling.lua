@@ -303,8 +303,10 @@ modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
             local attackerBiome = mod.EnemyBiomeMap[attackerName]
             print("Attacker name:", attackerName)
             print("Attacker biome:", mod.EnemyBiomeMap[attacker.Name])
-
-            if attackerBiome and currentBiome and (not mod.IsUnitMenace(currentBiome, attackerBiome) ) and
+            if mod.IsUnitMenace(currentBiome, attackerBiome) then
+                attackerBiome = currentBiome
+            end
+            if attackerBiome and currentBiome and
                     triggerArgs.DamageAmount ~= nil and triggerArgs.DamageAmount > 0 then
                 triggerArgs.DamageAmount =  mod.ScaleDamage(triggerArgs.DamageAmount, attackerBiome)
             end
@@ -324,7 +326,10 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
         if mod.EnemyBiomeMap[unit.Name or "Unknown"] then
             local unitName = unit.Name or "Unknown"
             local unitBiome = mod.EnemyBiomeMap[unitName]
-            if unitBiome and currentBiome and (not mod.IsUnitMenace(currentBiome, unitBiome) ) then
+            if mod.IsUnitMenace(currentBiome, unitBiome) then
+                unitBiome = currentBiome
+            end
+            if unitBiome and currentBiome then
                 if unit.MaxHealth ~= nil then
                     unit.MaxHealth = mod.ScaleDamage(unit.MaxHealth, unitBiome)
                     unit.Health = unit.MaxHealth
