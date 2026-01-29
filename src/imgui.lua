@@ -85,10 +85,16 @@ function DrawMenu()
         end
     end
 
-    local value, checked = rom.ImGui.Checkbox("Enable damage/health scaling\nfor out of order biomes", config.scaling)
+    value, checked = rom.ImGui.Checkbox("Enable damage/health scaling\nfor out of order biomes", config.scaling)
     if checked and value ~= previousConfig.scaling then
         config.scaling = value
         previousConfig.scaling = value
+    end
+
+    value, checked = rom.ImGui.Checkbox("Enable true randomization of biomes.\nBiomes will be selected independant of their original depth", config.true_random)
+    if checked and value ~= previousConfig.true_random then
+        config.true_random = value
+        previousConfig.true_random = value
     end
 
 end

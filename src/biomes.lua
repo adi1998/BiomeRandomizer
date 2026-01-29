@@ -170,7 +170,8 @@ function mod.GenerateRoute()
         for position = config.starting_biome_position, config.run_length do
             local biomeList = {}
             for biome, modBiomeData in pairs(mod.BiomeData) do
-                if modBiomeData.Position == position and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) then
+                if (modBiomeData.Position == position or config.true_random) and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) and
+                        not game.Contains(biomeList, biome) then
                     table.insert(biomeList, biome)
                 end
             end
