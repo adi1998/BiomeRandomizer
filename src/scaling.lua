@@ -336,9 +336,12 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
                         stage.NewMaxHealth = mod.ScaleDamage(stage.NewMaxHealth, unitBiome)
                     end
                 end
+                if unit.ShrineDataOverwrites ~= nil and unit.ShrineDataOverwrites.MaxHealth ~= nil then
+                    unit.ShrineDataOverwrites.MaxHealth = mod.ScaleDamage(unit.ShrineDataOverwrites.MaxHealth, unitBiome)
+                end
             end
-        else
-            print("Unable to scale health:", unit.Name)
+        elseif unit.MaxHealth ~= nil then
+            print("Unable to scale health for:", unit.Name)
         end
     end
 end)
