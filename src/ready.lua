@@ -241,8 +241,3 @@ modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
     end
     return basedepth
 end)
-
-modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
-    print("Attacker", mod.dump(triggerArgs.AttackerTable))
-    return base(victim, triggerArgs)
-end)

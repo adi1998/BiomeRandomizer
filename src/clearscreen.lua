@@ -32,7 +32,6 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
     if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
         game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
         local componentData = mod.GetRandomBiomeIconComponents()
-        print("component", mod.dump(componentData))
         for index, component in ipairs(componentData) do
             game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = component
         end
@@ -66,7 +65,6 @@ end
 
 modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
     base(unit, args)
-    print("unit", mod.dump(unit))
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
         game.wait(0.3)
         game.OpenRunClearScreen()

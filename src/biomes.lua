@@ -16,6 +16,7 @@ mod.BiomeData = {
         Intro = {"F_Opening01", "F_Opening02", "F_Opening03"},
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Erebus",
         Encounters = game.BountyData.HecateEncounters.Encounters,
+        Next = "G",
     },
     G =
     {
@@ -26,6 +27,7 @@ mod.BiomeData = {
         Intro = "G_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus",
         Encounters = game.BountyData.ScyllaEncounters.Encounters,
+        Next = "H",
     },
     H =
     {
@@ -36,6 +38,7 @@ mod.BiomeData = {
         Intro = "H_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields",
         Encounters = game.BountyData.InfestedCerberusEncounters.Encounters,
+        Next = "I",
     },
     I =
     {
@@ -62,6 +65,7 @@ mod.BiomeData = {
         Intro = "N_Opening01",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra",
         Encounters = game.BountyData.PolyphemusEncounters.Encounters,
+        Next = "O",
     },
     O =
     {
@@ -72,6 +76,7 @@ mod.BiomeData = {
         Intro = "O_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Ships",
         Encounters = game.BountyData.ErisEncounters.Encounters,
+        Next = "P",
     },
     P =
     {
@@ -82,6 +87,7 @@ mod.BiomeData = {
         Intro = "P_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus",
         Encounters = game.BountyData.PrometheusEncounters.Encounters,
+        Next = "Q",
     },
     Q =
     {
@@ -106,6 +112,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             Intro = "RoomOpening",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Tartarus",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesMegaeraEncounters.Encounters,
+            Next = "Asphodel",
         },
         Asphodel =
         {
@@ -116,6 +123,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             Intro = "X_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Asphodel",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesHydraEncounters.Encounters,
+            Next = "Elysium",
         },
         Elysium =
         {
@@ -126,6 +134,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             Intro = "Y_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Elysium",
             Encounters = game.BountyData.ModsNikkelMHadesBiomesTheseusAndMinotaurEncounters.Encounters,
+            Next = "Styx",
         },
         Styx =
         {
