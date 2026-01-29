@@ -3,23 +3,6 @@ local previousConfig = {
     banned_biomes = {}
 }
 
-local biomeDiplayName = {
-    F = "Erebus",
-    G = "Oceanus",
-    H = "Fields",
-    I = "Tartarus(H2)",
-
-    N = "Ephyra",
-    O = "Thessaly",
-    P = "Olympus",
-    Q = "Summit",
-
-    Tartarus = "Tartarus(H1)",
-    Asphodel = "Asphodel",
-    Elysium = "Elysium",
-    Styx = "Styx"
-}
-
 rom.gui.add_imgui(function()
     if rom.ImGui.Begin("Biome Randomizer") then
         DrawMenu()
@@ -84,9 +67,9 @@ function DrawMenu()
         for i = 1, config.run_length do
             rom.ImGui.Text("Biome "..tostring(i)..":")
             rom.ImGui.SameLine()
-            if rom.ImGui.BeginCombo("###biome"..tostring(i), biomeDiplayName[config.custom_order[tostring(i)]]) then
+            if rom.ImGui.BeginCombo("###biome"..tostring(i), mod.BiomeData[config.custom_order[tostring(i)]].Name) then
                 for biome, _ in pairs(mod.BiomeData) do
-                    if rom.ImGui.Selectable(biomeDiplayName[biome], (biome == config.custom_order[tostring(i)])) then
+                    if rom.ImGui.Selectable(mod.BiomeData[biome].Name, (biome == config.custom_order[tostring(i)])) then
                         if biome ~= previousConfig.custom_order[tostring(i)] then
                             config.custom_order[tostring(i)] = biome
                             previousConfig.custom_order[tostring(i)] = biome

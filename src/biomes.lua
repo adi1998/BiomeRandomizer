@@ -10,6 +10,7 @@ mod.BiomeData = {
     F =
     {
         Position = 1,
+        Name = "Erebus",
         PostBoss = "F_PostBoss01",
         PreBoss = "F_PreBoss01",
         Intro = {"F_Opening01", "F_Opening02", "F_Opening03"},
@@ -19,6 +20,7 @@ mod.BiomeData = {
     G =
     {
         Position = 2,
+        Name = "Oceanus",
         PostBoss = "G_PostBoss01",
         PreBoss = "G_PreBoss01",
         Intro = "G_Intro",
@@ -28,6 +30,7 @@ mod.BiomeData = {
     H =
     {
         Position = 3,
+        Name = "Fields",
         PostBoss = "H_PostBoss01",
         PreBoss = "H_PreBoss01",
         Intro = "H_Intro",
@@ -37,6 +40,7 @@ mod.BiomeData = {
     I =
     {
         Position = 4,
+        Name = "Tartarus(H2)",
         PostBoss = "I_Boss01",
         PreBoss =
         {
@@ -52,6 +56,7 @@ mod.BiomeData = {
     N =
     {
         Position = 1,
+        Name = "Ephyra",
         PostBoss = "N_PostBoss01",
         PreBoss = "N_PreBoss01",
         Intro = "N_Opening01",
@@ -61,6 +66,7 @@ mod.BiomeData = {
     O =
     {
         Position = 2,
+        Name = "Thessaly",
         PostBoss = "O_PostBoss01",
         PreBoss = "O_PreBoss01",
         Intro = "O_Intro",
@@ -70,6 +76,7 @@ mod.BiomeData = {
     P =
     {
         Position = 3,
+        Name = "Olympus",
         PostBoss = "P_PostBoss01",
         PreBoss = "P_PreBoss01",
         Intro = "P_Intro",
@@ -79,6 +86,7 @@ mod.BiomeData = {
     Q =
     {
         Position = 4,
+        Name = "Summit",
         PostBoss = { "Q_Boss01", "Q_Boss02" },
         Intro = "Q_Intro",
         Icon = "GUI\\Screens\\BountyBoard\\Biome_Surface",
@@ -92,6 +100,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         Tartarus =
         {
             Position = 1,
+            Name = "Tartarus(H1)",
             PostBoss = "A_PostBoss01",
             PreBoss = "A_PreBoss01",
             Intro = "RoomOpening",
@@ -101,6 +110,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         Asphodel =
         {
             Position = 2,
+            Name = "Asphodel",
             PostBoss = "X_PostBoss01",
             PreBoss = "X_PreBoss01",
             Intro = "X_Intro",
@@ -110,6 +120,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         Elysium =
         {
             Position = 3,
+            Name = "Elysium",
             PostBoss = "Y_PostBoss01",
             PreBoss = "Y_PreBoss01",
             Intro = "Y_Intro",
@@ -119,6 +130,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         Styx =
         {
             Position = 4,
+            Name = "Styx",
             PostBoss = "D_Boss01",
             Intro = "D_Intro",
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Styx",
