@@ -224,6 +224,9 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
                 -- setting depth cache to 1 for starting at Q
                 currentRun.BiomeDepthCache = 1
             end
+            if game.Contains(mod.ZagIntro, args.RoomName) then
+                currentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+            end
             return currentRun
         end
     end
