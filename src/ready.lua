@@ -221,8 +221,11 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
             local currentRun = base(prevRun, args)
             currentRun[_PLUGIN.guid .. "GeneratedRoute"] = route
             if args.StartingBiome == "Q" then
-                -- setting depth cache to 1 for starting at Q
+                -- setting depth cache to 1 for starting at Q to ensure a room is found.
                 currentRun.BiomeDepthCache = 1
+            end
+            if game.Contains(mod.ZagIntro, args.RoomName) then
+                currentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             end
             return currentRun
         end
