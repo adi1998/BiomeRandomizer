@@ -137,10 +137,14 @@ end
 function mod.SpawnShopItemsEarly()
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.ClearedBiomes then
+        local hermesTraits = {}
         for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
             if trait.OnExpire and trait.OnExpire.SpawnShopItem then
-                game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
+                table.insert( hermesTraits, trait )
             end
+        end
+        for _, trait in pairs( hermesTraits ) do
+		    game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
         end
     end
 end
