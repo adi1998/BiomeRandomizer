@@ -350,7 +350,7 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
                 end
                 if unit.MaxHealthBuffer ~= nil and unit.MaxHealthBuffer > 0 then
                     print("Scaling max health buffer for:", unit.Name, unit.MaxHealthBuffer)
-                    unit.HealthBuffer = mod.ScaleDamage(unit.MaxHealthBuffer, unitBiome)
+                    unit.MaxHealthBuffer = mod.ScaleDamage(unit.MaxHealthBuffer, unitBiome)
                     print("new max health buffer", unit.MaxHealthBuffer)
                 end
                 if unit.AIStages ~= nil and type(unit.AIStages) == "table" then

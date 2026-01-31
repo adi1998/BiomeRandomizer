@@ -80,9 +80,10 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             "Hades"
         }
 
-        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and 
-                #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] >= 1 and not game.Contains(blockedUnits, unit.Name) then
-            game.CallFunctionName("NikkelM-Zagreus_Journey.ModsNikkelMHadesBiomesOpenRunClearScreen")
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and
+                #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 and not game.Contains(blockedUnits, unit.Name) then
+
+            game.CallFunctionName("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen")
         end
     end)
 
