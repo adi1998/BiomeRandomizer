@@ -129,6 +129,7 @@ mod.ScaledMiniBosses = {
     },
     Tartarus = {
         "WretchAssassin",
+        "WretchAssassinMiniboss",
         "HeavyRangedSplitterMiniboss",
         "HeavyRangedSplitterFragment",
     },
@@ -169,6 +170,10 @@ mod.ScaledBosses = {
         "Chronos",
         "Chronos_EMShadow",
 
+        "TimeElemental2",
+        "TimeElemental2_EM",
+        "SatyrCultist",
+        "SatyrCultist_Elite",
         "Screamer2_SuperElite",
         "Treant2_SuperElite",
         "Octofish_SuperElite",
@@ -342,6 +347,11 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
                     print("Scaling health buffer for:", unit.Name, unit.HealthBuffer)
                     unit.HealthBuffer = mod.ScaleDamage(unit.HealthBuffer, unitBiome)
                     print("new health buffer", unit.HealthBuffer)
+                end
+                if unit.MaxHealthBuffer ~= nil and unit.MaxHealthBuffer > 0 then
+                    print("Scaling max health buffer for:", unit.Name, unit.MaxHealthBuffer)
+                    unit.HealthBuffer = mod.ScaleDamage(unit.MaxHealthBuffer, unitBiome)
+                    print("new max health buffer", unit.MaxHealthBuffer)
                 end
                 if unit.AIStages ~= nil and type(unit.AIStages) == "table" then
                     for _, stage in ipairs(unit.AIStages) do
