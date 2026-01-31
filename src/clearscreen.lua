@@ -49,7 +49,6 @@ local killPresentaionWrapList = {
     "HecateKillPresentation",
     "ScyllaKillPresentation",
     "InfestedCerberusKillPresentation",
-
     "ErisKillPresentation",
     "PrometheusKillPresentation"
 }
@@ -70,3 +69,28 @@ modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
         game.OpenRunClearScreen()
     end
 end)
+
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HarpyKillPresentation", function (base, unit, args)
+        base(unit, args)
+
+        local blockedUnits = {
+            "CrawlerMiniBoss",
+            "HadesCrawlerMiniBoss",
+            "Hades"
+        }
+
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and 
+                #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] >= 1 and not game.Contains(blockedUnits, unit.Name) then
+            game.CallFunctionName("NikkelM-Zagreus_Journey.ModsNikkelMHadesBiomesOpenRunClearScreen")
+        end
+    end)
+
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen", function (base)
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.IsCurrentEncounterLast() then
+            return
+        end
+
+        base()
+    end)
+end
