@@ -233,6 +233,14 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
     return base(prevRun,args)
 end)
 
+modutil.mod.Path.Wrap("CreateRoom", function (base, roomData, args)
+    args = args or {}
+    if game.CurrentRun and roomData.Name and game.Contains(mod.ZagIntro, roomData.Name) and game.Contains(mod.RegisteredBounties, args.ActiveBounty) then
+        game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+    end
+    return base(roomData, args)
+end)
+
 modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
     local basedepth = base(currentRun)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
