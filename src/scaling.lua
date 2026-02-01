@@ -304,8 +304,8 @@ function mod.ScaleDamage(damage, attackerBiome)
     return newDamage
 end
 
-modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
+modutil.mod.Path.Wrap("Damage", function (base, victim, triggerArgs)
+    if victim == game.CurrentRun.Hero and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local attacker = (triggerArgs or {}).AttackerTable or {}
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
         local currentBiome = route[game.CurrentRun.ClearedBiomes]

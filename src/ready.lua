@@ -78,6 +78,26 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
     return base(currentRun, args, otherDoors)
 end)
 
+modutil.mod.Path.Wrap("OlympusSkyExitPresentation", function (base, currentRun, exitDoor)
+    base(currentRun, exitDoor)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and
+            game.CurrentRun.CurrentRoom and game.CurrentRun.CurrentRoom.Name == "P_PostBoss01" and
+            exitDoor.Room.Name ~= "Q_Intro" then
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionNameOverride = nil
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionArgsOverride = nil
+    end
+end)
+
+modutil.mod.Path.Wrap("OlympusChronosPortalExitPresentation", function (base, currentRun, exitDoor)
+    base(currentRun, exitDoor)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and
+            game.CurrentRun.CurrentRoom and game.CurrentRun.CurrentRoom.Name == "P_PostBoss01" and
+            exitDoor.Room.Name ~= "Q_Intro" then
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionNameOverride = nil
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionArgsOverride = nil
+    end
+end)
+
 function mod.ResetClearScreenData()
     game.LoadPackages({Name = _PLUGIN.guid})
 
@@ -260,4 +280,17 @@ modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
         return math.min(depth,basedepth)
     end
     return basedepth
+end)
+
+modutil.mod.Path.Wrap("CalcMetaProgressRatio", function (base, run)
+    local ratio = base(run)
+    if ratio and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local targetMetaRewardsRatio = (run.TargetMetaRewardsRatio or run.CurrentRoom.TargetMetaRewardsRatio or run.Hero.TargetMetaRewardsRatio)
+        local minorRunProgressChance = targetMetaRewardsRatio
+        minorRunProgressChance = minorRunProgressChance + (run.Hero.TargetMetaRewardsAdjustSpeed * (targetMetaRewardsRatio - ratio))
+        if minorRunProgressChance > 0.8 then
+            return nil
+        end
+    end
+    return ratio
 end)

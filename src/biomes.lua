@@ -209,7 +209,7 @@ function mod.ConnectEndBossToBiome(BountyRunData, currentRoomName)
         else
             game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
         end
-        print("Boss to biome", nextRoomIntro)
+        print(currentRoomName, "Boss to biome", nextRoomIntro)
         return nextRoomIntro
     end
 end
