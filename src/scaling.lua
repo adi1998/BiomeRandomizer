@@ -4,6 +4,7 @@ mod.ScaledEnemySets = {
     },
     G = {
         "BiomeG",
+        "CocoonSpawnsEasy_G",
     },
     H = {
         "BiomeH",
@@ -71,6 +72,8 @@ mod.ScaledMiniBosses = {
         "Jellyfish",
 
         "CrawlerMiniboss",
+        "Crawler_Shadow",
+        "ThiefMineLayer_Elite",
     },
     H = {
         "Vampire",
@@ -86,6 +89,7 @@ mod.ScaledMiniBosses = {
     I = {
         "SatyrRatCatcher_Miniboss",
         "SatyrLancer_Shadow",
+        "Crawler",
 
         "GoldElemental_MiniBoss",
         "GoldElemental_Shadow",
@@ -147,6 +151,8 @@ mod.ScaledMiniBosses = {
     },
     Elysium = {
         "FlurrySpawnerElite",
+
+        "ShadeNaked",
     },
     Styx = {
         "SatyrRangedMiniboss",
@@ -168,6 +174,8 @@ mod.ScaledBosses = {
         "SirenDrummer",
         "SirenKeytarist",
         "Charybdis_ScyllaFight",
+        "CharybdisTentacle2",
+        "FloodTrap"
     },
     H = {
         "InfestedCerberus",
