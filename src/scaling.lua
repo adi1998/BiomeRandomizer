@@ -307,9 +307,9 @@ end
 modutil.mod.Path.Wrap("DamageHero", function (base, victim, triggerArgs)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local attacker = (triggerArgs or {}).AttackerTable or {}
-        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
         local currentBiome = route[game.CurrentRun.ClearedBiomes]
-        if mod.EnemyBiomeMap[attacker.Name or "Unknown"] then
+        if currentBiome and mod.EnemyBiomeMap[attacker.Name or "Unknown"] then
             local attackerName = attacker.Name or "Unknown"
             local attackerBiome = mod.EnemyBiomeMap[attackerName]
             print("Attacker name:", attackerName)
@@ -334,9 +334,9 @@ end)
 modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
     base(unit, currentRun, args)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
-        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
         local currentBiome = route[game.CurrentRun.ClearedBiomes]
-        if mod.EnemyBiomeMap[unit.Name or "Unknown"] then
+        if currentBiome and mod.EnemyBiomeMap[unit.Name or "Unknown"] then
             local unitName = unit.Name or "Unknown"
             local unitBiome = mod.EnemyBiomeMap[unitName]
             if mod.IsUnitMenace(currentBiome, unitBiome) then

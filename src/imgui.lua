@@ -68,13 +68,15 @@ function DrawMenu()
             rom.ImGui.Text("Biome "..tostring(i)..":")
             rom.ImGui.SameLine()
             if rom.ImGui.BeginCombo("###biome"..tostring(i), mod.BiomeData[config.custom_order[tostring(i)]].Name) then
-                for biome, _ in pairs(mod.BiomeData) do
-                    if rom.ImGui.Selectable(mod.BiomeData[biome].Name, (biome == config.custom_order[tostring(i)])) then
-                        if biome ~= previousConfig.custom_order[tostring(i)] then
-                            config.custom_order[tostring(i)] = biome
-                            previousConfig.custom_order[tostring(i)] = biome
+                for biome, biomeData in pairs(mod.BiomeData) do
+                    if game.IsGameStateEligible(biomeData, biomeData.GameStateRequirements) then
+                        if rom.ImGui.Selectable(biomeData.Name, (biome == config.custom_order[tostring(i)])) then
+                            if biome ~= previousConfig.custom_order[tostring(i)] then
+                                config.custom_order[tostring(i)] = biome
+                                previousConfig.custom_order[tostring(i)] = biome
+                            end
+                            rom.ImGui.SetItemDefaultFocus()
                         end
-                        rom.ImGui.SetItemDefaultFocus()
                     end
                 end
                 rom.ImGui.EndCombo()

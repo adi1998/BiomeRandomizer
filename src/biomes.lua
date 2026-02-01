@@ -145,7 +145,9 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Styx",
             GameStateRequirements =
             {
-                PathTrue = { "GameState", "TextLinesRecord", "PersephoneFirstMeeting" }
+                {
+                    PathTrue = { "GameState", "TextLinesRecord", "PersephoneFirstMeeting" }
+                },
             },
             Encounters = game.BountyData.ModsNikkelMHadesBiomesHadesEncounters.Encounters,
         },
@@ -161,6 +163,7 @@ function mod.GenerateRoute()
                 table.insert(route, config.custom_order[tostring(i)])
             end
         else
+            print("Invalid custom route, using default route instead.")
             for i = 1, config.run_length do
                 table.insert(route, defaultRoute[i])
             end

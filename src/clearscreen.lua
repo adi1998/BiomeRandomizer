@@ -56,7 +56,8 @@ local killPresentaionWrapList = {
 for _, killPresFunc in ipairs(killPresentaionWrapList) do
     modutil.mod.Path.Wrap(killPresFunc, function (base, unit, args)
         base(unit, args)
-        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and route and #route > 1 then
             game.OpenRunClearScreen()
         end
     end)
@@ -64,7 +65,8 @@ end
 
 modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
     base(unit, args)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and route and #route > 1 then
         game.wait(0.5)
         game.OpenRunClearScreen()
     end
@@ -73,7 +75,7 @@ end)
 modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local qReached = game.CurrentRun.BiomesReached.Q
-        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or { "F" }
         local lastBiome = route[#route]
         if game.Contains({"F", "G", "H", "I"}, lastBiome) then
             game.CurrentRun.BiomesReached.Q = nil
@@ -96,19 +98,19 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
             "HadesCrawlerMiniBoss",
             "Hades"
         }
-
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and
-                #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 and not game.Contains(blockedUnits, unit.Name) then
+                route and #route > 1 and not game.Contains(blockedUnits, unit.Name) then
 
             game.CallFunctionName("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen")
         end
     end)
 
-    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen", function (base)
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen", function (base, ...)
         if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.IsCurrentEncounterLast() then
             return
         end
 
-        base()
+        base(...)
     end)
 end
