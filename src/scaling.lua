@@ -303,9 +303,9 @@ end
 
 mod.DamageScaling = {
     1.0,
-    1.5,
-    2.2,
-    3.0,
+    1.8,
+    2.5,
+    3.5,
 }
 
 function mod.ScaleDamage(damage, attackerBiome)
