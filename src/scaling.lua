@@ -175,7 +175,8 @@ mod.ScaledBosses = {
         "SirenKeytarist",
         "Charybdis_ScyllaFight",
         "CharybdisTentacle2",
-        "FloodTrap"
+        "FloodTrap",
+        "Jellyfish_Scylla",
     },
     H = {
         "InfestedCerberus",
@@ -198,6 +199,8 @@ mod.ScaledBosses = {
     },
     N = {
         "Polyphemus",
+        "Medea",
+        "ZombieHeavyRanged_EM",
     },
     O = {
         "Eris",
