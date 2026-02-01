@@ -65,9 +65,26 @@ end
 modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
     base(unit, args)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and #game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] > 1 then
-        game.wait(0.3)
+        game.wait(0.5)
         game.OpenRunClearScreen()
     end
+end)
+
+modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local qReached = game.CurrentRun.BiomesReached.Q
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        local lastBiome = route[#route]
+        if game.Contains({"F", "G", "H", "I"}, lastBiome) then
+            game.CurrentRun.BiomesReached.Q = nil
+        elseif game.Contains({"N", "O", "P", "Q"}, lastBiome) then
+            game.CurrentRun.BiomesReached.Q = true
+        end
+        base()
+        game.CurrentRun.BiomesReached.Q = qReached
+        return
+    end
+    base()
 end)
 
 if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then

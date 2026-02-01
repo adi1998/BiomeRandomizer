@@ -76,6 +76,9 @@ mod.ScaledMiniBosses = {
         "Vampire",
         "Mourner_Shadow",
 
+        "Treant2",
+        "TreantTail2",
+
         "Lamia_Miniboss",
         "Lovesick_Shadow",
         "Lamia_Support",
@@ -93,6 +96,9 @@ mod.ScaledMiniBosses = {
 
         "Boar",
         "Boar_Shadow",
+
+        "MudmanEye",
+        "Zombie_Passive"
     },
     O = {
         "Charybdis",
