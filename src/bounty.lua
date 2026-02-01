@@ -183,3 +183,19 @@ bountyAPI.RegisterBounty({
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
 table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
+
+function mod.UpdateRandomBountyOrder(bountyName)
+    local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
+    -- print(mod.dump(bountyOrder))
+    local randomBountyIndex = game.GetIndex(bountyOrder, bountyName)
+    if randomBountyIndex ~= 0 then
+        for i = randomBountyIndex, 2, -1 do
+            bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
+        end
+    end
+    -- print(mod.dump(bountyOrder))
+end
+
+for index, bountyName in ipairs(mod.RegisteredBounties) do
+    mod.UpdateRandomBountyOrder(bountyName)
+end

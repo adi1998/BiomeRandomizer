@@ -98,32 +98,6 @@ modutil.mod.Path.Wrap("OlympusChronosPortalExitPresentation", function (base, cu
     end
 end)
 
-function mod.ResetClearScreenData()
-    game.LoadPackages({Name = _PLUGIN.guid})
-
-    for index = 1, 4 do
-        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
-    end
-    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
-    game.ScreenData.RunClear.ComponentData.Order = {
-        "BackgroundDim",
-        "VictoryBackground",
-        "ActionBarBackground",
-        "StatsBacking",
-        "BadgeRankIcon",
-    }
-end
-
-modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
-    mod.ResetClearScreenData()
-    return base(...)
-end)
-
-modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
-    mod.ResetClearScreenData()
-    return base(...)
-end)
-
 modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
@@ -137,102 +111,6 @@ modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     end
     return base()
 end)
-
-function mod.UpdateRandomBountyOrder(bountyName)
-    local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
-    -- print(mod.dump(bountyOrder))
-    local randomBountyIndex = game.GetIndex(bountyOrder, bountyName)
-    if randomBountyIndex ~= 0 then
-        for i = randomBountyIndex, 2, -1 do
-            bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
-        end
-    end
-    -- print(mod.dump(bountyOrder))
-end
-
-for index, bountyName in ipairs(mod.RegisteredBounties) do
-    mod.UpdateRandomBountyOrder(bountyName)
-end
-
-function mod.SpawnShopItemsEarly()
-    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.ClearedBiomes then
-        local hermesTraits = {}
-        for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
-            if trait.OnExpire and trait.OnExpire.SpawnShopItem then
-                table.insert( hermesTraits, trait )
-            end
-        end
-        for _, trait in pairs( hermesTraits ) do
-		    game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
-        end
-    end
-end
-
-for biome, biomeData  in pairs(mod.BiomeData) do
-    local preBossRoom = biomeData.PreBoss
-    if preBossRoom then
-        if type(preBossRoom) == "string" then
-            game.RoomSetData[biome][preBossRoom].StartThreadedEvents = game.RoomSetData[biome][preBossRoom].StartThreadedEvents or {}
-            table.insert( game.RoomSetData[biome][preBossRoom].StartThreadedEvents,
-            {
-                FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
-            })
-        else
-            for index, value in ipairs(preBossRoom) do
-                game.RoomSetData[biome][value].StartThreadedEvents = game.RoomSetData[biome][value].StartThreadedEvents or {}
-                table.insert( game.RoomSetData[biome][value].StartThreadedEvents,
-                {
-                    FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
-                })
-            end
-        end
-    end
-end
-
-function mod.CheckPathEquality(path1, path2)
-    local flatPath1 = ""
-    local flatPath2 = ""
-    for key, value in pairs(path1) do
-        flatPath1 = flatPath1 .. "." .. tostring(value)
-    end
-    for key, value in pairs(path2) do
-        flatPath2 = flatPath2 .. "." .. tostring(value)
-    end
-    return flatPath1 == flatPath2
-end
-
-function mod.UpdateRoomStartMusicEvents()
-    for musicEventIndex, musicEvent in ipairs(game.RoomStartMusicEvents) do
-        for requireIndex, requirement in ipairs(musicEvent.GameStateRequirements) do
-            if requirement.PathTrue and mod.CheckPathEquality(requirement.PathTrue, { "CurrentRun", "BiomesReached", "F" }) then
-                musicEvent.GameStateRequirements[requireIndex] =
-                {
-					Path = { "CurrentRun", "BiomesReached" },
-					HasAny = { "F", "G", "H", "I", },
-				}
-                table.insert(musicEvent.GameStateRequirements, {
-                    Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = { "F", "G", "H", "I", },
-                })
-            end
-            if requirement.PathTrue and mod.CheckPathEquality(requirement.PathTrue, { "CurrentRun", "BiomesReached", "N" }) then
-                musicEvent.GameStateRequirements[requireIndex] =
-                {
-					Path = { "CurrentRun", "BiomesReached" },
-					HasAny = { "N", "O", "P", "Q", },
-				}
-                table.insert(musicEvent.GameStateRequirements, {
-                    Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = { "N", "O", "P", "Q", "N_SubRooms", },
-                })
-            end
-        end
-    end
-    -- print(mod.dump(game.RoomStartMusicEvents))
-end
-
-mod.UpdateRoomStartMusicEvents()
 
 modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
     args = args or {}

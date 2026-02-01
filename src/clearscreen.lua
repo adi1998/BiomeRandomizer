@@ -45,6 +45,35 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
     base(currentRoom)
 end)
 
+-- resetting clearscreen data in hub
+function mod.ResetClearScreenData()
+    game.LoadPackages({Name = _PLUGIN.guid})
+
+    for index = 1, 6 do
+        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+    end
+    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
+    game.ScreenData.RunClear.ComponentData.Order =
+    {
+        "BackgroundDim",
+        "VictoryBackground",
+        "ActionBarBackground",
+        "StatsBacking",
+        "BadgeRankIcon",
+    }
+end
+
+modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
+    mod.ResetClearScreenData()
+    return base(...)
+end)
+
+modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
+    mod.ResetClearScreenData()
+    return base(...)
+end)
+
+-- arbitrary final boss clear screen
 local killPresentaionWrapList = {
     "HecateKillPresentation",
     "ScyllaKillPresentation",

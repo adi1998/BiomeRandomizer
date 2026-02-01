@@ -52,6 +52,8 @@ local function on_ready()
     import 'biomes.lua'
     import 'bounty.lua'
     import 'ready.lua'
+    import 'shop.lua'
+    import 'music.lua'
     import 'scaling.lua'
     import 'clearscreen.lua'
     import 'imgui.lua'
