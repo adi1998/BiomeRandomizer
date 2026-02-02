@@ -156,6 +156,7 @@ mod.ScaledMiniBosses = {
         "FlurrySpawnerElite",
 
         "ShadeNaked",
+        "ShadeNakedElite",
     },
     Styx = {
         "SatyrRangedMiniboss",
@@ -277,6 +278,7 @@ mod.ScaledBosses = {
         "CerberusAssistUnit",
         "ModsNikkelMHadesBiomesHadesTombstone",
         "HadesAmmo",
+        "ShadeNakedSuperElite",
     }
 }
 
