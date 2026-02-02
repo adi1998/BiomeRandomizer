@@ -5,7 +5,8 @@
 - configure run length
 - configure starting depth
 - configure a custom route
-- scale enemies for custom route
+- new option for true biome randomizer
+- scale enemies for true randomizer
 
 ## [0.1.0] - 2026-01-25
 

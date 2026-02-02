@@ -36,7 +36,8 @@ Set your own run length and starting depth. Starting depth only available for no
 ![Run legnth](images/depth.png) ![run start](images/start.png)
 
 ### [BETA] True randomizer
-Enable this to get a truly random biome order. The enemy health/damage scaling for this mode is not yet perfect but it's definitely playable :).
+Enable this to get a truly random biome order. The enemy health/damage scaling for this mode is not yet perfect but it's definitely playable :).<br>
+Note: Starting depth is irrelevant with this option.
 
 ![True random](images/true_random.png)
 
