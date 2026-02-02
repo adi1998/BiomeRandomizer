@@ -1,9 +1,9 @@
-## [BETA] Biome Randomizer
+## Biome Randomizer
 
-Adds 4 new Chaos Trials which let's you traverse the biomes in a random order. Each biome is selected based on the number of bosses defeated so the biomes appear in their respective order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
+Adds new Chaos Trials which let's you traverse the biomes in a random order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
-- Similar to a vanilla run except the biomes will be randomized. Your current equipped loadout will used.
+- Similar to a vanilla run except the biomes will be randomized. Your currently equipped loadout will used.
 
 ### Chaos Everywhere
 - Similar to Chaos Above/Below but with random biomes and with your current Fear instead of 0 Fear.
@@ -21,6 +21,31 @@ Note:
 | ![Trial Menu](images/trialmenu.png) |
 |-|
 
+## Configuration
+
+Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT).
+
+### Default Config
+Each biome is selected based on the number of bosses defeated so they appear in their respective order.
+
+![Default Config](images/default.png)
+
+### Run length and Starting depth
+Set your own run length and starting depth. Starting depth only available for non-custom routes.
+
+![Run legnth](images/depth.png) ![run start](images/start.png)
+
+### [BETA] True randomizer
+Enable this to get a truly random biome order. The enemy health/damage scaling for this mode is not yet perfect but it's definitely playable :).<br>
+Note: Starting depth is irrelevant with this option.
+
+![True random](images/true_random.png)
+
+### Custom order
+Enable this to set your own biome order. Duplicate biomes are not supported.
+
+![Custom Order](images/custom.png)
+
 ## Installation
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
@@ -33,4 +58,4 @@ While the mod has been tested decently well, there can still be some untested co
 
 ## Issues and feedback
 
-Report any issues or feedback [here](https://github.com/adi1998/BlinkTrail/issues) or on [Hades Modding Discord](https://discord.gg/bKvJTAJj)
+Report any issues or feedback [here](https://github.com/adi1998/BiomeRandomizer/issues) or on [Hades Modding Discord](https://discord.gg/bKvJTAJj)

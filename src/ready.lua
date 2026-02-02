@@ -1,37 +1,18 @@
 function mod.dump(o, depth)
-   depth = depth or 0
-   if type(o) == 'table' then
-      local s = "\n" .. string.rep("\t", depth) .. '{\n'
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. string.rep("\t",(depth+1)) .. '['..k..'] = ' .. mod.dump(v, depth + 1) .. ',\n'
-      end
-      return s .. string.rep("\t", depth) .. '}'
-   else
-      return tostring(o)
-   end
+    depth = depth or 0
+    if type(o) == 'table' then
+        local s = "\n" .. string.rep("\t", depth) .. '{\n'
+        for k,v in pairs(o) do
+            if type(k) ~= 'number' then k = '"'..k..'"' end
+            s = s .. string.rep("\t",(depth+1)) .. '['..k..'] = ' .. mod.dump(v, depth + 1) .. ',\n'
+        end
+        return s .. string.rep("\t", depth) .. '}'
+    elseif type(o) == "string" then
+        return "\"" .. o .. "\""
+    else
+        return tostring(o)
+    end
 end
-
-local function prefix(key)
-    return "Siuhnexus-BountyAPI_" .. key
-end
-
-mod.RandomPostBossSets = {
-    {"F_PostBoss01", "N_PostBoss01"},
-    {"G_PostBoss01", "O_PostBoss01"},
-    {"H_PostBoss01", "P_PostBoss01"}
-}
-
-mod.RandomIntroSets = {
-    {"G_Intro", "O_Intro"},
-    {"H_Intro", "P_Intro"},
-    {"I_Intro", "Q_Intro"},
-}
-
-mod.RandomStartingBiomeSet = {
-    "F",
-    "N",
-}
 
 mod.EndBossEncounterMap = {
     ["I_Boss01"] = game.BountyData.ChronosEncounters.Encounters,
@@ -40,328 +21,52 @@ mod.EndBossEncounterMap = {
     ["D_Boss01"] = { "BossHades" },
 }
 
-local zagPostBoss = {
-    "A_PostBoss01",
-    "X_PostBoss01",
-    "Y_PostBoss01",
-}
-
-local zagIntro = {
+mod.ZagIntro = {
+    "RoomOpening",
     "X_Intro",
     "Y_Intro",
     "D_Intro"
 }
 
-local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
-
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled == true then
-    bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
-    table.insert(mod.RandomStartingBiomeSet, "Tartarus")
-    for i = 1, 3 do
-        table.insert(mod.RandomPostBossSets[i], zagPostBoss[i])
-        table.insert(mod.RandomIntroSets[i], zagIntro[i])
+function mod.ParseIntro(intro)
+    if type(intro) == "table" then
+        return intro[math.random(#intro)]
     end
+    return intro
 end
 
-function mod.GetNextRandomBiomeIntro(currentRoomName)
-    for i = 1, 3 do
-        if game.Contains(mod.RandomPostBossSets[i], currentRoomName) then
-            local introSet = mod.RandomIntroSets[i]
-            -- only allow styx after one H1 clear
-            if (not game.GameState.TextLinesRecord["PersephoneFirstMeeting"]) and i == 3 then
-                introSet = {"I_Intro", "Q_Intro"}
-            end
-            print("intro set", mod.dump(introSet))
-            return introSet[math.random(#introSet)]
-        end
+function mod.CheckPostBoss(postboss, currentRoomName)
+    if type(postboss) == "string" then
+        return postboss == currentRoomName
     end
-    return nil
+    if type(postboss) == "table" then
+        return game.Contains(postboss, currentRoomName)
+    end
+    return false
 end
-
-local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
-RandomBountyName = prefix(randomBountyId)
-
-mod.RegisteredBounties = {}
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId,
-    Title = "Random Biomes Run",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 2,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        RunOverrides = "nil",
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName)
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "Chaos",
-    Title = "Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, not including your {#ShrineHighlightFormat}{$GameState.SpentShrinePointsCache}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of currently selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 3,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 1,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "Chaos")
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "GreatChaos",
-    Title = "Great Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.PackageBountyRandomUnderworld_Difficulty2.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 4,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 2,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomShrineUpgradePointTotal = 20,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreatChaos")
-
-bountyAPI.RegisterBounty({
-    Id = randomBountyId .. "GreaterChaos",
-    Title = "Greater Chaos Everywhere",
-    Description = "Fight your way through {#ShrineHighlightFormat}4 {#Prev}random {#BoldFormatGraft}{$Keywords.BiomePlural} {#Prev} with a {#BoldFormatGraft}random loadout{#Prev}, including {#ShrineHighlightFormat}{$BountyData.Siuhnexus-BountyAPI_zerp-BiomeRandomizerRandomBiomeRunGreaterChaos.RandomShrineUpgradePointTotal}{#Prev}{!Icons.ShrinePointNoTooltip} {#Emph}Fear {#Prev}of randomly selected {#Emph}Vows{#Prev}. Each {#BoldFormatGraft}{$Keywords.Biome} {#Prev}will be selected based on the number of {#BoldFormatGraft}{$Keywords.BossPlural} {#Prev}defeated.",
-    Difficulty = 5,
-    IsStandardBounty = false,
-    BiomeChar = "F",
-    BaseData = {
-		BiomeIcon = bountyIcon,
-		BiomeText = "Random Start",
-        UnlockGameStateRequirements = {
-            {
-                PathTrue = { "GameState", "ReachedTrueEnding" },
-            }
-        },
-        LootOptions =
-		{
-			{
-				Name = "WeaponPointsRareDrop",
-				Overrides =
-				{
-					CanDuplicate = false,
-					AddResources =
-					{
-						WeaponPointsRare = 3,
-					},
-				}
-			},
-		},
-        RunOverrides = "nil",
-        RandomMetaUpgradeCostTotal = 30,
-        RandomShrineUpgradePointTotal = 32,
-        RandomWeaponKitNames = {  "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
-		UseRandomWeaponUpgrade = true,
-		RandomFamiliarNames = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar", },
-        RandomKeepsakeNames =
-		{
-			"ManaOverTimeRefundKeepsake",
-			"BossPreDamageKeepsake",
-			"ReincarnationKeepsake",
-			"DoorHealReserveKeepsake",
-			"DeathVengeanceKeepsake",
-			"BlockDeathKeepsake",
-			"EscalatingKeepsake",
-			"BonusMoneyKeepsake",
-			"TimedBuffKeepsake",
-			"LowHealthCritKeepsake",
-			"SpellTalentKeepsake",
-			"ForceZeusBoonKeepsake",
-			"ForceHeraBoonKeepsake",
-			"ForcePoseidonBoonKeepsake",
-			"ForceDemeterBoonKeepsake",
-			"ForceApolloBoonKeepsake",
-			"ForceAphroditeBoonKeepsake",
-			"ForceHephaestusBoonKeepsake",
-			"ForceHestiaBoonKeepsake",
-			"ForceAresBoonKeepsake",
-			"AthenaEncounterKeepsake",
-			"SkipEncounterKeepsake",
-			"ArmorGainKeepsake",
-			"FountainRarityKeepsake",
-			"UnpickedBoonKeepsake",
-			"DecayingBoostKeepsake",
-			"DamagedDamageBoostKeepsake",
-			"BossMetaUpgradeKeepsake",
-			"TempHammerKeepsake",
-			"RandomBlessingKeepsake",
-		},
-		RandomFatedKeepsakeNames =
-		{
-			"RarifyKeepsake",
-			"HadesAndPersephoneKeepsake",
-			"GoldifyKeepsake",
-		},
-        ModsNikkelMHadesBiomesForceRunClearScreen = true
-    },
-})
-
-table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
-table.insert(game.GameData.AllRandomPackagedBounties, RandomBountyName .. "GreaterChaos")
 
 modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, otherDoors)
     if currentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, currentRun.ActiveBounty) then
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
-        local nextRandomBiomeIntro = mod.GetNextRandomBiomeIntro(currentRoom.Name)
-        if nextRandomBiomeIntro then
-            print("Post boss room:", currentRoom.Name)
-            print("Next intro room:", nextRandomBiomeIntro)
-            args.ForceNextRoom = mod.testnextroom or nextRandomBiomeIntro
-
-            if game.Contains(zagIntro, nextRandomBiomeIntro) then
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        -- print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
+        -- print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
+        if route and route[game.CurrentRun.ClearedBiomes] and mod.CheckPostBoss( mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss, currentRoom.Name ) then
+            local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
+            local nextBiomeData = mod.BiomeData[nextBiome]
+            local nextRoomIntro = mod.ParseIntro(nextBiomeData.Intro)
+            args.ForceNextRoom = nextRoomIntro
+            if game.Contains(mod.ZagIntro, nextRoomIntro) then
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
             else
                 game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
             end
+        end
+        if currentRoom.ExitFunctionName == "EndEarlyAccessPresentation" or
+                currentRoom.ExitFunctionName == "NikkelM-Zagreus_Journey" .. "." .. "CheckRunEndPresentation" then
+            currentRoom.ExitFunctionName = "nil"
+            currentRoom.SkipLoadNextMap = false
         end
         local nextRoomData = base(currentRun, args, otherDoors)
         if currentRoom.Name == "F_PostBoss01" and args.ForceNextRoom == "O_Intro" then
@@ -373,126 +78,97 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
     return base(currentRun, args, otherDoors)
 end)
 
-function mod.ResetClearScreenData()
-    game.LoadPackages({Name = _PLUGIN.guid})
-
-    for index = 1, 4 do
-        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+modutil.mod.Path.Wrap("OlympusSkyExitPresentation", function (base, currentRun, exitDoor)
+    base(currentRun, exitDoor)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and
+            game.CurrentRun.CurrentRoom and game.CurrentRun.CurrentRoom.Name == "P_PostBoss01" and
+            exitDoor.Room.Name ~= "Q_Intro" then
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionNameOverride = nil
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionArgsOverride = nil
     end
-    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
-    game.ScreenData.RunClear.ComponentData.Order = {
-        "BackgroundDim",
-        "VictoryBackground",
-        "ActionBarBackground",
-        "StatsBacking",
-        "BadgeRankIcon",
-    }
-
-    for _, randomBountyName in ipairs(mod.RegisteredBounties) do
-        game.BountyData[randomBountyName].StartingBiome = mod.RandomStartingBiomeSet[math.random(#mod.RandomStartingBiomeSet)]
-        print(randomBountyName, "Random start:", game.BountyData[randomBountyName].StartingBiome)
-    end
-end
-
-modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
-    mod.ResetClearScreenData()
-    return base(...)
 end)
 
-modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
-    mod.ResetClearScreenData()
-    return base(...)
+modutil.mod.Path.Wrap("OlympusChronosPortalExitPresentation", function (base, currentRun, exitDoor)
+    base(currentRun, exitDoor)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and
+            game.CurrentRun.CurrentRoom and game.CurrentRun.CurrentRoom.Name == "P_PostBoss01" and
+            exitDoor.Room.Name ~= "Q_Intro" then
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionNameOverride = nil
+        game.CurrentRun.CurrentRoom.NextRoomEntranceFunctionArgsOverride = nil
+    end
 end)
 
 modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
-        print("overriding encounters data for boss room", currentRoom.Name)
-        if currentRoom and currentRoom.Name and mod.EndBossEncounterMap[currentRoom.Name] then
-            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.EndBossEncounterMap[currentRoom.Name]
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if route and game.CurrentRun.ClearedBiomes == #route then
+            print("overriding encounters data for boss room", currentRoom.Name)
+            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.BiomeData[route[#route]].Encounters
+        else
+            game.BountyData[game.CurrentRun.ActiveBounty].Encounters = {}
         end
     end
     return base()
 end)
 
-function mod.UpdateRandomBountyOrder(bountyName)
-    local bountyOrder = game.ScreenData.BountyBoard.ItemCategories[1]
-    -- print(mod.dump(bountyOrder))
-    local randomBountyIndex = game.GetIndex(bountyOrder, bountyName)
-    if randomBountyIndex ~= 0 then
-        for i = randomBountyIndex, 2, -1 do
-            bountyOrder[i], bountyOrder[i-1] = bountyOrder[i-1], bountyOrder[i]
+modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
+    args = args or {}
+    if game.Contains(mod.RegisteredBounties, args.ActiveBounty) then
+        game.CurrentRun = {}
+        local route = mod.GenerateRoute()
+        if route and #route > 0 then
+            args.StartingBiome = route[1]
+            args.RoomName = mod.ParseIntro(mod.BiomeData[args.StartingBiome].Intro)
+            local currentRun = base(prevRun, args)
+            currentRun[_PLUGIN.guid .. "GeneratedRoute"] = route
+            if args.StartingBiome == "Q" then
+                -- setting depth cache to 1 for starting at Q to ensure a room is found.
+                currentRun.BiomeDepthCache = 1
+            end
+            if game.Contains(mod.ZagIntro, args.RoomName) then
+                currentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+            end
+            return currentRun
         end
     end
-    -- print(mod.dump(bountyOrder))
-end
+    return base(prevRun,args)
+end)
 
-for index, bountyName in ipairs(mod.RegisteredBounties) do
-    mod.UpdateRandomBountyOrder(bountyName)
-end
-
--- spawn hermes rewards before chronos fight
--- no styx as it would require a minimum of two paths anyway
-local preFinalBossSet = {
-    "I_PreBoss02",
-    "I_PreBoss01",
-}
-
-function mod.SpawnShopItemsEarly()
-	for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
-		if trait.OnExpire and trait.OnExpire.SpawnShopItem then
-		    game.RemoveTraitData( game.CurrentRun.Hero, trait, { Silent = true })
-		end
-	end
-end
-
-for _, value in ipairs(preFinalBossSet) do
-    game.RoomSetData.I[value].StartThreadedEvents = game.RoomSetData.I[value].StartThreadedEvents or {}
-    table.insert( game.RoomSetData.I[value].StartThreadedEvents, {
-        FunctionName = _PLUGIN.guid .. "." .. "SpawnShopItemsEarly"
-    })
-end
-
-function mod.CheckPathEquality(path1, path2)
-    local flatPath1 = ""
-    local flatPath2 = ""
-    for key, value in pairs(path1) do
-        flatPath1 = flatPath1 .. "." .. tostring(value)
+modutil.mod.Path.Wrap("CreateRoom", function (base, roomData, args)
+    args = args or {}
+    if game.CurrentRun and roomData.Name and game.Contains(mod.ZagIntro, roomData.Name) and game.Contains(mod.RegisteredBounties, args.ActiveBounty) then
+        game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
     end
-    for key, value in pairs(path2) do
-        flatPath2 = flatPath2 .. "." .. tostring(value)
-    end
-    return flatPath1 == flatPath2
-end
+    return base(roomData, args)
+end)
 
-function mod.UpdateRoomStartMusicEvents()
-    for musicEventIndex, musicEvent in ipairs(game.RoomStartMusicEvents) do
-        for requireIndex, requirement in ipairs(musicEvent.GameStateRequirements) do
-            if requirement.PathTrue and mod.CheckPathEquality(requirement.PathTrue, { "CurrentRun", "BiomesReached", "F" }) then
-                musicEvent.GameStateRequirements[requireIndex] =
-                {
-					Path = { "CurrentRun", "BiomesReached" },
-					HasAny = { "F", "G", "H", "I", },
-				}
-                table.insert(musicEvent.GameStateRequirements, {
-                    Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = { "F", "G", "H", "I", },
-                })
+modutil.mod.Path.Wrap("GetBiomeDepth", function (base, currentRun)
+    local basedepth = base(currentRun)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local depth = 1
+
+        for roomIndex = #currentRun.RoomHistory, 1, -1 do
+            local room = currentRun.RoomHistory[roomIndex]
+            if mod.EndBossEncounterMap[room.Name] ~= nil then
+                break
             end
-            if requirement.PathTrue and mod.CheckPathEquality(requirement.PathTrue, { "CurrentRun", "BiomesReached", "N" }) then
-                musicEvent.GameStateRequirements[requireIndex] =
-                {
-					Path = { "CurrentRun", "BiomesReached" },
-					HasAny = { "N", "O", "P", "Q", },
-				}
-                table.insert(musicEvent.GameStateRequirements, {
-                    Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-                    IsAny = { "N", "O", "P", "Q", "N_SubRooms", },
-                })
-            end
+            depth = depth + 1
+        end
+        return math.min(depth,basedepth)
+    end
+    return basedepth
+end)
+
+modutil.mod.Path.Wrap("CalcMetaProgressRatio", function (base, run)
+    local ratio = base(run)
+    if ratio and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local targetMetaRewardsRatio = (run.TargetMetaRewardsRatio or run.CurrentRoom.TargetMetaRewardsRatio or run.Hero.TargetMetaRewardsRatio)
+        local minorRunProgressChance = targetMetaRewardsRatio
+        minorRunProgressChance = minorRunProgressChance + (run.Hero.TargetMetaRewardsAdjustSpeed * (targetMetaRewardsRatio - ratio))
+        if minorRunProgressChance > 0.8 then
+            return nil
         end
     end
-    -- print(mod.dump(game.RoomStartMusicEvents))
-end
-
-mod.UpdateRoomStartMusicEvents()
+    return ratio
+end)

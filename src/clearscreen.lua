@@ -1,63 +1,35 @@
-local biomeIconMap = {
-    F = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Erebus", Position = 1},
-    G = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus", Position = 2},
-    H = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields", Position = 3},
-    I = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Underworld", Position = 4},
-
-    N = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra", Position = 1},
-    O = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Ships", Position = 2},
-    P = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus", Position = 3},
-    Q = {Icon = "GUI\\Screens\\BountyBoard\\Biome_Surface", Position = 4},
-
-    Tartarus = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Tartarus", Position = 1},
-    Asphodel = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Asphodel", Position = 2},
-    Elysium = {Icon = "GUIModded\\Screens\\BountyBoard\\Biome_Elysium", Position = 3},
-    Styx = {Icon =  "GUIModded\\Screens\\BountyBoard\\Biome_Styx", Position = 4},
-}
-
 function mod.GetRandomBiomeIconComponents()
     local locationY = 60
     local offsetX = 70
     local gap = 100
-    local componentData = {
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - 3*gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - 2*gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX - gap,
-			Y = locationY,
-			Scale = 0.35
-		},
-        {
-			Animation = "",
-			X = game.ScreenWidth - offsetX,
-			Y = locationY,
-			Scale = 0.35
-		},
-    }
-    for biome, value in pairs(game.CurrentRun.BiomesReached) do
-        if value then
-            local iconMap = biomeIconMap[biome]
-            if iconMap then
-                componentData[iconMap.Position].Animation = iconMap.Icon
-            end
+    local componentData = {}
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
+    for position = #route, 1, -1 do
+        local biomeData = mod.BiomeData[route[position]]
+        if biomeData then
+            local component =
+            {
+                Animation = biomeData.Icon,
+                X = game.ScreenWidth - offsetX - gap*( #route - position ),
+                Y = locationY,
+                Scale = 0.35
+            }
+            table.insert(componentData, component)
         end
     end
     return componentData
 end
 
+function mod.IsCurrentEncounterLast()
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+	if route and game.CurrentRun.ClearedBiomes == #route and game.Contains( mod.BiomeData[route[#route]].Encounters, game.CurrentRun.CurrentRoom.Encounter.Name ) then
+		return true
+	end
+    return false
+end
+
 modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
-    if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.EndBossEncounterMap[currentRoom.Name] ~= nil then
+    if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
         game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
         local componentData = mod.GetRandomBiomeIconComponents()
         for index, component in ipairs(componentData) do
@@ -72,3 +44,102 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
     end
     base(currentRoom)
 end)
+
+-- resetting clearscreen data in hub
+function mod.ResetClearScreenData()
+    game.LoadPackages({Name = _PLUGIN.guid})
+
+    for index = 1, 6 do
+        game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
+    end
+    game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
+    game.ScreenData.RunClear.ComponentData.Order =
+    {
+        "BackgroundDim",
+        "VictoryBackground",
+        "ActionBarBackground",
+        "StatsBacking",
+        "BadgeRankIcon",
+    }
+end
+
+modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
+    mod.ResetClearScreenData()
+    return base(...)
+end)
+
+modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
+    mod.ResetClearScreenData()
+    return base(...)
+end)
+
+-- arbitrary final boss clear screen
+local killPresentaionWrapList = {
+    "HecateKillPresentation",
+    "ScyllaKillPresentation",
+    "InfestedCerberusKillPresentation",
+    "ErisKillPresentation",
+    "PrometheusKillPresentation"
+}
+
+for _, killPresFunc in ipairs(killPresentaionWrapList) do
+    modutil.mod.Path.Wrap(killPresFunc, function (base, unit, args)
+        base(unit, args)
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and route and #route > 1 then
+            game.OpenRunClearScreen()
+        end
+    end)
+end
+
+modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
+    base(unit, args)
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and route and #route > 1 then
+        game.wait(0.5)
+        game.OpenRunClearScreen()
+    end
+end)
+
+modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        local qReached = game.CurrentRun.BiomesReached.Q
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or { "F" }
+        local lastBiome = route[#route]
+        if game.Contains({"F", "G", "H", "I"}, lastBiome) then
+            game.CurrentRun.BiomesReached.Q = nil
+        elseif game.Contains({"N", "O", "P", "Q"}, lastBiome) then
+            game.CurrentRun.BiomesReached.Q = true
+        end
+        base()
+        game.CurrentRun.BiomesReached.Q = qReached
+        return
+    end
+    base()
+end)
+
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HarpyKillPresentation", function (base, unit, args)
+        base(unit, args)
+
+        local blockedUnits = {
+            "CrawlerMiniBoss",
+            "HadesCrawlerMiniBoss",
+            "Hades"
+        }
+        local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and
+                route and #route > 1 and not game.Contains(blockedUnits, unit.Name) then
+
+            game.CallFunctionName("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen")
+        end
+    end)
+
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen", function (base, ...)
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.IsCurrentEncounterLast() then
+            return
+        end
+
+        base(...)
+    end)
+end
