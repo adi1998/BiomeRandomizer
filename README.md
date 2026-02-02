@@ -1,9 +1,9 @@
-## [BETA] Biome Randomizer
+## Biome Randomizer
 
-Adds new Chaos Trials which let's you traverse the biomes in a random order. Each biome is selected based on the number of bosses defeated so the biomes appear in their respective order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
+Adds new Chaos Trials which let's you traverse the biomes in a random order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
-- Similar to a vanilla run except the biomes will be randomized. Your current equipped loadout will used.
+- Similar to a vanilla run except the biomes will be randomized. Your currently equipped loadout will used.
 
 ### Chaos Everywhere
 - Similar to Chaos Above/Below but with random biomes and with your current Fear instead of 0 Fear.
@@ -20,6 +20,30 @@ Note:
 
 | ![Trial Menu](images/trialmenu.png) |
 |-|
+
+## Configuration
+
+Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT).
+
+### Default Config
+Each biome is selected based on the number of bosses defeated so they appear in their respective order.
+
+![Default Config](images/default.png)
+
+### Run length and Starting depth
+Set your own run length and starting depth. Starting depth only available for non-custom routes.
+
+![Run legnth](images/depth.png) ![run start](images/start.png)
+
+### [BETA] True randomizer
+Enable this to get a truly random biome order. The enemy health/damage scaling for this mode is not yet perfect but it's definitely playable :).
+
+![True random](images/true_random.png)
+
+### Custom order
+Enable this to set your own biome order. Duplicate biomes are not supported.
+
+![Custom Order](images/custom.png)
 
 ## Installation
 
