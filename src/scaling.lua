@@ -10,6 +10,7 @@ mod.ScaledEnemySets = {
         "BiomeH",
         "BiomeHPassive",
         "BiomeHDebugSpawnScreen",
+        "BiomeB",
     },
     I = {
         "BiomeI",
@@ -218,6 +219,8 @@ mod.ScaledBosses = {
         "Prometheus",
         "Eagle",
         "Heracles",
+        "SatyrSapper_Prometheus",
+        "SatyrLancer_Prometheus",
     },
     Q = {
         "TyphonHead",
