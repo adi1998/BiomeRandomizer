@@ -53,6 +53,8 @@ mod.ScaledMiniBosses = {
     F = {
         "ZombieAssassin_Miniboss",
         "ZombieAssassin_Shadow",
+        "Wisp",
+        "Wisp_Elite",
 
         "Treant",
         "TreantTail",
@@ -90,6 +92,7 @@ mod.ScaledMiniBosses = {
         "SatyrRatCatcher_Miniboss",
         "SatyrLancer_Shadow",
         "Crawler",
+        "Crawler_Elite",
 
         "GoldElemental_MiniBoss",
         "GoldElemental_Shadow",
@@ -168,6 +171,8 @@ mod.ScaledBosses = {
         "Hecate",
         "HecateCopy",
         "HecateCopyEM",
+        "LightRanged",
+        "LightRanged_Elite",
     },
     G = {
         "Scylla",
@@ -196,6 +201,7 @@ mod.ScaledBosses = {
         "Lamia_SuperElite",
         "ClockworkHeavyMelee_SuperElite",
         "SatyrRatCatcher_SuperElite",
+        "Wringer",
     },
     N = {
         "Polyphemus",
@@ -205,6 +211,7 @@ mod.ScaledBosses = {
     O = {
         "Eris",
         "GunBombUnit",
+        "Jellyfish_Elite",
     },
     P = {
         "Prometheus",
@@ -268,6 +275,8 @@ mod.ScaledBosses = {
     Styx = {
         "Hades",
         "CerberusAssistUnit",
+        "ModsNikkelMHadesBiomesHadesTombstone",
+        "HadesAmmo",
     }
 }
 
