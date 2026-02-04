@@ -65,6 +65,7 @@ end
 
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
     mod.ResetClearScreenData()
+    mod.ObstacleTest()
     return base(...)
 end)
 
