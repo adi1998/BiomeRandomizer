@@ -172,3 +172,13 @@ modutil.mod.Path.Wrap("CalcMetaProgressRatio", function (base, run)
     end
     return ratio
 end)
+
+modutil.mod.Path.Wrap("ChronosKillPresentation", function (base, ...)
+    game.thread(mod.ObstacleTest2)
+    base(...)
+end)
+
+modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
+    game.thread(mod.ObstacleTest3)
+    base(...)
+end)
