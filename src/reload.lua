@@ -8,15 +8,15 @@ end})
 
 mod.ShopTypes = {
     Well = {
-        Animation = "WellShopUnlocked",
+        Animation = "WellShopLocked",
         ObstacleName = "WellShop",
     },
     Surface = {
-        Animation = "SurfaceShopUnlocked",
+        Animation = "SurfaceShopLocked",
         ObstacleName = "SurfaceShop",
     },
     SellTrait = {
-        Animation = "SellTraitShopUnlocked",
+        Animation = "SellTraitShopLocked",
         ObstacleName = "SellTraitShop"
     }
 }
@@ -58,18 +58,19 @@ function mod.SpawnShop(destId, offsetX, offsetY, shopType, flipped)
     shopType = shopType or "Well"
     local shopData = mod.ShopTypes[shopType] or mod.ShopTypes.Well
     local shop = game.DeepCopyTable(game.ObstacleData[shopData.ObstacleName])
+
     shop.ObjectId = game.SpawnObstacle({Name="ChallengeSwitchBase", DestinationId=destId, OffsetY=offsetY, OffsetX = offsetX, Group = "Standing"})
     game.SetupObstacle(shop)
-    shop.UseText = shop.AvailableUseText
-    shop.OnUsedFunctionName = shop.ChallengeSwitchUseFunctionName
-    shop.ReadyToUse = true
-    game.CurrentRun.CurrentRoom.Store = nil
+    shop.ReadyToUse = false
     game.RefreshUseButton( shop.ObjectId, shop )
     game.SetAnimation({ Name = shopData.Animation, DestinationId = shop.ObjectId })
     game.UseableOn({ Id = shop.ObjectId })
+
     if flipped then
         game.FlipHorizontal({Id = shop.ObjectId})
     end
+
+    game.CurrentRun.CurrentRoom[shopData.ObstacleName] = shop
 
     table.insert(Ids, shop.ObjectId)
 end
@@ -84,13 +85,15 @@ function mod.SpawnPostChronosRestSpot()
     offsetX = offsetX + 180
     mod.SpawnGiftRack(destId, offsetX, offsetY)
 
-    offsetY = offsetY - 120
-    offsetX = offsetX + 170
+    offsetY = offsetY - 130
+    offsetX = offsetX + 200
     mod.SpawnShop(destId, offsetX, offsetY, "Well", true)
 
-    offsetY = offsetY - 90
-    offsetX = offsetX + 250
+    offsetY = offsetY - 20
+    offsetX = offsetX + 340
     mod.SpawnShop(destId, offsetX, offsetY, "SellTrait", false)
+
+    game.LiveFillInShopOptions()
 end
 
 function mod.SpawnPostTyphonRestSpot()

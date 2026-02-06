@@ -175,14 +175,14 @@ end)
 
 modutil.mod.Path.Wrap("ChronosKillPresentation", function (base, ...)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
-        game.thread(mod.SpawnPostChronosRestSpot())
+        mod.SpawnPostChronosRestSpot()
     end
     base(...)
 end)
 
 modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
-        game.thread(mod.SpawnPostTyphonRestSpot())
+        mod.SpawnPostTyphonRestSpot()
     end
     base(...)
 end)
