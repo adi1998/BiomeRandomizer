@@ -174,15 +174,15 @@ modutil.mod.Path.Wrap("CalcMetaProgressRatio", function (base, run)
 end)
 
 modutil.mod.Path.Wrap("ChronosKillPresentation", function (base, ...)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.IsCurrentEncounterLast() then
-        game.thread(mod.ObstacleTest2)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+        game.thread(mod.SpawnPostChronosRestSpot())
     end
     base(...)
 end)
 
 modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.IsCurrentEncounterLast() then
-        game.thread(mod.ObstacleTest3)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+        game.thread(mod.SpawnPostTyphonRestSpot())
     end
     base(...)
 end)
