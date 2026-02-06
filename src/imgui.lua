@@ -1,5 +1,10 @@
 local previousConfig = {
-    custom_order = {"F", "G", "H", "I"},
+    custom_order = {
+        ["1"] = "F",
+        ["2"] = "G",
+        ["3"] = "H",
+        ["4"] = "I",
+    },
     banned_biomes = {}
 }
 
@@ -67,7 +72,7 @@ function DrawMenu()
         for i = 1, config.run_length do
             rom.ImGui.Text("Biome "..tostring(i)..":")
             rom.ImGui.SameLine()
-            if rom.ImGui.BeginCombo("###biome"..tostring(i), mod.BiomeData[config.custom_order[tostring(i)]].Name) then
+            if rom.ImGui.BeginCombo("###biome"..tostring(i), (mod.BiomeData[config.custom_order[tostring(i)]] or {}).Name or "Unknown") then
                 for biome, biomeData in pairs(mod.BiomeData) do
                     if game.IsGameStateEligible(biomeData, biomeData.GameStateRequirements) then
                         if rom.ImGui.Selectable(biomeData.Name, (biome == config.custom_order[tostring(i)])) then
@@ -83,7 +88,7 @@ function DrawMenu()
             end
         end
         if not mod.IsCustomRouteValid() then
-            rom.ImGui.Text("Warning!! Duplicate biomes detected.\nRun will use default route.")
+            rom.ImGui.Text("Warning!! Duplicate or unknown biomes detected.\nRun will use default route.")
         end
     end
 

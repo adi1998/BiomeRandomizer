@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- handle cases where custom route has H1 biomes but the mod's been disabled
+- add some missing enemies to scaler
+
 ## [0.2.0] - 2026-02-02
 
 - configure run length

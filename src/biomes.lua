@@ -166,6 +166,7 @@ function mod.GenerateRoute()
             print("Invalid custom route, using default route instead.")
             for i = 1, config.run_length do
                 table.insert(route, defaultRoute[i])
+                config.custom_order[tostring(i)] = defaultRoute[i]
             end
         end
     end
@@ -188,7 +189,7 @@ end
 function mod.IsCustomRouteValid()
     local biomeCount = {}
     for i = 1, config.run_length do
-        if biomeCount[config.custom_order[tostring(i)]] then
+        if biomeCount[config.custom_order[tostring(i)]] or not mod.BiomeData[config.custom_order[tostring(i)]] then
             return false
         end
         biomeCount[config.custom_order[tostring(i)]] = 1
