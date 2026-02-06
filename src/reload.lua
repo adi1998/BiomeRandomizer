@@ -15,7 +15,7 @@ mod.ShopTypes = {
         Animation = "SurfaceShopLocked",
         ObstacleName = "SurfaceShop",
     },
-    SellTrait = {
+    Sell = {
         Animation = "SellTraitShopLocked",
         ObstacleName = "SellTraitShop"
     }
@@ -83,15 +83,21 @@ function mod.SpawnPostChronosRestSpot()
 
     offsetY = offsetY - 40
     offsetX = offsetX + 180
-    mod.SpawnGiftRack(destId, offsetX, offsetY)
+    if game.GameState.WorldUpgradesAdded.WorldUpgradePostBossGiftRack then
+        mod.SpawnGiftRack(destId, offsetX, offsetY)
+    end
 
     offsetY = offsetY - 130
     offsetX = offsetX + 200
-    mod.SpawnShop(destId, offsetX, offsetY, "Well", true)
+    if game.GameState.WorldUpgradesAdded.WorldUpgradePostBossWellShops then
+        mod.SpawnShop(destId, offsetX, offsetY, "Well", true)
+    end
 
     offsetY = offsetY - 20
     offsetX = offsetX + 340
-    mod.SpawnShop(destId, offsetX, offsetY, "SellTrait", false)
+    if game.GameState.WorldUpgradesAdded.WorldUpgradePostBossSellTraitShops then
+        mod.SpawnShop(destId, offsetX, offsetY, "Sell", false)
+    end
 
     game.LiveFillInShopOptions()
 end
@@ -104,9 +110,13 @@ function mod.SpawnPostTyphonRestSpot()
 
     offsetY = offsetY - 40
     offsetX = offsetX + 180
-    mod.SpawnGiftRack(destId, offsetX, offsetY)
+    if game.GameState.WorldUpgradesAdded.WorldUpgradePostBossGiftRack then
+        mod.SpawnGiftRack(destId, offsetX, offsetY)
+    end
 
     offsetY = offsetY - 120
     offsetX = offsetX + 170
-    mod.SpawnShop(destId, offsetX, offsetY, "Surface", true)
+    if game.GameState.WorldUpgradesAdded.WorldUpgradePostBossSurfaceShops then
+        mod.SpawnShop(destId, offsetX, offsetY, "Surface", true)
+    end
 end
