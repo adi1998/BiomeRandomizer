@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-02-06
+
 - handle cases where custom route has H1 biomes but the mod's been disabled
 - add some missing enemies to scaler
 
@@ -17,6 +19,7 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.0...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...HEAD
+[0.2.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/adi1998/BiomeRandomizer/compare/5a772d09d80d6b7bb081222342e8e66254535e6f...0.1.0
