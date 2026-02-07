@@ -137,7 +137,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and
                 route and #route > 1 and not game.Contains(blockedUnits, unit.Name) then
-
+            game.SetPlayerInvulnerable(_PLUGIN.guid .. "RandomClearScreen")
             game.CallFunctionName("NikkelM-Zagreus_Journey" .. "." .. "ModsNikkelMHadesBiomesOpenRunClearScreen")
         end
     end)
