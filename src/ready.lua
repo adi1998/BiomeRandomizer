@@ -28,6 +28,14 @@ mod.ZagIntro = {
     "D_Intro"
 }
 
+mod.DefaultRunStart = game.ToLookup({
+    "RoomOpening",
+    "F_Opening01",
+    "F_Opening02",
+    "F_Opening03",
+    "N_Opening01",
+})
+
 function mod.ParseIntro(intro)
     if type(intro) == "table" then
         return intro[math.random(#intro)]
@@ -69,7 +77,7 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
             currentRoom.SkipLoadNextMap = false
         end
         local nextRoomData = base(currentRun, args, otherDoors)
-        if currentRoom.Name == "F_PostBoss01" and args.ForceNextRoom == "O_Intro" then
+        if game.Contains({ "F_PostBoss01", "H_PostBoss01" }, currentRoom.Name) and args.ForceNextRoom == "O_Intro" then
             nextRoomData.EntranceDirection = "LeftRight"
             nextRoomData.FlipHorizontalChance = 0.0
         end
@@ -120,6 +128,7 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, prevRun, args)
         if route and #route > 0 then
             args.StartingBiome = route[1]
             args.RoomName = mod.ParseIntro(mod.BiomeData[args.StartingBiome].Intro)
+            args[_PLUGIN.guid .. "RunStart"] = true
             local currentRun = base(prevRun, args)
             currentRun[_PLUGIN.guid .. "GeneratedRoute"] = route
             if args.StartingBiome == "Q" then
@@ -140,6 +149,14 @@ modutil.mod.Path.Wrap("CreateRoom", function (base, roomData, args)
     if game.CurrentRun and roomData.Name and game.Contains(mod.ZagIntro, roomData.Name) and game.Contains(mod.RegisteredBounties, args.ActiveBounty) then
         game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
     end
+
+    if game.CurrentRun and game.Contains(mod.RegisteredBounties, args.ActiveBounty) and not mod.DefaultRunStart[roomData.Name] and args[_PLUGIN.guid .. "RunStart"] then
+        roomData = game.DeepCopyTable(roomData)
+        roomData.NoReward = false
+        roomData.ForcedRewardStore = "RunProgress"
+        roomData.IneligibleRewards = game.RewardSets.OpeningRoomBans
+    end
+
     return base(roomData, args)
 end)
 
