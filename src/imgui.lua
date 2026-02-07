@@ -8,6 +8,27 @@ local previousConfig = {
     banned_biomes = {}
 }
 
+local biomeDisplayOrder = {
+    "F",
+    "G",
+    "H",
+    "I",
+
+    "N",
+    "O",
+    "P",
+    "Q",
+}
+
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+    game.ConcatTableValuesIPairs(biomeDisplayOrder,{
+        "Tartarus",
+        "Asphodel",
+        "Elysium",
+        "Styx"
+    })
+end
+
 rom.gui.add_imgui(function()
     if rom.ImGui.Begin("Biome Randomizer") then
         DrawMenu()
@@ -73,7 +94,8 @@ function DrawMenu()
             rom.ImGui.Text("Biome "..tostring(i)..":")
             rom.ImGui.SameLine()
             if rom.ImGui.BeginCombo("###biome"..tostring(i), (mod.BiomeData[config.custom_order[tostring(i)]] or {}).Name or "Unknown") then
-                for biome, biomeData in pairs(mod.BiomeData) do
+                for _, biome in ipairs(biomeDisplayOrder) do
+                    local biomeData = mod.BiomeData[biome]
                     if game.IsGameStateEligible(biomeData, biomeData.GameStateRequirements) then
                         if rom.ImGui.Selectable(biomeData.Name, (biome == config.custom_order[tostring(i)])) then
                             if biome ~= previousConfig.custom_order[tostring(i)] then
