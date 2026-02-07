@@ -103,8 +103,8 @@ function mod.SpawnPostChronosRestSpot()
 end
 
 function mod.SpawnPostTyphonRestSpot()
-    local offsetY = 400
-    local offsetX = -3800
+    local offsetY = 460
+    local offsetX = -3840
     local destId = 768210 -- UseableOn({ Id = 768210 }) - Exit door
     mod.SpawnFountain(destId, offsetX, offsetY, true)
 
