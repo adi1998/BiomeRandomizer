@@ -4,4 +4,5 @@ mod.testnextroom = nil
 --     mod.DeleteAllSpawned()
 --     mod.SpawnPostChronosRestSpot()
 --     mod.SpawnPostTyphonRestSpot()
+--     mod.SpawnPostHadesRestSpot()
 -- end})

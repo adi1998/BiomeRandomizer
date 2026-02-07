@@ -127,3 +127,40 @@ modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
     end
     base(...)
 end)
+
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+
+    function mod.SpawnPostHadesRestSpot()
+        local offsetY = 560
+        local offsetX = -1570
+        local destId = 552590 -- D_Boss01 FinalBossExitDoor
+        mod.SpawnFountain(destId, offsetX, offsetY, true)
+
+        offsetY = offsetY - 40
+        offsetX = offsetX + 180
+        if game.GameState.WorldUpgrades.ModsNikkelMHadesBiomes_UnlockPostBossGiftRackIncantation then
+            mod.SpawnGiftRack(destId, offsetX, offsetY)
+        end
+
+        offsetY = offsetY - 10
+        offsetX = offsetX + 700
+        if game.GameState.WorldUpgradesAdded.ModsNikkelMHadesBiomes_UnlockPostBossWellShopsIncantation then
+            mod.SpawnShop(destId, offsetX, offsetY, "Well", true)
+        end
+
+        offsetY = offsetY - 100
+        offsetX = offsetX + 190
+        if game.GameState.WorldUpgrades.ModsNikkelMHadesBiomes_UnlockPostBossSellShopsIncantation then
+            mod.SpawnShop(destId, offsetX, offsetY, "Sell", true)
+        end
+
+        game.LiveFillInShopOptions()
+    end
+
+    modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HadesKillPresentation", function (base, ...)
+        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+            mod.SpawnPostHadesRestSpot()
+        end
+        base(...)
+    end)
+end

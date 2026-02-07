@@ -2,8 +2,10 @@
 
 ## [Unreleased]
 
-- add rest spots after Typhon and Chronos if they are the final boss
+- add rest spots after Typhon, Chronos and Hades if they are not the final boss
 - spawn starting loot for non-standard starting biomes
+- make player invulnerable during custom run clear screen
+- some scaling adjustments
 
 ## [0.2.1] - 2026-02-06
 
