@@ -30,7 +30,7 @@ end
 
 modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
     if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() then
-        game.LoadPackages({Names = {"BiomeHub", _PLUGIN.guid}})
+        game.LoadPackages({ Names = { "BiomeHub", _PLUGIN.guid } })
         local componentData = mod.GetRandomBiomeIconComponents()
         for index, component in ipairs(componentData) do
             game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = component
@@ -42,6 +42,11 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
         }
         table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
     end
+
+    if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() and mod.EndBossEncounterMap[currentRoom.Name] then
+        game.LoadPackages({ Name = "BiomeI" })
+    end
+
     base(currentRoom)
 end)
 

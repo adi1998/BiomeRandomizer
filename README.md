@@ -1,6 +1,6 @@
 ## Biome Randomizer
 
-Adds new Chaos Trials which let's you traverse the biomes in a random order. Also supports Hades 1 biomes from [Zagreus Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
+Adds new Chaos Trials which let's you traverse the biomes in a random order. Also supports Hades 1 biomes from [Zagreus' Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
 - Similar to a vanilla run except the biomes will be randomized. Your currently equipped loadout will used.
