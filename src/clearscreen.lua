@@ -92,6 +92,7 @@ for _, killPresFunc in ipairs(killPresentaionWrapList) do
         base(unit, args)
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
         if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and route and #route > 1 then
+            game.SetPlayerInvulnerable(_PLUGIN.guid .. "RandomClearScreen")
             game.OpenRunClearScreen()
         end
     end)
@@ -102,6 +103,7 @@ modutil.mod.Path.Wrap("GenericBossKillPresentation", function (base, unit, args)
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and mod.IsCurrentEncounterLast() and unit.Name == "Polyphemus" and route and #route > 1 then
         game.wait(0.5)
+        game.SetPlayerInvulnerable(_PLUGIN.guid .. "RandomClearScreen")
         game.OpenRunClearScreen()
     end
 end)
