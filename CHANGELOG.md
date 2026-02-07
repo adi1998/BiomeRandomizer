@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- add rest spots after Typhon and Chronos if they are the final boss
+- spawn starting loot for non-standard starting biomes
+
 ## [0.2.1] - 2026-02-06
 
 - handle cases where custom route has H1 biomes but the mod's been disabled
