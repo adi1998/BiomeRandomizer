@@ -21,7 +21,7 @@ end
 function mod.SpawnFountain(destId, offsetX, offsetY, flipped)
     local healthFountain = game.DeepCopyTable(game.ObstacleData.HealthFountain)
     healthFountain.ObjectId = game.SpawnObstacle({Name="HealthFountain", DestinationId=destId, OffsetY=offsetY, OffsetX = offsetX, Group = "Standing"})
-    game.SetupObstacle(healthFountain)
+    -- game.SetupObstacle(healthFountain)
     game.SetColor({ Id = healthFountain.ObjectId, Color = game.Color.White })
     game.SetScale({Id = healthFountain.ObjectId, Fraction = 0.34})
     if flipped then
@@ -35,7 +35,7 @@ function mod.SpawnGiftRack(destId, offsetX, offsetY, flipped)
     local newGiftRack = game.DeepCopyTable(game.ObstacleData.GiftRack)
     newGiftRack.ObjectId = game.SpawnObstacle({Name="GiftRack", DestinationId=destId, OffsetY=offsetY, OffsetX = offsetX, AttachedTable = newGiftRack, Group = "Standing"})
     newGiftRack.ActivateIds = { newGiftRack.ObjectId }
-    game.SetupObstacle(newGiftRack)
+    -- game.SetupObstacle(newGiftRack)
     game.SetScale({Id = newGiftRack.ObjectId, Fraction = 0.2})
     game.SetThingProperty({Property = "AddColor", Value = true, DestinationId = newGiftRack.ObjectId })
     game.SetColor({ Id = newGiftRack.ObjectId, Color = {0,0,0,1} }) -- it just works
@@ -69,6 +69,7 @@ function mod.SpawnShop(destId, offsetX, offsetY, shopType, flipped)
 end
 
 function mod.SpawnPostChronosRestSpot()
+    game.wait(1)
     local offsetY = -420
     local offsetX = -470
     local destId = 626310 -- SpawnRewardOnId = 626310,
@@ -96,6 +97,7 @@ function mod.SpawnPostChronosRestSpot()
 end
 
 function mod.SpawnPostTyphonRestSpot()
+    game.wait(1)
     local offsetY = 460
     local offsetX = -3840
     local destId = 768210 -- UseableOn({ Id = 768210 }) - Exit door
@@ -116,14 +118,14 @@ end
 
 modutil.mod.Path.Wrap("ChronosKillPresentation", function (base, ...)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
-        mod.SpawnPostChronosRestSpot()
+        game.thread(mod.SpawnPostChronosRestSpot)
     end
     base(...)
 end)
 
 modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
-        mod.SpawnPostTyphonRestSpot()
+        game.thread(mod.SpawnPostTyphonRestSpot)
     end
     base(...)
 end)
@@ -131,6 +133,7 @@ end)
 if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
 
     function mod.SpawnPostHadesRestSpot()
+        game.wait(0.8)
         local offsetY = 560
         local offsetX = -1570
         local destId = 552590 -- D_Boss01 FinalBossExitDoor
@@ -159,7 +162,7 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
 
     modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HadesKillPresentation", function (base, ...)
         if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
-            mod.SpawnPostHadesRestSpot()
+            game.thread(mod.SpawnPostHadesRestSpot)
         end
         base(...)
     end)
