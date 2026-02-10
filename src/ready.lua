@@ -77,9 +77,12 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
             currentRoom.SkipLoadNextMap = false
         end
         local nextRoomData = base(currentRun, args, otherDoors)
-        if game.Contains({ "F_PostBoss01", "H_PostBoss01" }, currentRoom.Name) and args.ForceNextRoom == "O_Intro" then
+        if game.Contains({ "F_PostBoss01", "H_PostBoss01", "G_PostBoss01" }, currentRoom.Name) and args.ForceNextRoom == "O_Intro" then
             nextRoomData.EntranceDirection = "LeftRight"
             nextRoomData.FlipHorizontalChance = 0.0
+        end
+        if mod.DefaultRunStart[nextRoomData.Name] then
+            nextRoomData.RemoveTimerBlock = "InterBiome"
         end
         return nextRoomData
     end

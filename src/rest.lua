@@ -117,17 +117,26 @@ function mod.SpawnPostTyphonRestSpot()
 end
 
 modutil.mod.Path.Wrap("ChronosKillPresentation", function (base, ...)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+    local cond = game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom()
+    if cond then
         game.thread(mod.SpawnPostChronosRestSpot)
     end
     base(...)
+    if cond then
+        game.AddTimerBlock(game.CurrentRun, "InterBiome")
+        game.RemoveTimerBlock(game.CurrentRun, "ChronosKillPresentation")
+    end
 end)
 
 modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+    local cond = game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom()
+    if cond then
         game.thread(mod.SpawnPostTyphonRestSpot)
     end
     base(...)
+    if cond then
+        game.AddTimerBlock(game.CurrentRun, "InterBiome")
+    end
 end)
 
 if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
@@ -161,9 +170,18 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
     end
 
     modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HadesKillPresentation", function (base, ...)
-        if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() then
+        local biomeTimer = game.CurrentRun.ActiveBiomeTimer
+        local cond = game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom()
+        if cond then
             game.thread(mod.SpawnPostHadesRestSpot)
         end
+
         base(...)
+
+        if cond then
+            game.CurrentRun.ActiveBiomeTimer = biomeTimer
+            game.AddTimerBlock(game.CurrentRun, "InterBiome")
+            game.RemoveTimerBlock(game.CurrentRun, "HadesKillPresentation")
+        end
     end)
 end
