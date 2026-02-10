@@ -124,6 +124,22 @@ function DrawMenu()
     if checked and value ~= previousConfig.true_random then
         config.true_random = value
         previousConfig.true_random = value
+        mod.UpdateBiomeIcons()
     end
 
+end
+
+function  mod.UpdateBiomeIcons()
+    local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
+    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled == true then
+        bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
+    end
+
+    if config.true_random then
+        bountyIcon = bountyIcon .. "_True"
+    end
+
+    for index, bounty in ipairs(mod.RegisteredBounties) do
+        game.BountyData[bounty].BiomeIcon = bountyIcon
+    end
 end

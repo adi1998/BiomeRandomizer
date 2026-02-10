@@ -8,6 +8,10 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
     bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
 end
 
+if config.true_random then
+    bountyIcon = bountyIcon .. "_True"
+end
+
 local randomBountyId = _PLUGIN.guid .. "RandomBiomeRun"
 RandomBountyName = prefix(randomBountyId)
 
