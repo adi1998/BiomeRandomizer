@@ -18,12 +18,13 @@ Note:
 - To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 - Styx will only appear in randomizer runs after atleast one H1 clear.
 
-| ![Trial Menu](images/trialmenu.png) |
-|-|
+| ![Trial Menu](images/trialmenu.png) | ![intro](images/intro.png) | 
+|-|-|
+| ![rest](images/rest.png) | ![imgui](images/imgui.png) |
 
 ## Configuration
 
-Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT).
+Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT). If the imgui windows seem unresponsive try disabling V-sync and external frame limiters if enabled.
 
 ### Default Config
 Each biome is selected based on the number of bosses defeated so they appear in their respective order.
@@ -35,8 +36,8 @@ Set your own run length and starting depth. Starting depth only available for no
 
 ![Run legnth](images/depth.png) ![run start](images/start.png)
 
-### [BETA] True randomizer
-Enable this to get a truly random biome order. The enemy health/damage scaling for this mode is not yet perfect but it's definitely playable :).<br>
+### True randomizer
+Enable this to get a truly random biome order. Highly recommended to keep the scaling option enabled with this mode.<br>
 Note: Starting depth is irrelevant with this option.
 
 ![True random](images/true_random.png)
