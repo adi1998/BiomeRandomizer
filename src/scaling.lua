@@ -209,6 +209,7 @@ mod.ScaledBosses = {
         "Polyphemus",
         "Medea",
         "ZombieHeavyRanged_EM",
+        "Sheep_Sick",
     },
     O = {
         "Eris",
