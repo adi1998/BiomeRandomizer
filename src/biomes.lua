@@ -211,7 +211,11 @@ function mod.ConnectEndBossToBiome(BountyRunData, currentRoomName)
             game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = nil
         end
         print(currentRoomName, "Boss to biome", nextRoomIntro)
-        return nextRoomIntro
+        local nextRoomData = game.CreateRoom(game.RoomData[nextRoomIntro])
+        if mod.DefaultRunStart[nextRoomData.Name] then
+            nextRoomData.RemoveTimerBlock = "InterBiome"
+        end
+        return nextRoomData
     end
 end
 
