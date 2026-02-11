@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-02-11
+
 - add rest spots after Typhon, Chronos and Hades if they are not the final boss
 - spawn starting loot for non-standard starting biomes
 - make player invulnerable during custom run clear screen
@@ -25,7 +27,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/adi1998/BiomeRandomizer/compare/5a772d09d80d6b7bb081222342e8e66254535e6f...0.1.0

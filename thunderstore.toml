@@ -5,7 +5,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "zerp"
 name = "BiomeRandomizer"
-versionNumber = "0.2.1"
+versionNumber = "0.3.0"
 description = "Adds new Chaos Trials which let you traverse the biomes from all available routes in a random order. Configurable to set run length and a custom biome order. Compatible with new biomes added in Zagreus' Journey."
 websiteUrl = "https://github.com/adi1998/BiomeRandomizer"
 containsNsfwContent = false
