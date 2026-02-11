@@ -22,6 +22,12 @@ Note:
 |-|-|
 | ![rest](images/rest.png) | ![imgui](images/imgui.png) |
 
+## Installation
+
+Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
+
+While the mod has been tested decently well, there can still be some untested combination which breaks the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
+
 ## Configuration
 
 Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT). If the imgui windows seem unresponsive try disabling V-sync and external frame limiters if enabled.
@@ -46,12 +52,6 @@ Note: Starting depth is irrelevant with this option.
 Enable this to set your own biome order. Duplicate biomes are not supported.
 
 ![Custom Order](images/custom.png)
-
-## Installation
-
-Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
-
-While the mod has been tested decently well, there can still be some untested combination which breaks the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
 
 ## Contributors
 - Siuhnexus, [BountyAPI](https://github.com/Siuhnexus/BountyAPI/)
