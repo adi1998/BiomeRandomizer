@@ -171,15 +171,19 @@ function mod.GenerateRoute()
         end
     end
     if not config.custom_run then
-        for position = config.starting_biome_position, config.run_length do
+        for position =  config.run_length, config.starting_biome_position, -1 do
             local biomeList = {}
             for biome, modBiomeData in pairs(mod.BiomeData) do
                 if (modBiomeData.Position == position or config.true_random) and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) and
+                        (not (config.final_biome_last and config.true_random) or (position ~= config.run_length or modBiomeData.Position == 4 )) and
+                        (not (config.final_biome_only_last and config.true_random) or (position == config.run_length or modBiomeData.Position ~= 4)) and
                         not game.Contains(route, biome) then
                     table.insert(biomeList, biome)
                 end
             end
-            table.insert(route, biomeList[ math.random( #biomeList ) ])
+            local index = position - config.starting_biome_position + 1
+            print("candidates for position ", index, mod.dump(biomeList))
+            table.insert(route, 1, biomeList[ math.random( #biomeList ) ])
         end
     end
     print("Generated route", mod.dump(route))

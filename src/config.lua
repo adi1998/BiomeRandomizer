@@ -12,6 +12,8 @@ local config = {
   starting_biome_position = 1,
   scaling = true,
   true_random = false,
+  final_biome_last = false,
+  final_biome_only_last = false,
 }
 
 local configDesc = {
@@ -21,7 +23,9 @@ local configDesc = {
   custom_run = "Use custom order",
   starting_biome_position = "Starting biome depth when run_length < 4",
   scaling = "Enable scaling for out of order biomes",
-  true_random = "Randomize biomes without considering biome depth"
+  true_random = "Randomize biomes without considering biome depth",
+  final_biome_last = "The final biome will always be one of Tartarus(H2), Summit or Styx",
+  final_biome_only_last = "Non final biome cannot be Tartarus(H2), Summit or Styx",
 }
 
 return config, configDesc

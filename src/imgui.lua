@@ -121,10 +121,22 @@ function DrawMenu()
     end
 
     value, checked = rom.ImGui.Checkbox("Enable true randomization of biomes.\nBiomes will be selected independent\nof their original depth", config.true_random)
-    if checked and value ~= previousConfig.true_random then
+    if checked then
         config.true_random = value
         previousConfig.true_random = value
         mod.UpdateBiomeIcons()
+    end
+
+    if config.true_random then
+        value, checked = rom.ImGui.Checkbox("The final biome will always be one of\nTartarus(H2), Summit or Styx", config.final_biome_last)
+        if checked then
+            config.final_biome_last = value
+        end
+
+        value, checked = rom.ImGui.Checkbox("Non-final biome cannot be Tartarus(H2),\nSummit or Styx", config.final_biome_only_last)
+        if checked then
+            config.final_biome_only_last = value
+        end
     end
 
 end
