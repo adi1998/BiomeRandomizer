@@ -48,6 +48,16 @@ Note: Starting depth is irrelevant with this option.
 
 ![True random](images/true_random.png)
 
+### Final biome pool
+Enable this to get only Tartarus, Summit or Styx as the final biome.
+
+![Final Biome](images/final_biome.png)
+
+### Non-final biome pool
+Enable this to never get Tartarus, Summit or Styx as non-final biomes.
+
+![Non-final Biome](images/nonfinal_biome.png)
+
 ### Custom order
 Enable this to set your own biome order. Duplicate biomes are not supported.
 

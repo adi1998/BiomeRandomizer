@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- add more biome pool config options for true rando
+
 ## [0.3.0] - 2026-02-11
 
 - add rest spots after Typhon, Chronos and Hades if they are not the final boss
