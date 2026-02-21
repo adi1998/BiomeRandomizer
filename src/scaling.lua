@@ -321,6 +321,8 @@ mod.DamageScaling = {
     1.8,
     2.5,
     4,
+    5.5,
+    6.5
 }
 
 function mod.ScaleDamage(damage, attackerBiome)
