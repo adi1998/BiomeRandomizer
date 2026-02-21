@@ -45,9 +45,13 @@ end)
 
 function DrawMenu()
 
+    local max_run_length = ((config.custom_run or config.true_random) and 6) or 4
+
+    config.run_length = ((config.run_length <= max_run_length) and config.run_length) or max_run_length
+
     rom.ImGui.Text("Run length")
     if rom.ImGui.BeginCombo("###length", tostring(config.run_length)) then
-        for i = 1,4 do
+        for i = 1, max_run_length do
             if rom.ImGui.Selectable(tostring(i), (i == config.run_length)) then
                 if i ~= previousConfig.run_length then
                     previousConfig.run_length = i
@@ -61,19 +65,18 @@ function DrawMenu()
     rom.ImGui.SameLine()
     rom.ImGui.Text("Biome(s)")
 
-    local max_start = 4-config.run_length+1
-
-    if config.starting_biome_position > max_start then
-        config.starting_biome_position = max_start
-    end
-
     local value, checked = rom.ImGui.Checkbox("Custom run", config.custom_run)
-    if checked and value ~= previousConfig.custom_run then
+    if checked then
         config.custom_run = value
-        previousConfig.custom_run = value
     end
 
-    if not config.custom_run then
+    if not (config.custom_run or config.true_random) then
+        local max_start = 4-config.run_length+1
+
+        if config.starting_biome_position > max_start then
+            config.starting_biome_position = max_start
+        end
+
         rom.ImGui.Text("Starting Depth")
         if rom.ImGui.BeginCombo("###start", tostring(config.starting_biome_position)) then
             for i = 1, max_start do

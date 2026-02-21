@@ -40,5 +40,4 @@ function mod.UpdateRoomStartMusicEvents()
     -- print(mod.dump(game.RoomStartMusicEvents))
 end
 
-
 mod.UpdateRoomStartMusicEvents()

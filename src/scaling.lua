@@ -151,6 +151,7 @@ mod.ScaledMiniBosses = {
         "ShieldRangedMiniBoss",
         "SpreadShotUnitMiniboss",
         "HitAndRunUnit",
+        "HitAndRunUnitElite",
         "CrusherUnitElite"
     },
     Elysium = {
@@ -321,6 +322,9 @@ mod.DamageScaling = {
     1.8,
     2.5,
     4,
+    5.5,
+    6.5,
+    7
 }
 
 function mod.ScaleDamage(damage, attackerBiome)

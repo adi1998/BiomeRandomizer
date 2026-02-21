@@ -7,6 +7,8 @@ local config = {
     ["2"] = "G",
     ["3"] = "H",
     ["4"] = "I",
+    ["5"] = "Unknown",
+    ["6"] = "Unknown",
   },
   custom_run = false,
   starting_biome_position = 1,
