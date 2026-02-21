@@ -171,7 +171,7 @@ function mod.GenerateRoute()
         end
     end
     if not config.custom_run then
-        for position =  config.run_length, config.starting_biome_position, -1 do
+        for position = config.run_length, config.starting_biome_position, -1 do
             local biomeList = {}
             for biome, modBiomeData in pairs(mod.BiomeData) do
                 if (modBiomeData.Position == position or config.true_random) and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) and
