@@ -41,6 +41,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache(BountyRunData)
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName)
@@ -87,6 +90,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache(BountyRunData)
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
@@ -135,6 +141,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache(BountyRunData)
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
@@ -183,6 +192,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache()
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
@@ -202,4 +214,13 @@ end
 
 for index, bountyName in ipairs(mod.RegisteredBounties) do
     mod.UpdateRandomBountyOrder(bountyName)
+end
+
+-- taken from EndlessNight
+function mod.SanitizeKeepsakeCache()
+    local shortenedKeepsakes = {}
+    for i = 1, 4 do
+        shortenedKeepsakes[i] = game.CurrentRun.KeepsakeCache[i]
+    end
+    game.CurrentRun.KeepsakeCache = shortenedKeepsakes
 end
