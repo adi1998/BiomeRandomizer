@@ -42,7 +42,7 @@ bountyAPI.RegisterBounty({
         return mod.CanEndRandom()
     end,
     EndFunctions = function (BountyRunData, Cleared)
-        mod.SanitizeKeepsakeCache(BountyRunData)
+        mod.SanitizeKeepsakeCache()
     end
 })
 
@@ -91,7 +91,7 @@ bountyAPI.RegisterBounty({
         return mod.CanEndRandom()
     end,
     EndFunctions = function (BountyRunData, Cleared)
-        mod.SanitizeKeepsakeCache(BountyRunData)
+        mod.SanitizeKeepsakeCache()
     end
 })
 
@@ -142,7 +142,7 @@ bountyAPI.RegisterBounty({
         return mod.CanEndRandom()
     end,
     EndFunctions = function (BountyRunData, Cleared)
-        mod.SanitizeKeepsakeCache(BountyRunData)
+        mod.SanitizeKeepsakeCache()
     end
 })
 
