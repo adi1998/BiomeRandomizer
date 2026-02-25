@@ -156,32 +156,39 @@ end
 
 function mod.GenerateRoute()
     local route = {}
-    config.run_length = ( (config.run_length <= 4 and config.run_length >= 1) and config.run_length ) or 4
+
+    local max_run_length = ((config.custom_order or config.true_random) and 6) or 4
+    config.run_length = ( (config.run_length <= max_run_length and config.run_length >= 1) and config.run_length ) or 4
+
     if config.custom_run then
+        print(mod.dump(config.custom_order))
         if mod.IsCustomRouteValid() then
             for i = 1, config.run_length do
                 table.insert(route, config.custom_order[tostring(i)])
             end
         else
             print("Invalid custom route, using default route instead.")
-            for i = 1, config.run_length do
+            for i = 1, #defaultRoute do
                 table.insert(route, defaultRoute[i])
                 config.custom_order[tostring(i)] = defaultRoute[i]
             end
+            config.run_length = #defaultRoute
         end
     end
     if not config.custom_run then
-        for position = config.run_length, config.starting_biome_position, -1 do
+        local start_position = (config.true_random and 1) or config.starting_biome_position
+        local final_position = config.run_length + start_position - 1
+        for position = final_position, start_position, -1 do
             local biomeList = {}
             for biome, modBiomeData in pairs(mod.BiomeData) do
                 if (modBiomeData.Position == position or config.true_random) and game.IsGameStateEligible(modBiomeData, modBiomeData.GameStateRequirements) and
-                        (not (config.final_biome_last and config.true_random) or (position ~= config.run_length or modBiomeData.Position == 4 )) and
-                        (not (config.final_biome_only_last and config.true_random) or (position == config.run_length or modBiomeData.Position ~= 4)) and
+                        (not (config.final_biome_last and config.true_random) or (position ~= final_position or modBiomeData.Position == 4 )) and
+                        (not (config.final_biome_only_last and config.true_random) or (position == final_position or modBiomeData.Position ~= 4)) and
                         not game.Contains(route, biome) then
                     table.insert(biomeList, biome)
                 end
             end
-            local index = position - config.starting_biome_position + 1
+            local index = position - start_position + 1
             print("candidates for position ", index, mod.dump(biomeList))
             table.insert(route, 1, biomeList[ math.random( #biomeList ) ])
         end

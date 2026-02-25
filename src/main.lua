@@ -49,6 +49,35 @@ local function on_ready()
     -- what to do when we are ready, but not re-do on reload.
     if config.enabled == false then return end
     mod = modutil.mod.Mod.Register(_PLUGIN.guid)
+
+    function mod.dump(o, depth)
+        depth = depth or 0
+        if type(o) == 'table' then
+            local s = "\n" .. string.rep("\t", depth) .. '{\n'
+            for k,v in pairs(o) do
+                if type(k) ~= 'number' then k = '"'..k..'"' end
+                s = s .. string.rep("\t",(depth+1)) .. '['..k..'] = ' .. mod.dump(v, depth + 1) .. ',\n'
+            end
+            return s .. string.rep("\t", depth) .. '}'
+        elseif type(o) == "string" then
+            return "\"" .. o .. "\""
+        else
+            return tostring(o)
+        end
+    end
+
+    function mod.CheckPathEquality(path1, path2)
+        local flatPath1 = ""
+        local flatPath2 = ""
+        for key, value in pairs(path1) do
+            flatPath1 = flatPath1 .. "." .. tostring(value)
+        end
+        for key, value in pairs(path2) do
+            flatPath2 = flatPath2 .. "." .. tostring(value)
+        end
+        return flatPath1 == flatPath2
+    end
+
     import 'biomes.lua'
     import 'bounty.lua'
     import 'ready.lua'

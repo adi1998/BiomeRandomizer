@@ -151,6 +151,7 @@ mod.ScaledMiniBosses = {
         "ShieldRangedMiniBoss",
         "SpreadShotUnitMiniboss",
         "HitAndRunUnit",
+        "HitAndRunUnitElite",
         "CrusherUnitElite"
     },
     Elysium = {
@@ -321,6 +322,9 @@ mod.DamageScaling = {
     1.8,
     2.5,
     4,
+    5.5,
+    6.5,
+    7
 }
 
 function mod.ScaleDamage(damage, attackerBiome)
@@ -370,11 +374,14 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
             end
             if unitBiome and currentBiome then
                 if unit.MaxHealth ~= nil then
+                    print("Scaling max health for:", unit.Name, unit.MaxHealth)
                     print("Scaling health for:", unit.Name, unit.Health)
                     unit.MaxHealth = mod.ScaleDamage(unit.MaxHealth, unitBiome)
-                    unit.Health = unit.MaxHealth
+                    unit.Health = mod.ScaleDamage(unit.Health, unitBiome)
+                    print("New max health:", unit.MaxHealth)
                     print("New health:", unit.Health)
                 end
+
                 if unit.HealthBuffer ~= nil and unit.HealthBuffer > 0 then
                     print("Scaling health buffer for:", unit.Name, unit.HealthBuffer)
                     unit.HealthBuffer = mod.ScaleDamage(unit.HealthBuffer, unitBiome)
