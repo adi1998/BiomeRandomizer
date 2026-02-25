@@ -185,3 +185,24 @@ if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].c
         end
     end)
 end
+
+modutil.mod.Path.Wrap("UnlockRoomExits", function (base, run, room, delay)
+    local encounterData = nil
+	if room.Encounter ~= nil then
+		encounterData = game.EncounterData[room.Encounter.Name]
+	end
+    local checkpointFlagOverriden = false
+    local origSkipCheckPoint
+    local cond = game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom()
+    if cond and encounterData and encounterData.Name and mod.EndBossEncounterMap[room.Name] then
+        origSkipCheckPoint = encounterData.SkipExitReadyCheckpoint
+        encounterData.SkipExitReadyCheckpoint = true
+        checkpointFlagOverriden = true
+    end
+
+    base(run, room, delay)
+
+    if cond and encounterData and checkpointFlagOverriden then
+        encounterData.SkipExitReadyCheckpoint = origSkipCheckPoint
+    end
+end)
