@@ -41,6 +41,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache()
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName)
@@ -87,6 +90,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache()
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "Chaos")
@@ -135,6 +141,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache()
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreatChaos")
@@ -183,6 +192,9 @@ bountyAPI.RegisterBounty({
     CanEnd = function (BountyRunData, RoomName)
         return mod.CanEndRandom()
     end,
+    EndFunctions = function (BountyRunData, Cleared)
+        mod.SanitizeKeepsakeCache()
+    end
 })
 
 table.insert(mod.RegisteredBounties, RandomBountyName .. "GreaterChaos")
@@ -203,3 +215,40 @@ end
 for index, bountyName in ipairs(mod.RegisteredBounties) do
     mod.UpdateRandomBountyOrder(bountyName)
 end
+
+-- taken from EndlessNight
+function mod.SanitizeKeepsakeCache()
+    local shortenedKeepsakes = {}
+    for i = 1, 4 do
+        shortenedKeepsakes[i] = game.CurrentRun.KeepsakeCache[i]
+    end
+    game.CurrentRun.KeepsakeCache = shortenedKeepsakes
+end
+
+function mod.PatchChallengeSpawnRequirements()
+    for roomName, roomData in pairs(game.RoomData) do
+        if roomData.ChallengeSpawnRequirements then
+            for index, requirement in ipairs(roomData.ChallengeSpawnRequirements) do
+                if requirement.PathFalse and mod.CheckPathEquality(requirement.PathFalse, { "CurrentRun", "ActiveBounty" }) then
+                    roomData.ChallengeSpawnRequirements[index] = {}
+                    roomData.ChallengeSpawnRequirements.OrRequirements = {
+                        {
+                            {
+                                PathFalse = { "CurrentRun", "ActiveBounty" }
+                            }
+                        },
+                        {
+                            {
+                                Path = { "CurrentRun", "ActiveBounty" },
+                                IsAny = mod.RegisteredBounties
+                            }
+                        }
+                    }
+                    print("patched ChallengeSpawnRequirements for", roomName)
+                end
+            end
+        end
+    end
+end
+
+mod.PatchChallengeSpawnRequirements()

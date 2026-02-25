@@ -1,15 +1,3 @@
-function mod.CheckPathEquality(path1, path2)
-    local flatPath1 = ""
-    local flatPath2 = ""
-    for key, value in pairs(path1) do
-        flatPath1 = flatPath1 .. "." .. tostring(value)
-    end
-    for key, value in pairs(path2) do
-        flatPath2 = flatPath2 .. "." .. tostring(value)
-    end
-    return flatPath1 == flatPath2
-end
-
 function mod.UpdateRoomStartMusicEvents()
     for musicEventIndex, musicEvent in ipairs(game.RoomStartMusicEvents) do
         for requireIndex, requirement in ipairs(musicEvent.GameStateRequirements) do
@@ -39,6 +27,5 @@ function mod.UpdateRoomStartMusicEvents()
     end
     -- print(mod.dump(game.RoomStartMusicEvents))
 end
-
 
 mod.UpdateRoomStartMusicEvents()
