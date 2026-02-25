@@ -224,3 +224,31 @@ function mod.SanitizeKeepsakeCache()
     end
     game.CurrentRun.KeepsakeCache = shortenedKeepsakes
 end
+
+function mod.PatchChallengeSpawnRequirements()
+    for roomName, roomData in pairs(game.RoomData) do
+        if roomData.ChallengeSpawnRequirements then
+            for index, requirement in ipairs(roomData.ChallengeSpawnRequirements) do
+                if requirement.PathFalse and mod.CheckPathEquality(requirement.PathFalse, { "CurrentRun", "ActiveBounty" }) then
+                    roomData.ChallengeSpawnRequirements[index] = {}
+                    roomData.ChallengeSpawnRequirements.OrRequirements = {
+                        {
+                            {
+                                PathFalse = { "CurrentRun", "ActiveBounty" }
+                            }
+                        },
+                        {
+                            {
+                                Path = { "CurrentRun", "ActiveBounty" },
+                                IsAny = mod.RegisteredBounties
+                            }
+                        }
+                    }
+                    print("patched ChallengeSpawnRequirements for", roomName)
+                end
+            end
+        end
+    end
+end
+
+mod.PatchChallengeSpawnRequirements()
