@@ -26,7 +26,9 @@ Note:
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
 
-While the mod has been tested decently well, there can still be some untested combination which breaks the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
+While the mod has been tested decently well, there can still be some untested combinations which can break the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
+
+It is recommended to not uninstall or load the game un-modded while a Chaos Trial added by this mod is active.
 
 ## Configuration
 
@@ -38,13 +40,14 @@ Each biome is selected based on the number of bosses defeated so they appear in 
 ![Default Config](images/default.png)
 
 ### Run length and Starting depth
-Set your own run length and starting depth. Starting depth only available for non-custom routes.
+Set your own run length and starting depth.<br>
+Higher run lengths(upto 6) available for custom and true random runs.<br>
+Starting depth only available for non custom and non true random routes.
 
 ![Run legnth](images/depth.png) ![run start](images/start.png)
 
 ### True randomizer
-Enable this to get a truly random biome order. Highly recommended to keep the scaling option enabled with this mode.<br>
-Note: Starting depth is irrelevant with this option.
+Enable this to get a truly random biome order. Highly recommended to keep the scaling option enabled with this mode.
 
 ![True random](images/true_random.png)
 

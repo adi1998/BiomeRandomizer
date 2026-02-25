@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - add more biome pool config options for true rando
+- add support for longer runs (upto 6)
 
 ## [0.3.0] - 2026-02-11
 
