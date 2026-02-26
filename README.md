@@ -26,7 +26,7 @@ Note:
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
 
-While the mod has been tested decently well, there can still be some untested combinations which can break the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
+While the mod has been tested decently well, there can still be some scenarios which can break the game. It is recommended to backup your save from `%USERPROFILE%\Saved Games\Hades II\Profile*.sav` in case there are issues.
 
 It is recommended to not uninstall or load the game un-modded while a Chaos Trial added by this mod is active.
 
