@@ -161,7 +161,6 @@ function mod.GenerateRoute()
     config.run_length = ( (config.run_length <= max_run_length and config.run_length >= 1) and config.run_length ) or 4
 
     if config.custom_run then
-        print(mod.dump(config.custom_order))
         if mod.IsCustomRouteValid() then
             for i = 1, config.run_length do
                 table.insert(route, config.custom_order[tostring(i)])
