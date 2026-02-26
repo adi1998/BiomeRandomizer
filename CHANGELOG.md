@@ -5,7 +5,7 @@
 - add more biome pool config options for true rando
 - add support for longer runs (upto 6 now)
 - hitless/elite/time challenges can now appear in rando runs
-- custom rest stops after Chronos, Typhon and Hades no longer cause a broken checkpoint to be created in case of save/reload
+- custom rest stops after Chronos, Typhon and Hades no longer cause a broken checkpoint to be created after save/reload
 
 ## [0.3.0] - 2026-02-11
 
