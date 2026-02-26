@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-02-26
+
 - add more biome pool config options for true rando
 - add support for longer runs (upto 6 now)
 - hitless/elite/time challenges can now appear in rando runs
@@ -32,7 +34,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.1.0...0.2.0
