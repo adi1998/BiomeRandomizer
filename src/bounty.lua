@@ -244,7 +244,7 @@ function mod.PatchChallengeSpawnRequirements()
                             }
                         }
                     }
-                    print("patched ChallengeSpawnRequirements for", roomName)
+                    -- print("patched ChallengeSpawnRequirements for", roomName)
                 end
             end
         end
