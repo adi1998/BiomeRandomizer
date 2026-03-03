@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- remove high freq. debug print
+
 ## [0.4.0] - 2026-02-26
 
 - add more biome pool config options for true rando
