@@ -12,7 +12,11 @@ function mod.GetRandomBiomeIconComponents()
                 Animation = biomeData.Icon,
                 X = game.ScreenWidth - offsetX - gap*( #route - position ),
                 Y = locationY,
-                Scale = 0.35
+                Scale = 0.35,
+                GroupName = "Combat_Menu_TraitTray_Overlay",
+                Alpha = 0.0,
+                AlphaTarget = 1.0,
+                AlphaTargetDuration = 0.6,
             }
             table.insert(componentData, component)
         end
@@ -38,7 +42,11 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
         game.ScreenData.RunClear.ComponentData.BiomeListBack = {
             Animation = _PLUGIN.guid .. "\\BiomeListBack",
             X = game.ScreenWidth - 303,
-            Y = 119
+            Y = 119,
+            GroupName = "Combat_Menu_TraitTray_Overlay",
+            Alpha = 0.0,
+            AlphaTarget = 1.0,
+            AlphaTargetDuration = 0.6,
         }
         table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
 
