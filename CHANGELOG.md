@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Zag's Journey badge rank compat
+
 ## [0.4.1] - 2026-03-07
 
 - remove high freq. debug print
