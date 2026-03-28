@@ -41,6 +41,22 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
             Y = 119
         }
         table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
+
+        -- making Zag's Journey BadgeRank UI invisible for rando runs
+        if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+            local badgeRankComponents =
+            {
+                "ModsNikkelMHadesBiomesBadgeRankVignette",
+                "ModsNikkelMHadesBiomesBadgeRankNameplate",
+                "ModsNikkelMHadesBiomesBadgeRankIcon"
+            }
+            for index, componentName in ipairs(badgeRankComponents) do
+                if game.ScreenData.RunClear.ComponentData[componentName] then
+                    game.ScreenData.RunClear.ComponentData[componentName].AlphaTarget = 0
+                end
+            end
+        end
+
     end
 
     if game.CurrentRun and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and not mod.CanEndRandom() and mod.EndBossEncounterMap[currentRoom.Name] then
@@ -58,14 +74,21 @@ function mod.ResetClearScreenData()
         game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "BiomeIcon" .. tostring(index)] = nil
     end
     game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
-    game.ScreenData.RunClear.ComponentData.Order =
-    {
-        "BackgroundDim",
-        "VictoryBackground",
-        "ActionBarBackground",
-        "StatsBacking",
-        "BadgeRankIcon",
-    }
+    game.RemoveValueAndCollapse(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
+
+    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+        local badgeRankComponents =
+        {
+            "ModsNikkelMHadesBiomesBadgeRankVignette",
+            "ModsNikkelMHadesBiomesBadgeRankNameplate",
+            "ModsNikkelMHadesBiomesBadgeRankIcon"
+        }
+        for index, componentName in ipairs(badgeRankComponents) do
+            if game.ScreenData.RunClear.ComponentData[componentName] then
+                game.ScreenData.RunClear.ComponentData[componentName].AlphaTarget = 1
+            end
+        end
+    end
 end
 
 modutil.mod.Path.Wrap("DeathAreaRoomTransition", function (base, ...)
