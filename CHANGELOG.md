@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 
-- remove debug prints
+## [0.4.1] - 2026-03-07
+
+- remove high freq. debug print
 
 ## [0.4.0] - 2026-02-26
 
@@ -36,7 +38,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.1...HEAD
+[0.4.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.0...0.2.1
