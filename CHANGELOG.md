@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Zag's Journey badge rank compat
+- add Styx SawTrap damage scaling
 
 ## [0.4.1] - 2026-03-07
 
