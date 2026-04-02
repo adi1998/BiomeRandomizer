@@ -142,7 +142,7 @@ end)
 if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
 
     function mod.SpawnPostHadesRestSpot()
-        game.wait(0.8)
+        game.wait(3)
         local offsetY = 560
         local offsetX = -1570
         local destId = 552590 -- D_Boss01 FinalBossExitDoor

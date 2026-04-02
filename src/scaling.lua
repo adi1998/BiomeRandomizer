@@ -161,6 +161,8 @@ mod.ScaledMiniBosses = {
         "ShadeNakedElite",
     },
     Styx = {
+        "SawTrap",
+
         "SatyrRangedMiniboss",
         "RatThugMiniboss",
         "HeavyRangedForkedMiniboss",
@@ -355,6 +357,7 @@ modutil.mod.Path.Wrap("Damage", function (base, victim, triggerArgs)
             end
         else
             print("Attacker name:", attacker.Name)
+            print("Damage:", triggerArgs.DamageAmount)
             print("Attacker biome not found")
         end
     end
