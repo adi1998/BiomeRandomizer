@@ -155,6 +155,9 @@ mod.ScaledMiniBosses = {
         "CrusherUnitElite"
     },
     Elysium = {
+        "ArcherTrap",
+
+
         "FlurrySpawnerElite",
 
         "ShadeNaked",
@@ -409,5 +412,34 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
         elseif unit.MaxHealth ~= nil and unit.MaxHealth ~= 0 then
             print("Unable to scale health for:", unit.Name)
         end
+
+        -- patch for Medea Armor Curse
+        for i, traitData in pairs( game.GetHeroTraitValues("OnEnemySpawnFunction")) do
+            if traitData.FunctionName == "CheckSpawnArmorDamage" then
+                game.thread(game.CallFunctionName, _PLUGIN.guid .. "." .. "CheckSpawnArmorDamage", unit, traitData.Args)
+            end
+        end
     end
+end)
+
+function mod.CheckSpawnArmorDamage(enemy, traitArgs)
+    traitArgs.CurseName = "ArmorPenaltyCurse" -- DamageMeter compat
+    if enemy.AlwaysTraitor then
+		return
+	end
+	local damageAmount = 0
+	if enemy.HealthBuffer then
+		local healthMultiplier = enemy.HealthMultiplier or 1
+		healthMultiplier = healthMultiplier + (game.MetaUpgradeData.EnemyHealthShrineUpgrade.ChangeValue - 1)
+
+		damageAmount = enemy.HealthBuffer * healthMultiplier * traitArgs.Multiplier
+		game.thread( game.DoCurseDamage, enemy, traitArgs, damageAmount, true)
+	end
+end
+
+modutil.mod.Path.Wrap("CheckSpawnArmorDamage", function (base, enemy, traitArgs)
+     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        return
+     end
+     base(enemy, traitArgs)
 end)

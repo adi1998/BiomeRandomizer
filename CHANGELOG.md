@@ -2,8 +2,9 @@
 
 ## [Unreleased]
 
-- Zag's Journey badge rank compat
-- add Styx SawTrap damage scaling
+- add Zag's Journey badge rank compat
+- add some traps to damage scaler
+- fix Medea's Corrosion on Sight not working correctly for scaled enemies
 
 ## [0.4.1] - 2026-03-07
 
