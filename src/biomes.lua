@@ -100,7 +100,7 @@ mod.BiomeData = {
     },
 }
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
     game.OverwriteTableKeys(mod.BiomeData, {
         -- nightmare
         Tartarus =

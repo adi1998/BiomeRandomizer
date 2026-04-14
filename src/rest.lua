@@ -139,7 +139,7 @@ modutil.mod.Path.Wrap("TyphonHeadKillPresentation", function (base, ...)
     end
 end)
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
 
     function mod.SpawnPostHadesRestSpot()
         game.wait(3)

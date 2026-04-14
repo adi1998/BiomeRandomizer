@@ -20,7 +20,7 @@ local biomeDisplayOrder = {
     "Q",
 }
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
     game.ConcatTableValuesIPairs(biomeDisplayOrder,{
         "Tartarus",
         "Asphodel",
@@ -146,7 +146,7 @@ end
 
 function  mod.UpdateBiomeIcons()
     local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
-    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation then
+    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
         bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
     end
 
