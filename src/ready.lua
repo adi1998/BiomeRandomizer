@@ -141,10 +141,27 @@ modutil.mod.Path.Wrap("CreateRoom", function (base, roomData, args)
     end
 
     if game.CurrentRun and game.Contains(mod.RegisteredBounties, args.ActiveBounty) and not mod.DefaultRunStart[roomData.Name] and args[_PLUGIN.guid .. "RunStart"] then
-        roomData = game.DeepCopyTable(roomData)
-        roomData.NoReward = false
-        roomData.ForcedRewardStore = "RunProgress"
-        roomData.IneligibleRewards = game.RewardSets.OpeningRoomBans
+        local rData = game.RoomData[roomData.Name]
+        rData.RewardGameStateRequirements = {
+			{
+				Path = { "CurrentRun", "EnteredBiomes" },
+				Comparison = "==",
+				Value = 0,
+			},
+            OrRequirements = {
+                {
+                    {
+                        PathTrue = { "CurrentRun", "IsDreamRun" },
+                    },
+                },
+                {
+                    {
+                        Path = { "CurrentRun", "ActiveBounty" },
+                        IsAny = mod.RegisteredBounties
+                    }
+                }
+            }
+		}
     end
 
     return base(roomData, args)
