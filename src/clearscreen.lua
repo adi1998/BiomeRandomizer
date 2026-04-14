@@ -26,7 +26,7 @@ end
 
 function mod.IsCurrentEncounterLast()
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-	if route and game.CurrentRun.ClearedBiomes == #route and game.Contains( mod.BiomeData[route[#route]].Encounters, game.CurrentRun.CurrentRoom.Encounter.Name ) then
+	if route and game.CurrentRun.EnteredBiomes == #route and game.Contains( mod.BiomeData[route[#route]].Encounters, game.CurrentRun.CurrentRoom.Encounter.Name ) then
 		return true
 	end
     return false

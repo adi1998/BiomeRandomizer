@@ -211,8 +211,8 @@ function mod.ConnectEndBossToBiome(BountyRunData, currentRoomName)
     if mod.EndBossEncounterMap[currentRoomName] == nil then return end
 
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-    if route and mod.CheckPostBoss(mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss, currentRoomName) then
-        local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
+    if route and mod.CheckPostBoss(mod.BiomeData[ route[game.CurrentRun.EnteredBiomes] ].PostBoss, currentRoomName) then
+        local nextBiome = route[game.CurrentRun.EnteredBiomes + 1] or "I"
         local nextBiomeData = mod.BiomeData[nextBiome]
         local nextRoomIntro = mod.ParseIntro(nextBiomeData.Intro)
         if game.Contains(mod.ZagIntro, nextRoomIntro) then
@@ -231,7 +231,7 @@ end
 
 function mod.CanEndRandom(BountyRunData, currentRoomName)
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-    if route and game.CurrentRun.ClearedBiomes < #route then
+    if route and game.CurrentRun.EnteredBiomes < #route then
         return false
     end
     return true

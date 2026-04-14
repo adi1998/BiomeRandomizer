@@ -42,10 +42,10 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         args = args or {}
         local currentRoom = currentRun.CurrentRoom
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-        -- print("game.CurrentRun.ClearedBiomes", game.CurrentRun.ClearedBiomes)
-        -- print("route[game.CurrentRun.ClearedBiomes]", route[game.CurrentRun.ClearedBiomes])
-        if route and route[game.CurrentRun.ClearedBiomes] and mod.CheckPostBoss( mod.BiomeData[ route[game.CurrentRun.ClearedBiomes] ].PostBoss, currentRoom.Name ) then
-            local nextBiome = route[game.CurrentRun.ClearedBiomes + 1] or "I"
+        -- print("game.CurrentRun.EnteredBiomes", game.CurrentRun.EnteredBiomes)
+        -- print("route[game.CurrentRun.EnteredBiomes]", route[game.CurrentRun.EnteredBiomes])
+        if route and route[game.CurrentRun.EnteredBiomes] and mod.CheckPostBoss( mod.BiomeData[ route[game.CurrentRun.EnteredBiomes] ].PostBoss, currentRoom.Name ) then
+            local nextBiome = route[game.CurrentRun.EnteredBiomes + 1] or "I"
             local nextBiomeData = mod.BiomeData[nextBiome]
             local nextRoomIntro = mod.ParseIntro(nextBiomeData.Intro)
             args.ForceNextRoom = nextRoomIntro
@@ -100,7 +100,7 @@ modutil.mod.Path.Wrap("CheckPackagedBountyCompletion", function(base)
     if game.CurrentRun and game.CurrentRun.ActiveBounty and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
         local currentRoom = game.CurrentRun.CurrentRoom
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-        if route and game.CurrentRun.ClearedBiomes == #route then
+        if route and game.CurrentRun.EnteredBiomes == #route then
             print("overriding encounters data for boss room", currentRoom.Name)
             game.BountyData[game.CurrentRun.ActiveBounty].Encounters = mod.BiomeData[route[#route]].Encounters
         else

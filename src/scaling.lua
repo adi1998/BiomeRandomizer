@@ -333,7 +333,7 @@ mod.DamageScaling = {
 }
 
 function mod.ScaleDamage(damage, attackerBiome)
-    local currentDepth = game.CurrentRun.ClearedBiomes
+    local currentDepth = game.CurrentRun.EnteredBiomes
     local biomeDepth = (mod.BiomeData[attackerBiome] or {}).Position or currentDepth
     local newDamage = damage * (mod.DamageScaling[currentDepth] / mod.DamageScaling[biomeDepth])
     return newDamage
@@ -343,7 +343,7 @@ modutil.mod.Path.Wrap("Damage", function (base, victim, triggerArgs)
     if victim == game.CurrentRun.Hero and game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local attacker = (triggerArgs or {}).AttackerTable or {}
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
-        local currentBiome = route[game.CurrentRun.ClearedBiomes]
+        local currentBiome = route[game.CurrentRun.EnteredBiomes]
         if currentBiome and mod.EnemyBiomeMap[attacker.Name or "Unknown"] then
             local attackerName = attacker.Name or "Unknown"
             local attackerBiome = mod.EnemyBiomeMap[attackerName]
@@ -371,7 +371,7 @@ modutil.mod.Path.Wrap("SetupUnit", function (base, unit, currentRun, args)
     base(unit, currentRun, args)
     if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and config.scaling then
         local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"] or {}
-        local currentBiome = route[game.CurrentRun.ClearedBiomes]
+        local currentBiome = route[game.CurrentRun.EnteredBiomes]
         if currentBiome and mod.EnemyBiomeMap[unit.Name or "Unknown"] then
             local unitName = unit.Name or "Unknown"
             local unitBiome = mod.EnemyBiomeMap[unitName]

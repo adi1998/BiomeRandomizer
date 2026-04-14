@@ -1,6 +1,6 @@
 function mod.SpawnShopItemsEarly()
     local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
-    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.ClearedBiomes then
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.EnteredBiomes then
         local hermesTraits = {}
         for _, trait in pairs( game.CurrentRun.Hero.Traits ) do
             if trait.OnExpire and trait.OnExpire.SpawnShopItem then
