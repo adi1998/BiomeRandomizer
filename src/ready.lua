@@ -57,7 +57,10 @@ modutil.mod.Path.Wrap("ChooseNextRoomData", function (base, currentRun, args, ot
         end
         if currentRoom.ExitFunctionName == "EndEarlyAccessPresentation" or
                 currentRoom.ExitFunctionName == "NikkelM-Zagreus_Journey" .. "." .. "CheckRunEndPresentation" then
-            currentRoom.ExitFunctionName = "nil"
+            currentRoom.ExitFunctionName = "LeaveRoomPresentation"
+            if currentRoom.Name == "Q_Boss01" or currentRoom.Name == "Q_Boss02" then
+                currentRoom.ExitFunctionName = "BiomeQLeaveRoomPresentation"
+            end
             currentRoom.SkipLoadNextMap = false
         end
         local nextRoomData = base(currentRun, args, otherDoors)
