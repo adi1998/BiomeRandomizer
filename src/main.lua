@@ -82,7 +82,6 @@ local function on_ready()
     import 'ready.lua'
     import 'rest.lua'
     import 'shop.lua'
-    import 'music.lua'
     import 'scaling.lua'
     import 'clearscreen.lua'
     import 'imgui.lua'
