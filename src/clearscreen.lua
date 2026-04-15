@@ -109,6 +109,11 @@ modutil.mod.Path.Wrap("HubPostBountyLoad", function (base, ...)
     return base(...)
 end)
 
+modutil.mod.Path.Wrap("HubPostDreamLoad", function (base, ...)
+    mod.ResetClearScreenData()
+    return base(...)
+end)
+
 -- arbitrary final boss clear screen
 local killPresentaionWrapList = {
     "HecateKillPresentation",
