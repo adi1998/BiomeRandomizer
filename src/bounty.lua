@@ -32,6 +32,20 @@ bountyAPI.RegisterBounty({
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             }
         },
+        LootOptions =
+		{
+			{
+				Name = "DreamPointsDrop",
+				Overrides =
+				{
+					CanDuplicate = false,
+					AddResources =
+					{
+						WeaponPointsRare = 3,
+					},
+				}
+			},
+		},
         RunOverrides = "nil",
         ModsNikkelMHadesBiomesForceRunClearScreen = true
     },
@@ -64,13 +78,13 @@ bountyAPI.RegisterBounty({
         LootOptions =
 		{
 			{
-				Name = "WeaponPointsRareDrop",
+				Name = "DreamPointsDrop",
 				Overrides =
 				{
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 1,
+						WeaponPointsRare = 5,
 					},
 				}
 			},
@@ -114,13 +128,13 @@ bountyAPI.RegisterBounty({
         LootOptions =
 		{
 			{
-				Name = "WeaponPointsRareDrop",
+				Name = "DreamPointsDrop",
 				Overrides =
 				{
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 2,
+						WeaponPointsRare = 7,
 					},
 				}
 			},
@@ -171,7 +185,7 @@ bountyAPI.RegisterBounty({
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 3,
+						WeaponPointsRare = 10,
 					},
 				}
 			},
