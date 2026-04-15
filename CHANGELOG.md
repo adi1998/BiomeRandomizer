@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-15
+
 - add Zag's Journey badge rank compat
 - add some traps to damage scaler
 - fix Medea's Corrosion on Sight not working correctly for scaled enemies
@@ -42,7 +44,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.1...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.1...0.5.0
 [0.4.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.2.1...0.3.0
