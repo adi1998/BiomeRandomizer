@@ -42,7 +42,7 @@ Starting depth only available for non custom and non true random routes.
 ![Run legnth](images/depth.png) ![run start](images/start.png)
 
 ### True randomizer
-Enable this to get a truly random biome order. Highly recommended to keep the scaling option enabled with this mode.
+Enable this to get a truly random biome order. Disable this to get biomes at their expected depth. Highly recommended to keep the scaling option enabled with this mode.
 
 ![True random](images/true_random.png)
 
