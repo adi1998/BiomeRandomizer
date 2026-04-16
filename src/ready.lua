@@ -196,3 +196,20 @@ modutil.mod.Path.Wrap("CalcMetaProgressRatio", function (base, run)
     end
     return ratio
 end)
+
+modutil.mod.Path.Wrap("IsBossDifficultyShrineUpgradeActive", function (base, source, args)
+    if game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) then
+        args = args or {}
+
+	    if args.UseShrineUpgradesCache then
+            if (game.CurrentRun.ShrineUpgradesCache.BossDifficultyShrineUpgrade or 0) >= 4 then
+                return true
+            end
+        else
+            if (game.GameState.ShrineUpgrades.BossDifficultyShrineUpgrade or 0) >= 4 then
+                return true
+            end
+        end
+    end
+    return base(source, args)
+end)
