@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- fixed very unlikely crash in scaling logic
+- fixed some crashes
 - add a missing trap to scaler
 
 ## [0.5.1] - 2026-04-16
