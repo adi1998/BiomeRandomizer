@@ -5,7 +5,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "zerp"
 name = "BiomeRandomizer"
-versionNumber = "0.5.1"
+versionNumber = "0.5.2"
 description = "A configurable alternative to Dream Dives. Doesn't disable story/dialogue. Allows longer/shorter runs. Compatible with Zagreus' Journey."
 websiteUrl = "https://github.com/adi1998/BiomeRandomizer"
 containsNsfwContent = false
