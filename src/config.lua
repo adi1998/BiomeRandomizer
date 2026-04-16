@@ -13,7 +13,7 @@ local config = {
   custom_run = false,
   starting_biome_position = 1,
   scaling = true,
-  true_random = false,
+  true_random = true,
   final_biome_last = false,
   final_biome_only_last = false,
 }

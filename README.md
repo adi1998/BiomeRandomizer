@@ -1,6 +1,6 @@
 ## Biome Randomizer
 
-Adds new Chaos Trials which let's you traverse the biomes in a random order. Also supports Hades 1 biomes from [Zagreus' Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
+A configurable alternative to `Dream Dives`, adding new Chaos Trials which let you traverse the different biomes in a random order. Allows you to progress character stories/quests and dialogue. Doesn't have Visage forms for bosses and NPCs. Also supports Hades biomes from [Zagreus' Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
 - Similar to a vanilla run except the biomes will be randomized. Your currently equipped loadout will used.
@@ -15,7 +15,7 @@ Adds new Chaos Trials which let's you traverse the biomes in a random order. Als
 - Similar to Great Chaos Everywhere but with 32 Fear of random vows.
 
 Note:
-- To avoid breaking any saves this will only show up if you have already gotten the True Ending(credits) in Hades 2.
+- Similar to Dream Dives, this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 - Styx will only appear in randomizer runs after atleast one H1 clear.
 
 | ![Trial Menu](images/trialmenu.png) | ![intro](images/intro.png) | 
@@ -33,11 +33,6 @@ It is recommended to not uninstall or load the game un-modded while a Chaos Tria
 ## Configuration
 
 Configure the randomizer using ImGui (Default imgui toggle keybind: INSERT). If the imgui windows seem unresponsive try disabling V-sync and external frame limiters if enabled.
-
-### Default Config
-Each biome is selected based on the number of bosses defeated so they appear in their respective order.
-
-![Default Config](images/default.png)
 
 ### Run length and Starting depth
 Set your own run length and starting depth.<br>
