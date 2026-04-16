@@ -433,10 +433,7 @@ function mod.CheckSpawnArmorDamage(enemy, traitArgs)
 	end
 	local damageAmount = 0
 	if enemy.HealthBuffer then
-		local healthMultiplier = enemy.HealthMultiplier or 1
-		healthMultiplier = healthMultiplier + (game.MetaUpgradeData.EnemyHealthShrineUpgrade.ChangeValue - 1)
-
-		damageAmount = enemy.HealthBuffer * healthMultiplier * traitArgs.Multiplier
+		damageAmount = enemy.HealthBuffer * traitArgs.Multiplier
 		game.thread( game.DoCurseDamage, enemy, traitArgs, damageAmount, { IgnoreHitShields = true, IgnoreInvulnerable = true})
 	end
 end
