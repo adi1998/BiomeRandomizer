@@ -41,7 +41,7 @@ bountyAPI.RegisterBounty({
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 3,
+						DreamPoints = 10,
 					},
 				}
 			},
@@ -84,7 +84,7 @@ bountyAPI.RegisterBounty({
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 5,
+						DreamPoints = 15,
 					},
 				}
 			},
@@ -134,7 +134,7 @@ bountyAPI.RegisterBounty({
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 7,
+						DreamPoints = 20,
 					},
 				}
 			},
@@ -185,7 +185,7 @@ bountyAPI.RegisterBounty({
 					CanDuplicate = false,
 					AddResources =
 					{
-						WeaponPointsRare = 10,
+						DreamPoints = 25,
 					},
 				}
 			},
