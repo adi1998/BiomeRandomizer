@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- fixed very unlikely crash in scaling logic
+- add a missing trap to scaler
+
 ## [0.5.1] - 2026-04-16
 
 - Dream points now actually show up as rewards
