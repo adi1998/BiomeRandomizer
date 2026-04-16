@@ -6,7 +6,7 @@ schemaVersion = "0.0.1"
 namespace = "zerp"
 name = "BiomeRandomizer"
 versionNumber = "0.5.1"
-description = "An alternative to Dream Dives where runs are closer to normal runs. Can change length of runs to less or more than 4 regions. Compatible with Zagreus' Journey."
+description = "A configurable alternative to Dream Dives. Doesn't disable story/dialogue. Allows longer/shorter runs. Compatible with Zagreus' Journey."
 websiteUrl = "https://github.com/adi1998/BiomeRandomizer"
 containsNsfwContent = false
 
