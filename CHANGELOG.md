@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Dream points now actually show up as rewards
+- VoR now applies to all bosses if run length > 4 biomes and it is maxed out
+- Zags' Journey biomes now re-enabled for random run pool
+
 ## [0.5.0] - 2026-04-15
 
 - add Zag's Journey badge rank compat
