@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-04-16
+
 - Dream points now actually show up as rewards
 - VoR now applies to all bosses if run length > 4 biomes and it is maxed out
 - Zags' Journey biomes now re-enabled for random run pool
@@ -50,7 +52,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.0...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.1...0.5.0
 [0.4.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.3.0...0.4.0
