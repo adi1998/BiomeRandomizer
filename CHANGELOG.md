@@ -2,8 +2,9 @@
 
 ## [Unreleased]
 
-- fixed some crashes
+- fix medea armor curse damage
 - add a missing trap to scaler
+- fixed some crashes
 
 ## [0.5.1] - 2026-04-16
 
