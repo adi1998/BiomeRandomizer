@@ -4,7 +4,7 @@ end
 
 local bountyIcon = _PLUGIN.guid .. "\\Biome_Both"
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
     bountyIcon = _PLUGIN.guid .. "\\Biome_Trio"
 end
 

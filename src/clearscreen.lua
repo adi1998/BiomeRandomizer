@@ -51,7 +51,7 @@ modutil.mod.Path.Wrap("LoadCurrentRoomResources", function (base, currentRoom)
         table.insert(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
 
         -- making Zag's Journey BadgeRank UI invisible for rando runs
-        if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+        if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
             local badgeRankComponents =
             {
                 "ModsNikkelMHadesBiomesBadgeRankVignette",
@@ -84,7 +84,7 @@ function mod.ResetClearScreenData()
     game.ScreenData.RunClear.ComponentData.BiomeListBack = nil
     game.RemoveValueAndCollapse(game.ScreenData.RunClear.ComponentData.Order, "BiomeListBack")
 
-    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+    if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
         local badgeRankComponents =
         {
             "ModsNikkelMHadesBiomesBadgeRankVignette",
@@ -161,7 +161,7 @@ modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
     base()
 end)
 
-if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
+if rom.mods["NikkelM-Zagreus_Journey"] and rom.mods["NikkelM-Zagreus_Journey"].config.enabled then
     modutil.mod.Path.Wrap("NikkelM-Zagreus_Journey" .. "." .. "HarpyKillPresentation", function (base, unit, args)
         base(unit, args)
 

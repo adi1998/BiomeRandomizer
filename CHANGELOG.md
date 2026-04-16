@@ -5,6 +5,8 @@
 - add Zag's Journey badge rank compat
 - add some traps to damage scaler
 - fix Medea's Corrosion on Sight not working correctly for scaled enemies
+- Post Launch Patch 2 fixes
+- bounties now have dream points as reward
 
 ## [0.4.1] - 2026-03-07
 
