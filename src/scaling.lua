@@ -165,6 +165,7 @@ mod.ScaledMiniBosses = {
     },
     Styx = {
         "SawTrap",
+        "AxeTrap",
 
         "SatyrRangedMiniboss",
         "RatThugMiniboss",
@@ -333,10 +334,13 @@ mod.DamageScaling = {
 }
 
 function mod.ScaleDamage(damage, attackerBiome)
+    if type(damage) ~= "number" then
+        return damage
+    end
     local currentDepth = game.CurrentRun.EnteredBiomes
     local biomeDepth = (mod.BiomeData[attackerBiome] or {}).Position or currentDepth
     local newDamage = damage * (mod.DamageScaling[currentDepth] / mod.DamageScaling[biomeDepth])
-    return newDamage
+    return math.ceil(newDamage)
 end
 
 modutil.mod.Path.Wrap("Damage", function (base, victim, triggerArgs)
