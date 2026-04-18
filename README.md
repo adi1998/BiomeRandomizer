@@ -18,9 +18,14 @@ Note:
 - Similar to Dream Dives, this will only show up if you have already gotten the True Ending(credits) in Hades 2.
 - Styx will only appear in randomizer runs after atleast one H1 clear.
 
-| ![Trial Menu](images/trialmenu.png) | ![intro](images/intro.png) | 
-|-|-|
-| ![rest](images/rest.png) | ![imgui](images/imgui.png) |
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+  <img src="images/trialmenu.png" alt="trialmenu" width="49.7%">
+  <img src="images/intro.png" alt="intro" width="49.7%">
+</div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+  <img src="images/rest.png" alt="Artemis" width="49.7%">
+  <img src="images/imgui.png" alt="Icarus" width="49.7%">
+</div>
 
 ## Installation
 
