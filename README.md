@@ -19,12 +19,13 @@ Note:
 - Styx will only appear in randomizer runs after atleast one H1 clear.
 
 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-  <img src="images/trialmenu.png" alt="trialmenu" width="49.7%">
-  <img src="images/intro.png" alt="intro" width="49.7%">
+  <img src="images/trialmenu.png" alt="trial menu" width="47%">
+  <img src="images/intro.png" alt="intro" width="47%">
 </div>
+<br>
 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-  <img src="images/rest.png" alt="Artemis" width="49.7%">
-  <img src="images/imgui.png" alt="Icarus" width="49.7%">
+  <img src="images/rest.png" alt="rest spot" width="47%">
+  <img src="images/imgui.png" alt="imgui" width="47%">
 </div>
 
 ## Installation
