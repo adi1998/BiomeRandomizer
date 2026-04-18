@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-04-16
+
 - fix medea armor curse damage
 - add a missing trap to scaler
 - fixed some crashes
@@ -56,7 +58,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.1...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.2...HEAD
+[0.5.2]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.1...0.5.0
 [0.4.1]: https://github.com/adi1998/BiomeRandomizer/compare/0.4.0...0.4.1
