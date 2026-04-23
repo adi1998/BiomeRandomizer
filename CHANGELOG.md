@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- fix typhon hermes rewards
+- fix Zag's Journey startng room ahving no reward
+
 ## [0.5.2] - 2026-04-16
 
 - fix medea armor curse damage
