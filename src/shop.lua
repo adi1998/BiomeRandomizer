@@ -33,3 +33,30 @@ for biome, biomeData  in pairs(mod.BiomeData) do
         end
     end
 end
+
+function mod.CheckLastBiome(source, args)
+    local route = game.CurrentRun[_PLUGIN.guid .. "GeneratedRoute"]
+    return game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.EnteredBiomes
+end
+
+game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements =
+{
+    OrRequirements = {
+        {
+            {
+                Path = { "CurrentRun", "EnteredBiomes" },
+                Comparison = "==",
+                Value = 4,
+            },
+            {
+                Path = { "CurrentRun", "ActiveBounty" },
+                IsNone = mod.RegisteredBounties
+            }
+        },
+        {
+            {
+                FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiome"
+            },
+        }
+    }
+}

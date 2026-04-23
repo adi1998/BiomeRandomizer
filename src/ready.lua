@@ -162,6 +162,10 @@ modutil.mod.Path.Wrap("CreateRoom", function (base, roomData, args)
                 }
             }
 		}
+        roomData = game.DeepCopyTable(roomData)
+        roomData.NoReward = false
+        roomData.ForcedRewardStore = "RunProgress"
+        roomData.IneligibleRewards = game.RewardSets.OpeningRoomBans
     end
 
     return base(roomData, args)
