@@ -39,24 +39,35 @@ function mod.CheckLastBiome(source, args)
     return game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty) and route and #route == game.CurrentRun.EnteredBiomes
 end
 
-game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements =
-{
-    OrRequirements = {
+function mod.CheckLastBiomeVanilla(source, args)
+    return (game.CurrentRun.EnteredBiomes == game.GameData.FullRunBiomeCount and game.CurrentRun.IsDreamRun) or (game.CurrentRun.EnteredBiomes == 4 and not game.CurrentRun.IsDream)
+end
+
+if game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements.OrRequirements then
+    table.insert(game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements.OrRequirements, {
         {
-            {
-                Path = { "CurrentRun", "EnteredBiomes" },
-                Comparison = "==",
-                Value = 4,
-            },
-            {
-                Path = { "CurrentRun", "ActiveBounty" },
-                IsNone = mod.RegisteredBounties
-            }
+            FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiomeVanilla"
         },
+    })
+    table.insert(game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements.OrRequirements, {
         {
+            FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiome"
+        },
+    })
+else
+    game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements =
+    {
+        OrRequirements = {
             {
-                FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiome"
+                {
+                    FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiomeVanilla"
+                },
             },
+            {
+                {
+                    FunctionName = _PLUGIN.guid .. "." .. "CheckLastBiome"
+                },
+            }
         }
     }
-}
+end
