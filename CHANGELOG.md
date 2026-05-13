@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- minor compatibility patch for DreamDiveTweaks
+
 ## [0.5.3] - 2026-04-23
 
 - fix typhon hermes rewards
