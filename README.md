@@ -1,6 +1,6 @@
 ## Biome Randomizer
 
-A configurable alternative to `Dream Dives`, adding new Chaos Trials which let you traverse the different biomes in a random order. Allows you to progress character stories/quests and dialogue. Doesn't have Visage forms for bosses and NPCs. Also supports Hades biomes from [Zagreus' Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
+A configurable alternative to `Dream Dives`, adding new Chaos Trials including ones in the style of the Great Chaos trials which let you traverse the different biomes in a random order. Allows you to progress character stories/quests and dialogue while you do so. Also supports Hades biomes from [Zagreus' Journey](https://thunderstore.io/c/hades-ii/p/NikkelM/Zagreus_Journey/).
 
 ### Random Biomes Run
 - Similar to a vanilla run except the biomes will be randomized. Your currently equipped loadout will used.
@@ -12,7 +12,7 @@ A configurable alternative to `Dream Dives`, adding new Chaos Trials which let y
 - Similar to Great Chaos Above/Below but with random biomes.
 
 ### Greater Chaos Everywhere
-- Similar to Great Chaos Everywhere but with 32 Fear of random vows.
+- Similar to Great Chaos Everywhere but with 32 Fear of random vows 😈. 
 
 Note:
 - Similar to Dream Dives, this will only show up if you have already gotten the True Ending(credits) in Hades 2.
