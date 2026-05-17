@@ -41,7 +41,7 @@ end
 
 function mod.CheckLastBiomeVanilla(source, args)
     return (game.CurrentRun.EnteredBiomes == game.GameData.FullRunBiomeCount and game.CurrentRun.IsDreamRun) or
-           (game.CurrentRun.EnteredBiomes == 4 and not (game.CurrentRun.IsDream or game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty)))
+           (game.CurrentRun.EnteredBiomes == 4 and not (game.CurrentRun.IsDreamRun or game.Contains(mod.RegisteredBounties, game.CurrentRun.ActiveBounty)))
 end
 
 if game.RoomData["Q_PreBoss01"].DistanceTriggers[1].GameStateRequirements.OrRequirements then

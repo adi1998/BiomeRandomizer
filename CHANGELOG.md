@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- fix hermes typhon shop hermes conditions
+
 ## [0.5.4] - 2026-05-14
 
 - minor compatibility patch for DreamDiveTweaks
