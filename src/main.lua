@@ -65,18 +65,6 @@ local function on_ready()
         end
     end
 
-    function mod.CheckPathEquality(path1, path2)
-        local flatPath1 = ""
-        local flatPath2 = ""
-        for key, value in pairs(path1) do
-            flatPath1 = flatPath1 .. "." .. tostring(value)
-        end
-        for key, value in pairs(path2) do
-            flatPath2 = flatPath2 .. "." .. tostring(value)
-        end
-        return flatPath1 == flatPath2
-    end
-
     import 'biomes.lua'
     import 'bounty.lua'
     import 'ready.lua'
