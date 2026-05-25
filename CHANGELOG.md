@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.5] - 2026-05-17
+
 - fix hermes typhon shop hermes conditions
 
 ## [0.5.4] - 2026-05-14
@@ -69,7 +71,8 @@
 
 - First version of the mod
 
-[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.4...HEAD
+[unreleased]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.5...HEAD
+[0.5.5]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.4...0.5.5
 [0.5.4]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.3...0.5.4
 [0.5.3]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.2...0.5.3
 [0.5.2]: https://github.com/adi1998/BiomeRandomizer/compare/0.5.1...0.5.2
